@@ -5,16 +5,26 @@ import br.edu.ufcg.computacao.si1.model.form.AnuncioForm;
 import br.edu.ufcg.computacao.si1.repository.AnuncioRepository;
 import br.edu.ufcg.computacao.si1.service.AnuncioServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
+@CrossOrigin(origins="*")
 @Controller
+@RestController
 public class An {
 
     @Autowired
@@ -23,6 +33,33 @@ public class An {
     @Autowired
     private AnuncioRepository anuncioRep;
 
+    
+    // ------ INICIO THAYNAN FEZ ------- //
+    
+    
+    
+    @RequestMapping(method=RequestMethod.GET, value="/user/listar/anuncioss", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Collection<Anuncio>> retornarListaDeTarefas() {
+		
+		Collection<Anuncio> listaDeAnuncios= anuncioRep.findAll();
+		
+		return new ResponseEntity<>(listaDeAnuncios, HttpStatus.OK);
+	}
+    
+    @RequestMapping(method=RequestMethod.POST, value="/user/cadastrandoAnuncio", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Anuncio> cadastrarTarefa(@RequestBody Anuncio anuncio, BindingResult result, RedirectAttributes attributes) {
+		
+    	System.out.println("CHAMOUUU");
+    	
+		Anuncio listaDeAnunciosCadastrados = anuncioService.create(anuncio);
+		
+		return new ResponseEntity<>(listaDeAnunciosCadastrados, HttpStatus.CREATED);
+	}
+    
+    
+
+    // ------ FIM THAYNAN FEZ ------- //
+    
     @RequestMapping(value = "/user/cadastrar/anuncio", method = RequestMethod.GET)
     public ModelAndView getPageCadastrarAnuncio(AnuncioForm anuncioForm){
         ModelAndView model = new ModelAndView();
@@ -35,9 +72,9 @@ public class An {
 
     @RequestMapping(value = "/user/listar/anuncios", method = RequestMethod.GET)
     public ModelAndView getPageListarAnuncios(){
-        ModelAndView model = new ModelAndView();
+        ModelAndView model = new ModelAndView();      
 
-        model.addObject("anuncios", anuncioRep.findAll());
+        System.out.println(model.addObject("anuncios", anuncioRep.findAll()));
 
         model.setViewName("user/listar_anuncios");
 

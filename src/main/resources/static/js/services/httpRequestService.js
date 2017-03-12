@@ -6,7 +6,9 @@ angular.module("adExtreme")
 		var requestParams = {
 			method: method,
 			url: url,
-			headers: { 'Content-type': 'application/json'},
+			headers: { 'Content-type': 'application/json',
+	                  'Cross-Origin': "*"
+			},
 			data: data
 		};
 

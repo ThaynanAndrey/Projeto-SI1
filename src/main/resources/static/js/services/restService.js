@@ -2,9 +2,11 @@ angular.module("adExtreme")
 
 .service('RestService', function(HttpRequestService) {
 	var restFactory = {};
+	
+	var urlInicial = "http://localhost:8080";
 
 	restFactory.find = function(url, callback) {
-		HttpRequestService(url, "GET", {}, callback);
+		HttpRequestService(urlInicial + url, "GET", {}, callback);
 	};
 
 	restFactory.add = function(url, data, callback) {
@@ -12,11 +14,11 @@ angular.module("adExtreme")
 	};
 
 	restFactory.edit = function(url, data, callback) {
-		HttpRequestService(url, "PUT", data, callback);
+		HttpRequestService(urlInicial + url, "PUT", data, callback);
 	};
 
 	restFactory.delete = function(url) {
-		HttpRequestService(url, "DELETE", null, null);
+		HttpRequestService(urlInicial + url, "DELETE", null, null);
 	};
 
 	return restFactory;

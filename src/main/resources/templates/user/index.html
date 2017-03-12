@@ -1,11 +1,69 @@
-<!DOCTYPE html>
-<html
-        xmlns:th="http://www.thymeleaf.org"
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        layout:decorator="layout/layout_user">
-<head>
-    <title>.:: ad-extreme ::. - user</title>
-</head>
-<th:block layout:fragment="conteudo">
-</th:block>
+<html ng-app="adExtreme">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													
+	<head>		
+		<meta charset="UTF-8"/>
+		
+		<title>Ad Extreme</title>
+	    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css"></link>
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+	</head>
+
+	<body>
+	
+		<div id="menu" class="navbar navbar-default " role="navigation">
+		    <div class="container-fluid">
+		        <div class="navbar-header"><a class="navbar-brand" ui-sref="home"><i class="fa fa-usd" aria-hidden="true"></i> ad-extreme</a>
+		            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder">
+		                <span class="sr-only">Toggle navigation</span>
+		                <span class="icon-bar"></span>
+		                <span class="icon-bar"></span>
+		                <span class="icon-bar"></span>
+		            </button>
+		        </div>
+		        <div class="collapse navbar-collapse navbar-menubuilder">
+		            <ul class="nav navbar-nav navbar-left">
+		                <li class="dropdown">
+		                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Anúncios <span class="caret"></span></a>
+		                    <ul class="dropdown-menu">
+		                        <li><a ui-sref="cadastrarAnuncio">Cadastrar</a></li>
+		                        <li><a ui-sref="listarAnuncios">Todos os Anúncios</a></li>
+		                    </ul>
+		                </li>
+		            </ul>
+		            <ul class="nav navbar-nav navbar-right">
+		                <li>
+		                    <a href="javascript:document.logout.submit()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+		                    <form name="logout" th:action="@{/logout}" method="post" th:hidden="true">
+		                        <input type="submit" value="Logout"/>
+		                    </form>
+		                </li>
+		            </ul>
+		        </div>
+		    </div>
+		</div>
+
+		<div ui-view="" style="width: 100%; height: 100%;"></div>
+
+		<footer class="footer">
+	        <div class="container">
+	            <div class="logo"></div>
+	            <p class="text-muted">© 2017 | Todos os Direitos Reservados | <i class="fa fa-usd" aria-hidden="true"></i> ad-extreme</p>
+	        </div>
+    	</footer>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		
+		<script src="./node_modules/angular/angular.min.js"></script>
+		
+		<script src="./node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+ 
+		<script type="text/javascript" src="./js/app.js"></script>
+		<script type="text/javascript" src="./js/controllers/anunciosCtrl.js"></script>
+		<script type="text/javascript" src="./js/controllers/cadastrarAnuncioCtrl.js"></script>
+		<script type="text/javascript" src="./js/controllers/listarAnunciosCtrl.js"></script>
+		<script type="text/javascript" src="./js/services/httpRequestService.js"></script>
+		<script type="text/javascript" src="./js/services/restService.js"></script>
+	</body>
+
 </html>

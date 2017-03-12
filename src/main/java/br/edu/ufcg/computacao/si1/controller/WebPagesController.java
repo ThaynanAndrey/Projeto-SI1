@@ -27,6 +27,7 @@ public class WebPagesController {
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public ModelAndView getPageIndexUser(){
         ModelAndView model = new ModelAndView();
+        //Para testes
         model.setViewName("user/index");
 
         return model;
@@ -35,7 +36,8 @@ public class WebPagesController {
     @RequestMapping(value = "/company", method = RequestMethod.GET)
     public ModelAndView getPageIndexCompany(){
         ModelAndView model = new ModelAndView();
-        model.setViewName("company/index");
+        //Para testes
+        model.setViewName("user/index");
 
         return model;
     }
