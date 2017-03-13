@@ -1,0 +1,32 @@
+<div class="col-md-offset-2 col-md-8">
+    <h1>Anúncios</h1>
+  
+        <!-- EM ANGULAR -->
+
+        <div ng-if="anunciosIsEmpty()">
+            <h4>Nenhum Anúncio listado</h4>
+        </div>
+
+        <table class="table table-inverse" ng-if="!anunciosIsEmpty()">
+          
+          <thead class="thead-inverse">
+            <tr>
+              <th>Titulo</th>
+              <th>Tipo</th>
+              <th>Postado</th>
+              <th align="right">Preço</th>
+            </tr>
+          </thead>
+          
+          <tbody>
+            <tr ng-repeat="anuncio in anuncios">
+              <td>{{anuncio.titulo}}</td>
+              <td>{{anuncio.tipo}}</td>
+              <td>{{anuncio.dataDeCriacao}}</td>
+              <td>R$ {{anuncio.preco}}</td>
+            </tr>
+          </tbody>
+
+        </table>
+        
+</div>

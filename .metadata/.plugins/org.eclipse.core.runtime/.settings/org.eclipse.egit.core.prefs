@@ -1,3 +1,8 @@
+<<<<<<< HEAD
 GitRepositoriesView.GitDirectories=C\:\\Users\\pepem\\Desktop\\Projeto-SI1\\.git;
 GitRepositoriesView.GitDirectories.relative=.git;
+=======
+GitRepositoriesView.GitDirectories=/home/thaynan/Documentos/Projeto-SI1/.git\:
+GitRepositoriesView.GitDirectories.relative=.git\:
+>>>>>>> c31839df88eb88c575d488202b6077a830815cd9
 eclipse.preferences.version=1

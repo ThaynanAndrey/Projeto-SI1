@@ -27,6 +27,7 @@ public class WebPagesCtrl {
     @RequestMapping(value = Paths.indexUsuarioPath, method = RequestMethod.GET)
     public ModelAndView getPaginaIndexUser(){
         ModelAndView model = new ModelAndView();
+        //Para testes
         model.setViewName("user/index");
 
         return model;
@@ -35,7 +36,8 @@ public class WebPagesCtrl {
     @RequestMapping(value = Paths.indexCompanhiaPath, method = RequestMethod.GET)
     public ModelAndView getPaginaIndexCompany(){
         ModelAndView model = new ModelAndView();
-        model.setViewName("company/index");
+        //Para testes
+        model.setViewName("user/index");
 
         return model;
     }

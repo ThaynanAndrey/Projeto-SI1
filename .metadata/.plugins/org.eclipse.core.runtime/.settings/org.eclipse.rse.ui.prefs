@@ -1,2 +1,6 @@
 eclipse.preferences.version=1
+<<<<<<< HEAD
 org.eclipse.rse.preferences.order.connections=PepeMongiovi.Local
+=======
+org.eclipse.rse.preferences.order.connections=thaynan-Inspiron-1545.Local
+>>>>>>> c31839df88eb88c575d488202b6077a830815cd9

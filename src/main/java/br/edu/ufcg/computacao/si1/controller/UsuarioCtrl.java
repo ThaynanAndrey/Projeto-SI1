@@ -43,6 +43,4 @@ public class UsuarioCtrl {
         atributos.addFlashAttribute("mensagem", "Usuario cadastrado com sucesso!");
         return new ModelAndView("redirect:/cadastrar-se");
     }
-
-
 }

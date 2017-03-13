@@ -1,4 +1,4 @@
-angular.module("adExtreme", ['ui.router', 'ngMaterial', 'ngMessages']) 
+angular.module("adExtreme", ['ui.router'])
 
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
     
@@ -8,18 +8,19 @@ angular.module("adExtreme", ['ui.router', 'ngMaterial', 'ngMessages'])
             
             .state('home', {
                 url: "/",
-                templateUrl: "./templates/angular/layout_user.html",
+                templateUrl: "../partials/layout_user.html",
                 controller: "anunciosCtrl"
             })
 
             .state('cadastrarAnuncio', {
                 url: "/cadastrarAnuncio",
-                templateUrl: "./templates/angular/cadastrar_anuncio.html",
+                templateUrl: "../partials/cadastrar_anuncio.html",
                 controller: "cadastrarAnuncioCtrl"
             })
 
             .state('listarAnuncios', {
                 url: "/listarAnuncios",
-                templateUrl: "./templates/angular/listar_anuncios.html"
+                templateUrl: "../partials/listar_anuncios.html",
+                controller: "listarAnunciosCtrl"
             });
 }]);

@@ -1,3 +1,8 @@
+<<<<<<< HEAD
 activeuserprofiles=PepeMongiovi;Team
 eclipse.preferences.version=1
 org.eclipse.rse.systemtype.local.systemType.defaultUserId=pepem
+=======
+eclipse.preferences.version=1
+org.eclipse.rse.systemtype.local.systemType.defaultUserId=thaynan
+>>>>>>> c31839df88eb88c575d488202b6077a830815cd9

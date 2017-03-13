@@ -1,6 +1,8 @@
 package br.edu.ufcg.computacao.si1.model;
 
+
 import javax.persistence.*;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,7 +16,6 @@ public class Anuncio {
 
     private static final String[] tipos = new String[] {"movel", "imovel", "emprego"};
 
-
     private final static DateFormat DATE_FORMAT = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
 
     @Id
@@ -24,18 +25,18 @@ public class Anuncio {
 
     @Column(name = "titulo", nullable = false)
     private String titulo;
+    
+    @Column(name = "preco", nullable = false)
+    private double preco;
+    
+    @Column(name = "tipo", nullable = false)
+    private String tipo;
 
     @Column(name = "data_criacao", nullable = false)
     private Date dataDeCriacao;
 
-    @Column(name = "preco", nullable = false)
-    private double preco;
-
     @Column(name = "nota")
     private String nota;
-
-    @Column(name = "tipo", nullable = false)
-    private String tipo;
 
     public Anuncio(String titulo, Date dataDeCriacao, double preco, String nota, String tipo) {
         this.titulo = titulo;
@@ -107,7 +108,7 @@ public class Anuncio {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

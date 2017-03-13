@@ -1,2 +1,6 @@
 eclipse.preferences.version=1
+<<<<<<< HEAD
 runtimes=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<runtimes>\r\n  <runtime id\="Pivotal tc Server Developer Edition (Runtime) v3.2" id-set\="true" location\="C\:/Users/pepem/Desktop/sts-bundle/pivotal-tc-server-developer-3.2.2.RELEASE" name\="Pivotal tc Server Developer Edition (Runtime) v3.2" runtime-type-id\="com.pivotal.server.tc.runtime.80" timestamp\="0"/>\r\n</runtimes>\r\n
+=======
+runtimes=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\n<runtimes>\n  <runtime id\="Pivotal tc Server Developer Edition (Runtime) v3.2" id-set\="true" location\="/home/thaynan/Downloads/sts-bundle/pivotal-tc-server-developer-3.2.2.RELEASE" name\="Pivotal tc Server Developer Edition (Runtime) v3.2" runtime-type-id\="com.pivotal.server.tc.runtime.80" timestamp\="0"/>\n</runtimes>\n
+>>>>>>> c31839df88eb88c575d488202b6077a830815cd9
