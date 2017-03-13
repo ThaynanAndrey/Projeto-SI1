@@ -83,11 +83,11 @@ public class Usuario extends org.springframework.security.core.userdetails.User{
         this.senha = senha;
     }
 
-    public String getR() {
+    public String getRole() {
         return role;
     }
 
-    public void setR(String r) {
-        this.role = r;
+    public void setRole(String role) {
+        this.role = role;
     }
 }

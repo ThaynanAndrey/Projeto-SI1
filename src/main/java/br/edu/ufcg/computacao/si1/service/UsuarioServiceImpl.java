@@ -34,7 +34,7 @@ public class UsuarioServiceImpl implements IService<Usuario,UsuarioForm>{
                         usuarioForm.getSenha(), "COMPANY");
 
                 //new BCryptPasswordEncoder().encode(usuarioForm.getSenha()), "COMPANY");
-                usuario.setR("COMPANY");
+                usuario.setRole("COMPANY");
                 break;
         }
 
