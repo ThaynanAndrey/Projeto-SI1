@@ -18,7 +18,7 @@ public class UsuarioServiceImpl implements UsuarioService{
     public void setUsuarioRepository(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
-
+    
     @Override
     public Usuario create(UsuarioForm usuarioForm) {
 
@@ -50,6 +50,9 @@ public class UsuarioServiceImpl implements UsuarioService{
     @Override
     public Optional<Usuario> getByEmail(String email) {
         System.out.println(email + "estah sendo retornado");
+        
+        System.out.println(usuarioRepository.findByEmail(email));
+        
         return Optional.ofNullable(usuarioRepository.findByEmail(email));
     }
 

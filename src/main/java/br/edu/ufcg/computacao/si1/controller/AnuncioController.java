@@ -1,9 +1,13 @@
 package br.edu.ufcg.computacao.si1.controller;
 
 import br.edu.ufcg.computacao.si1.model.Anuncio;
+import br.edu.ufcg.computacao.si1.model.Usuario;
 import br.edu.ufcg.computacao.si1.model.form.AnuncioForm;
 import br.edu.ufcg.computacao.si1.repository.AnuncioRepository;
 import br.edu.ufcg.computacao.si1.service.AnuncioServiceImpl;
+import br.edu.ufcg.computacao.si1.service.UsuarioServiceImpl;
+import br.edu.ufcg.computacao.si1.utils.Utils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -32,6 +37,9 @@ public class AnuncioController {
 
     @Autowired
     private AnuncioRepository anuncioRep;
+    
+    @Autowired
+    private UsuarioServiceImpl usuarioService;
 
     
     // ------ INICIO THAYNAN FEZ ------- //
@@ -44,6 +52,19 @@ public class AnuncioController {
 		Collection<Anuncio> listaDeAnuncios= anuncioRep.findAll();
 		
 		return new ResponseEntity<>(listaDeAnuncios, HttpStatus.OK);
+	}
+    
+    // PEGAR USUARIO
+    @RequestMapping(method=RequestMethod.GET, value="/usuarioLogado", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Usuario> retornarUsuarioLogado() {
+		
+    	String email = Utils.userNameUsuarioLogado();
+    	System.out.println("NO CONTROLLER");
+    	System.out.println(email);
+    	
+		Optional<Usuario> usuarioLogado = usuarioService.getByEmail(email);
+		
+		return new ResponseEntity<>(usuarioLogado.get(), HttpStatus.OK);
 	}
     
     @RequestMapping(method=RequestMethod.POST, value="/user/cadastrar/anuncioss", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
