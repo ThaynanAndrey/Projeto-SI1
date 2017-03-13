@@ -16,10 +16,8 @@ angular.module("adExtreme")
 
 	$scope.cadastrarAnuncio = function(anuncioNovo) {
 		
-		console.log(anuncioNovo);
-		
 		 $http({
-		        url: 'http://localhost:8080/user/cadastrar/anuncio',
+		        url: 'http://localhost:8080/user/cadastrar/anuncioss',
 		        method: "POST",
 		        headers: {
 			 		'Content-type': 'application/json',

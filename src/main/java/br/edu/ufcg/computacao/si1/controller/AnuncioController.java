@@ -46,8 +46,8 @@ public class AnuncioController {
 		return new ResponseEntity<>(listaDeAnuncios, HttpStatus.OK);
 	}
     
-    @RequestMapping(method=RequestMethod.POST, value="/user/listar/anuncioss", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Anuncio> cadastrarTarefa(@RequestBody AnuncioForm anuncioForm, BindingResult result, RedirectAttributes attributes) {
+    @RequestMapping(method=RequestMethod.POST, value="/user/cadastrar/anuncioss", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Anuncio> cadastrarTarefa(@RequestBody AnuncioForm anuncioForm) {
     	
     	System.out.println("CHAMOUUU");
     	
