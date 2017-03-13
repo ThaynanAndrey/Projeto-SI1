@@ -2,7 +2,7 @@ angular.module("adExtreme")
 
 .controller("listarAnunciosCtrl", function($scope, RestService, $state) {
 
-	const rotaDePegarAnuncios = "/user/listar/anuncioss";
+	const rotaDePegarAnuncios = "/user/listar/anuncios";
 
 	$scope.anuncios = [];
 

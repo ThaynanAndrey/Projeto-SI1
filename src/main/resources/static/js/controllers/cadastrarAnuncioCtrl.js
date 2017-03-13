@@ -2,7 +2,7 @@ angular.module("adExtreme")
 
 .controller("cadastrarAnuncioCtrl", function($scope, RestService, $state, $http) {
 
-	const rotaAdicaoDeAnuncio = "/user/cadastrar/anuncioss";
+	const rotaAdicaoDeAnuncio = "/user/cadastrar/anuncios";
 	const rotaTiposDeAnuncio = "/tiposDeAnuncio";
 
 	$scope.tiposDeAnuncio = ["imoveis"];

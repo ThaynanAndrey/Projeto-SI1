@@ -7,7 +7,7 @@ angular.module("adExtreme")
 		
 		$http({
 			  method: 'GET',
-			  url: 'http://localhost:8080/user/listar/anuncioss',
+			  url: 'http://localhost:8080/user/listar/anuncios',
 		      headers: {
                   'Cross-Origin': "*"
        			}
