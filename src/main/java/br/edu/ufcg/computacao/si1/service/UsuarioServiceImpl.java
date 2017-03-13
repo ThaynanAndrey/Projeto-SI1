@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 @Service
-public class UsuarioServiceImpl implements UsuarioService{
+public class UsuarioServiceImpl implements IService<Usuario,UsuarioForm>{
 
     private UsuarioRepository usuarioRepository;
 
@@ -47,7 +47,6 @@ public class UsuarioServiceImpl implements UsuarioService{
         return Optional.ofNullable(usuarioRepository.findOne(id));
     }
 
-    @Override
     public Optional<Usuario> getByEmail(String email) {
         System.out.println(email + "estah sendo retornado");
         return Optional.ofNullable(usuarioRepository.findByEmail(email));
@@ -77,4 +76,5 @@ public class UsuarioServiceImpl implements UsuarioService{
         }
         return false;
     }
+
 }

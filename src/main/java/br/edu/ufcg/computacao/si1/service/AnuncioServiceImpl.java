@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * Created by Marcus Oliveira on 28/12/16.
  */
 @Service
-public class AnuncioServiceImpl implements AnuncioService {
+public class AnuncioServiceImpl implements IService<Anuncio, Anuncio> {
     //TODO add validity checks
 
     private AnuncioRepository anuncioRepository;
@@ -41,8 +41,8 @@ public class AnuncioServiceImpl implements AnuncioService {
         return Optional.ofNullable(anuncioRepository.findOne(id));
     }
 
-    @Override
-    public Collection<Anuncio> get(String tipo) {
+
+    public Collection<Anuncio> getByTipo(String tipo) {
 
         /*pegamos aqui todos os anuncios, mas retornamos os anuncios por tipo
         * filtrando o tipo, pelo equals, retornando um arrayLista*/
