@@ -16,8 +16,10 @@ angular.module("adExtreme")
 
 	$scope.cadastrarAnuncio = function(anuncioNovo) {
 		
+		console.log(anuncioNovo);
+		
 		 $http({
-		        url: 'http://localhost:8080/user/cadastrandoAnuncio',
+		        url: 'http://localhost:8080/user/cadastrar/anuncio',
 		        method: "POST",
 		        headers: {
 			 		'Content-type': 'application/json',
@@ -38,5 +40,4 @@ angular.module("adExtreme")
 	$scope.limpar = function(anuncioNovo) {
 		anuncioNovo = {};
 	};
-	
 });

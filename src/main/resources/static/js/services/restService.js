@@ -10,7 +10,7 @@ angular.module("adExtreme")
 	};
 
 	restFactory.add = function(url, data, callback) {
-		HttpRequestService(url, "POST", data, callback);
+		HttpRequestService(urlInicial + url, "POST", data, callback);
 	};
 
 	restFactory.edit = function(url, data, callback) {

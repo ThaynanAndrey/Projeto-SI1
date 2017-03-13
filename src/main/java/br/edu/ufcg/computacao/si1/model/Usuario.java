@@ -1,25 +1,39 @@
 package br.edu.ufcg.computacao.si1.model;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import br.edu.ufcg.computacao.si1.utils.StringsConstantes;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import java.util.Collection;
 import java.util.LinkedList;
 
 @Entity(name = "Usuario")
 @Table(name = "tb_usuario")
 public class Usuario extends org.springframework.security.core.userdetails.User{
-    @Id
+
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column
+	
+	@Column
     private String nome;
-    @Column(unique = true)
+    
+	@Column(unique= true)
+	@NotEmpty(message = StringsConstantes.MESAGEM_DE_ERRO_EMAIL_VAZIO)
+    @Email
     private String email;
-    @Column
+	
+	@Column
     private String senha;
+    
     @Column
     private String role;
 
@@ -45,11 +59,11 @@ public class Usuario extends org.springframework.security.core.userdetails.User{
         this.id = id;
     }
 
-    public String getN() {
+    public String getNome() {
         return nome;
     }
 
-    public void setN(String n) {
+    public void setNome(String n) {
         this.nome = n;
     }
 
@@ -76,5 +90,4 @@ public class Usuario extends org.springframework.security.core.userdetails.User{
     public void setR(String r) {
         this.role = r;
     }
-
 }

@@ -25,7 +25,7 @@ import javax.validation.Valid;
 @CrossOrigin(origins="*")
 @Controller
 @RestController
-public class An {
+public class AnuncioController {
 
     @Autowired
     private AnuncioServiceImpl anuncioService;
@@ -46,14 +46,19 @@ public class An {
 		return new ResponseEntity<>(listaDeAnuncios, HttpStatus.OK);
 	}
     
-    @RequestMapping(method=RequestMethod.POST, value="/user/cadastrandoAnuncio", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Anuncio> cadastrarTarefa(@RequestBody Anuncio anuncio, BindingResult result, RedirectAttributes attributes) {
-		
+    @RequestMapping(method=RequestMethod.POST, value="/user/listar/anuncioss", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Anuncio> cadastrarTarefa(@RequestBody AnuncioForm anuncioForm, BindingResult result, RedirectAttributes attributes) {
+    	
     	System.out.println("CHAMOUUU");
     	
-		Anuncio listaDeAnunciosCadastrados = anuncioService.create(anuncio);
+    	Anuncio anuncio = new Anuncio();
+        anuncio.setTitulo(anuncioForm.getTitulo());
+        anuncio.setPreco(anuncioForm.getPreco());
+        anuncio.setTipo(anuncioForm.getTipo());
+    	
+		Anuncio novoAnuncioCadastrado = anuncioService.create(anuncio);
 		
-		return new ResponseEntity<>(listaDeAnunciosCadastrados, HttpStatus.CREATED);
+		return new ResponseEntity<>(novoAnuncioCadastrado, HttpStatus.CREATED);
 	}
     
     
@@ -86,7 +91,7 @@ public class An {
         if(result.hasErrors()){
             return getPageCadastrarAnuncio(anuncioForm);
         }
-
+        System.out.println(anuncioForm);
         Anuncio anuncio = new Anuncio();
         anuncio.setTitulo(anuncioForm.getTitulo());
         anuncio.setPreco(anuncioForm.getPreco());
@@ -97,6 +102,4 @@ public class An {
         attributes.addFlashAttribute("mensagem", "Anúncio cadastrado com sucesso!");
         return new ModelAndView("redirect:/user/cadastrar/anuncio");
     }
-
-
 }
