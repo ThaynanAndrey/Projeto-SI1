@@ -20,4 +20,24 @@ angular.module("adExtreme")
 				  console.log(response);
 			  });
 	};
+	
+	$scope.testarUsuario = function() {
+	
+		$http({
+			  method: 'GET',
+			  url: 'http://localhost:8080/usuarioLogado',
+		      headers: {
+                'Cross-Origin': "*"
+     			}
+		
+			}).then(function successCallback(response) {
+					console.log("certo");
+					console.log(response.data);
+			  }, function errorCallback(response) {
+				  console.log("errado");
+				  console.log(response);
+			  });
+		
+	};
+	
 });

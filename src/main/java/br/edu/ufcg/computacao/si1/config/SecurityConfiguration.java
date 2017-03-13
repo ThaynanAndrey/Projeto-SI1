@@ -17,6 +17,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 import javax.sql.DataSource;
 
@@ -35,8 +38,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                     .antMatchers("/","/cadastrar-se").permitAll()
                     .antMatchers("/user/**").hasAuthority("USER")
                     .antMatchers("/company/**").hasAuthority("COMPANY")
-                    .anyRequest().fullyAuthenticated()
-                .and()
+                    .anyRequest().authenticated().and()
+                    .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class).csrf().csrfTokenRepository(csrfTokenRepository())	
+               .and()
             .formLogin()
                     .loginPage("/login").permitAll()
                     .successHandler(new CustomAuthenticationSuccessHandler())
@@ -48,6 +52,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                     .logoutSuccessUrl("/login").permitAll()
                 .and()
                     .rememberMe();
+    }
+    
+    private CsrfTokenRepository csrfTokenRepository() {
+    	  HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
+    	  repository.setHeaderName("X-XSRF-TOKEN");
+    	  return repository;
     }
 
     /**

@@ -20,7 +20,7 @@ public class UsuarioCtrl {
     @Autowired
     private UsuarioServiceImpl usuarioService;
 
-    @RequestMapping(value = Paths.paginaDeCadastroDeUsuarioPath, method = RequestMethod.GET)
+    @RequestMapping(value = Paths.cadastroDeUsuarioPath, method = RequestMethod.GET)
     public ModelAndView getPaginaCadastroUsuario(UsuarioForm usuarioForm){
         ModelAndView model = new ModelAndView();
         model.setViewName("cadastro");
@@ -28,7 +28,7 @@ public class UsuarioCtrl {
         return model;
     }
 
-    @RequestMapping(value = Paths.paginaDeCadastroDeUsuarioPath, method = RequestMethod.POST)
+    @RequestMapping(value = Paths.cadastroDeUsuarioPath, method = RequestMethod.POST)
     public ModelAndView cadastrarUsuario(@Valid UsuarioForm usuarioForm, BindingResult resultado, RedirectAttributes atributos){
         if(resultado.hasErrors()){
             return getPaginaCadastroUsuario(usuarioForm);

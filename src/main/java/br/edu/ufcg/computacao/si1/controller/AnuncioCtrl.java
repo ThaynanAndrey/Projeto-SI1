@@ -1,9 +1,13 @@
 package br.edu.ufcg.computacao.si1.controller;
 
 import br.edu.ufcg.computacao.si1.model.Anuncio;
+import br.edu.ufcg.computacao.si1.model.Usuario;
 import br.edu.ufcg.computacao.si1.model.form.AnuncioForm;
 import br.edu.ufcg.computacao.si1.repository.AnuncioRepository;
 import br.edu.ufcg.computacao.si1.service.AnuncioServiceImpl;
+import br.edu.ufcg.computacao.si1.service.UsuarioServiceImpl;
+import br.edu.ufcg.computacao.si1.utils.Utils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.Collection;
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 @CrossOrigin(origins="*")
@@ -31,15 +37,43 @@ public class AnuncioCtrl {
     @Autowired
     private AnuncioRepository anuncioRep;
     
-    @RequestMapping(method=RequestMethod.GET, value=Paths.getPaginaAnunciosDeUsuarioPath, produces=MediaType.APPLICATION_JSON_VALUE)
+    @Autowired
+    private UsuarioServiceImpl usuarioService;
+
+    
+    @RequestMapping(method=RequestMethod.GET, value=Paths.listarAnunciosDeUsuarioPath, produces=MediaType.APPLICATION_JSON_VALUE)
    	public ResponseEntity<Collection<Anuncio>> getPaginaAnunciosDeUsuario() {
    		
    		Collection<Anuncio> listaDeAnuncios= anuncioRep.findAll();
    		
    		return new ResponseEntity<>(listaDeAnuncios, HttpStatus.OK);
    	}
+    //
+    
+    @RequestMapping(method=RequestMethod.GET, value=Paths.retornarUsuarioLogado, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Usuario> retornarUsuarioLogado() {
+		
+    	String email = Utils.userNameUsuarioLogado();    	
+		Optional<Usuario> usuarioLogado = usuarioService.getByEmail(email);
+		
+		return new ResponseEntity<>(usuarioLogado.get(), HttpStatus.OK);
+	}
+    
+    @RequestMapping(method=RequestMethod.POST, value=Paths.cadastrarAnuncioUsuarioPath, consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Anuncio> cadastrarAnuncioUsuario(@RequestBody AnuncioForm anuncioForm) {
+    	
+    	Anuncio anuncio = new Anuncio();
+        anuncio.setTitulo(anuncioForm.getTitulo());
+        anuncio.setPreco(anuncioForm.getPreco());
+        anuncio.setTipo(anuncioForm.getTipo());
+    	
+		Anuncio novoAnuncioCadastrado = anuncioService.create(anuncio);
+		
+		return new ResponseEntity<>(novoAnuncioCadastrado, HttpStatus.CREATED);
+	}
+    //
 
-    @RequestMapping(value = Paths.paginaCadastrarAnuncioUsuarioPath, method = RequestMethod.GET)
+    @RequestMapping(value = Paths.cadastrarAnuncioUsuarioPath, method = RequestMethod.GET)
     public ModelAndView getPaginaCadastrarAnuncioUsuario(AnuncioForm anuncioForm){
         ModelAndView model = new ModelAndView();
 
@@ -48,25 +82,8 @@ public class AnuncioCtrl {
 
         return model;
     }
-
-    @RequestMapping(value = Paths.paginaCadastrarAnuncioUsuarioPath, method = RequestMethod.POST)
-    public ModelAndView cadastrarAnuncioUsuario(@Valid AnuncioForm anuncioForm, BindingResult resultado, RedirectAttributes atributos){
-        if(resultado.hasErrors()){
-            return getPaginaCadastrarAnuncioUsuario(anuncioForm);
-        }
-
-        Anuncio anuncio = new Anuncio();
-        anuncio.setTitulo(anuncioForm.getTitulo());
-        anuncio.setPreco(anuncioForm.getPreco());
-        anuncio.setTipo(anuncioForm.getTipo());
-
-        anuncioService.create(anuncio);
-
-        atributos.addFlashAttribute("mensagem", "Anúncio cadastrado com sucesso!");
-        return new ModelAndView("redirect:/user/cadastrar/anuncio");
-    }
    
-    @RequestMapping(value = Paths.paginaCadastrarAnuncioCompanhiaPath, method = RequestMethod.GET)
+    @RequestMapping(value = Paths.cadastrarAnuncioCompanhiaPath, method = RequestMethod.GET)
     public ModelAndView getPaginaCadastarAnuncioCompanhia(AnuncioForm anuncioForm){
         ModelAndView model = new ModelAndView();
 
@@ -76,7 +93,7 @@ public class AnuncioCtrl {
         return model;
     }
 
-    @RequestMapping(value = Paths.paginaAnunciosDeCompanhiaPath, method = RequestMethod.GET)
+    @RequestMapping(value = Paths.listarAnunciosDeCompanhiaPath, method = RequestMethod.GET)
     public ModelAndView getPaginaAnunciosDeCompanhia(){
         ModelAndView model = new ModelAndView();
 
@@ -87,7 +104,7 @@ public class AnuncioCtrl {
         return model;
     }
 
-    @RequestMapping(value = Paths.paginaCadastrarAnuncioCompanhiaPath, method = RequestMethod.POST)
+    @RequestMapping(value = Paths.cadastrarAnuncioCompanhiaPath, method = RequestMethod.POST)
     public ModelAndView cadastrarAnuncioCompanhia(@Valid AnuncioForm anuncioForm, BindingResult resultado, RedirectAttributes atributos){
         if(resultado.hasErrors()){
             return getPaginaCadastarAnuncioCompanhia(anuncioForm);

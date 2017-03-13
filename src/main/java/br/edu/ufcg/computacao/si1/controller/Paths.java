@@ -7,12 +7,13 @@ import org.springframework.web.servlet.ModelAndView;
 public class Paths {
 	public Paths(){}
 	
-	public static final String paginaCadastrarAnuncioUsuarioPath = "/user/cadastrar/anuncio";
-	public static final String getPaginaAnunciosDeUsuarioPath = "/user/listar/anuncios";
-	public static final String paginaCadastrarAnuncioCompanhiaPath = "/company/cadastrar/anuncio";
-	public static final String paginaAnunciosDeCompanhiaPath = "/company/listar/anuncios";
+	public static final String cadastrarAnuncioUsuarioPath = "/user/cadastrar/anuncio";
+	public static final String listarAnunciosDeUsuarioPath = "/user/listar/anuncios";
+	public static final String cadastrarAnuncioCompanhiaPath = "/company/cadastrar/anuncio";
+	public static final String listarAnunciosDeCompanhiaPath = "/company/listar/anuncios";
+	public static final String retornarUsuarioLogado = "/usuarioLogado";
 
-	public static final String paginaDeCadastroDeUsuarioPath = "/cadastrar-se";
+	public static final String cadastroDeUsuarioPath = "/cadastrar-se";
 	
 	public static final String naoEncontradoErroPath = "/404";
 	public static final String proibidoErroPath = "/403";
