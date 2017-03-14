@@ -1,6 +1,7 @@
 package br.edu.ufcg.computacao.si1.config;
 
 import br.edu.ufcg.computacao.si1.model.Usuario;
+import br.edu.ufcg.computacao.si1.model.enumerations.UsuarioRoleEnum;
 import br.edu.ufcg.computacao.si1.service.UsuarioServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         http
             .authorizeRequests()
                     .antMatchers("/","/cadastrar-se").permitAll()
-                    .antMatchers("/user/**").hasAuthority("USER")
-                    .antMatchers("/company/**").hasAuthority("COMPANY")
+                    .antMatchers("/user/**").hasAnyAuthority(UsuarioRoleEnum.USUARIO_FISICO.toString(), UsuarioRoleEnum.USUARIO_JURIDICO.toString())
+                    //.antMatchers("/user/**").hasAuthority("USUARIO_JURIDICO")
                     .anyRequest().authenticated().and()
                     .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class).csrf().csrfTokenRepository(csrfTokenRepository())	
                .and()
@@ -90,16 +91,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 //
     @Bean
     protected UserDetailsService userDetailsService(){
+    	
         return new UserDetailsService() {
             @Autowired
             UsuarioServiceImpl usuarioService;
-
+            
+            
+            
             @Override
             public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
                 Usuario usuario = usuarioService.getByEmail(email).get();
                 if(usuario != null){
                     return new User(usuario.getEmail(), usuario.getSenha(), true, true, true, true,
-                            AuthorityUtils.createAuthorityList(usuario.getRole()));
+                            AuthorityUtils.createAuthorityList(usuario.getRoleUsuario().toString()));
                 }else {
                     throw new UsernameNotFoundException("Não foi possível localizar o usuário" + usuario);
                 }

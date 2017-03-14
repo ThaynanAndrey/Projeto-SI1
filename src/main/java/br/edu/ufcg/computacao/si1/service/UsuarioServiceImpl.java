@@ -1,6 +1,8 @@
 package br.edu.ufcg.computacao.si1.service;
 
 import br.edu.ufcg.computacao.si1.model.Usuario;
+import br.edu.ufcg.computacao.si1.model.enumerations.UsuarioRoleEnum;
+import br.edu.ufcg.computacao.si1.model.factories.UsuarioFactory;
 import br.edu.ufcg.computacao.si1.model.form.UsuarioForm;
 import br.edu.ufcg.computacao.si1.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import java.util.Optional;
 public class UsuarioServiceImpl implements IService<Usuario,UsuarioForm>{
 
     private UsuarioRepository usuarioRepository;
+    private UsuarioFactory usuarioFactory = new UsuarioFactory();
 
     @Autowired
     public void setUsuarioRepository(UsuarioRepository usuarioRepository) {
@@ -21,22 +24,10 @@ public class UsuarioServiceImpl implements IService<Usuario,UsuarioForm>{
     
     @Override
     public Usuario create(UsuarioForm usuarioForm) {
+    	
+    	String value = usuarioForm.getRole() == 1 ?  UsuarioRoleEnum.USUARIO_FISICO.toString() : UsuarioRoleEnum.USUARIO_JURIDICO.toString();
 
-        Usuario usuario=null;
-
-        switch (usuarioForm.getRole()){
-            case 1:
-                usuario = new Usuario(usuarioForm.getNome(), usuarioForm.getEmail(),
-                        usuarioForm.getSenha(), "USER");
-                break;
-            case 2:
-                usuario = new Usuario(usuarioForm.getNome(), usuarioForm.getEmail(),
-                        usuarioForm.getSenha(), "COMPANY");
-
-                //new BCryptPasswordEncoder().encode(usuarioForm.getSenha()), "COMPANY");
-                usuario.setRole("COMPANY");
-                break;
-        }
+        Usuario usuario= usuarioFactory.criarUsuario(value, usuarioForm.getNome(), usuarioForm.getEmail(), usuarioForm.getSenha());
 
         System.out.println(usuario + "estah sendo criado");
         return usuarioRepository.save(usuario);
@@ -50,7 +41,7 @@ public class UsuarioServiceImpl implements IService<Usuario,UsuarioForm>{
     public Optional<Usuario> getByEmail(String email) {
         System.out.println(email + "estah sendo retornado");
         
-        System.out.println(usuarioRepository.findByEmail(email));
+        System.out.println("procurando email " + usuarioRepository.findByEmail(email));
         
         return Optional.ofNullable(usuarioRepository.findByEmail(email));
     }

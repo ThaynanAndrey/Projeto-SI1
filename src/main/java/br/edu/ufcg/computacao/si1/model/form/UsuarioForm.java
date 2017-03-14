@@ -2,33 +2,25 @@ package br.edu.ufcg.computacao.si1.model.form;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
-
-import br.edu.ufcg.computacao.si1.utils.StringsConstantes;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class UsuarioForm {
-    
-	private final int qtdMinimaCaracteresNome = 2;
-	private final int qtdMaximaCaracteresNome = 10;
-	private final int qtdMinimaCaracteresSenha = 4;
-	private final int qtdMaximaCaracteresSenha = 16;
 	
-	@NotNull(message = StringsConstantes.MESAGEM_DE_ERRO_NOME_NULO)
-    @NotEmpty(message = StringsConstantes.MESAGEM_DE_ERRO_NOME_VAZIO)
-    @Size(min = qtdMinimaCaracteresNome, max = qtdMaximaCaracteresNome, message = StringsConstantes.MESAGEM_DE_ERRO_QTD_CARACTERES_NOME)
+    @NotNull(message = "O nome não pode ser nulo.")
+    @NotEmpty(message = "O nome não pode ser vazio.")
+    @Size(min = 2, max = 100, message = "O nome deve ter entre 2 e 100 caracteres.")
     private String nome;
     
-	@NotEmpty(message = StringsConstantes.MESAGEM_DE_ERRO_EMAIL_VAZIO)
+    @NotEmpty(message = "O email não pode ser vazio.")
     @Email
     private String email;
-	
-    @NotNull(message = StringsConstantes.MESAGEM_DE_ERRO_SENHA_NULA)
+    
+    @NotNull(message = "A senha não pode ser nula.")
     @NotEmpty
-    @Size(min = qtdMinimaCaracteresSenha, max = qtdMaximaCaracteresSenha, message = StringsConstantes.MESAGEM_DE_ERRO_SENHA_QTD_CARACTERES)
+    @Size(min = 4, max = 16, message = "A senha deve ter entre 4 e 16 caracteres.")
     private String senha;
-
+    
     @NotNull
     private Integer role;
 

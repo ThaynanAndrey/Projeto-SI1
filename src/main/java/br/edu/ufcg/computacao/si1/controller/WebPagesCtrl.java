@@ -28,6 +28,7 @@ public class WebPagesCtrl {
     public ModelAndView getPaginaIndexUser(){
         ModelAndView model = new ModelAndView();
         //Para testes
+        System.out.println("me chamou ususario");
         model.setViewName("user/index");
 
         return model;
@@ -37,6 +38,7 @@ public class WebPagesCtrl {
     public ModelAndView getPaginaIndexCompany(){
         ModelAndView model = new ModelAndView();
         //Para testes
+        System.out.println("me chamou company");
         model.setViewName("user/index");
 
         return model;

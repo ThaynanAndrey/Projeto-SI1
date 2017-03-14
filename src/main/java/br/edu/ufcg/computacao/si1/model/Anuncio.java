@@ -20,7 +20,7 @@ public class Anuncio {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name = "_id", nullable = false, unique = true)
+    @Column(name = "anuncio_id", nullable = false, unique = true)
     private Long _id;
 
     @Column(name = "titulo", nullable = false)
@@ -37,25 +37,49 @@ public class Anuncio {
 
     @Column(name = "nota")
     private String nota;
+    
+    @ManyToOne
+    @JoinColumn(name="usuario_id")
+    private Usuario dono;
 
-    public Anuncio(String titulo, Date dataDeCriacao, double preco, String nota, String tipo) {
-        this.titulo = titulo;
-        this.dataDeCriacao = dataDeCriacao;
-        this.preco = preco;
-        this.nota = nota;
-        this.tipo = tipo;
-    }
-
-    public Anuncio() {
+    /**
+	 * Construtor default
+	 */
+	public Anuncio() {
         titulo = "";
         dataDeCriacao = new Date();
         preco = 0;
         nota = "";
         tipo = "";
     }
+    
+    public Anuncio(String titulo, double preco, String tipo, Date dataDeCriacao, String nota, Usuario dono) {
+		this.titulo = titulo;
+		this.preco = preco;
+		this.tipo = tipo;
+		this.dataDeCriacao = dataDeCriacao;
+		this.nota = nota;
+		this.dono = dono;
+	}
+    
+    /**
+     * Retorna os tipos do anúncio
+     * @return
+     */
+    public static String[] getTipos() {
+		return tipos;
+	}
+    
+    /**
+     * Define o dono do anúncio
+     * @param dono
+     */
+	public void setDono(Usuario dono) {
+		this.dono = dono;
+	}
 
     /**
-     * Retorna o id do anuncio
+     * Retorna o id do anúncio
      * @return o id do anuncio
      */
     public Long get_id() {
@@ -63,48 +87,88 @@ public class Anuncio {
     }
 
     /**
-     * Modifica o id do anuncio
+     * Modifica o id do anúncio
      * @param _id id a ser colocado no anuncio
      */public void set_id(Long _id) {
         this._id = _id;
     }
-
+    
+    /**
+     * Retorna o titulo do anúncio
+     * @return
+     */
     public String getTitulo() {
         return titulo;
     }
-
+    
+    /**
+     * Define o titulo do anúncio
+     * @param titulo
+     */
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-
+    
+    /**
+     * Retorna a data de criação do anúncio
+     * @return
+     */
     public String getDataDeCriacao() {
         return DATE_FORMAT.format(dataDeCriacao);
     }
-
+    
+    /**
+     * Define a data de criação do anúncio
+     * @param dataDeCriacao
+     */
     public void setDataDeCriacao(Date dataDeCriacao) {
         this.dataDeCriacao = dataDeCriacao;
     }
-
+    
+    /**
+     * Retorno o preço do anúncio
+     * @return
+     */
     public double getPreco() {
         return preco;
     }
-
+    
+    /**]
+     * Define o preço do anúncio
+     * @param preco
+     */
     public void setPreco(double preco) {
         this.preco = preco;
     }
-
+    
+    /**
+     * Retorna a nota do anúncio
+     * @return
+     */
     public String getNota() {
         return nota;
     }
-
+    
+    /**
+     * Define a nota do anúncio
+     * @param nota
+     */
     public void setNota(String nota) {
         this.nota = nota;
     }
-
+    
+    /**
+     * Retorna o tipo do anúncio
+     * @return
+     */
     public String getTipo() {
         return tipo;
     }
-
+    
+    /**
+     * Define o tipo do anúncio
+     * @param tipo
+     */
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
