@@ -187,17 +187,17 @@ public class AnuncioServiceTest {
         assertEquals(anuncioEmprego.getTitulo(), anuncioService.getById(anuncioEmprego.get_id()).get().getTitulo());
 
         //Update preço
-        anuncioMovel.setPreco(anuncioMovel.getPreco()*2);
-        anuncioImovel.setPreco(anuncioImovel.getPreco()*2);
-        anuncioEmprego.setPreco(anuncioEmprego.getPreco()*2);
+        anuncioMovel.setQuantia(anuncioMovel.getQuantia()*2);
+        anuncioImovel.setQuantia(anuncioImovel.getQuantia()*2);
+        anuncioEmprego.setQuantia(anuncioEmprego.getQuantia()*2);
 
         assertTrue(anuncioService.update(anuncioMovel));
         assertTrue(anuncioService.update(anuncioImovel));
         assertTrue(anuncioService.update(anuncioEmprego));
 
-        assertEquals(anuncioMovel.getPreco(), anuncioService.getById(anuncioMovel.get_id()).get().getPreco());
-        assertEquals(anuncioImovel.getPreco(), anuncioService.getById(anuncioImovel.get_id()).get().getPreco());
-        assertEquals(anuncioEmprego.getPreco(), anuncioService.getById(anuncioEmprego.get_id()).get().getPreco());
+        assertEquals(anuncioMovel.getQuantia(), anuncioService.getById(anuncioMovel.get_id()).get().getQuantia());
+        assertEquals(anuncioImovel.getQuantia(), anuncioService.getById(anuncioImovel.get_id()).get().getQuantia());
+        assertEquals(anuncioEmprego.getQuantia(), anuncioService.getById(anuncioEmprego.get_id()).get().getQuantia());
 
         //Update nota
         anuncioMovel.setNota(AvaliacaoEnum.QUATRO.getEstrelas());

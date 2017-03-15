@@ -2,10 +2,8 @@ package br.edu.ufcg.computacao.si1.model.anuncio;
 
 
 import javax.persistence.*;
-
 import br.edu.ufcg.computacao.si1.model.enumeration.AvaliacaoEnum;
 import br.edu.ufcg.computacao.si1.model.usuario.Usuario;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,8 +12,8 @@ import java.util.Date;
  * Created by Marcus Oliveira on 08/12/16.
  */
 @Entity
-@Table(name="tb_anuncio")
-public class Anuncio {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Anuncio {
 
     private final static DateFormat DATE_FORMAT = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
 
@@ -27,11 +25,8 @@ public class Anuncio {
     @Column(name = "titulo", nullable = false)
     private String titulo;
     
-    @Column(name = "preco", nullable = false)
-    private double preco;
-    
-    @Column(name = "tipo", nullable = false)
-    private String tipo;
+    @Column(name = "quantia", nullable = false)
+    private double quantia;
 
     @Column(name = "data_criacao", nullable = false)
     private Date dataDeCriacao;
@@ -50,19 +45,21 @@ public class Anuncio {
 	public Anuncio() {
         titulo = "";
         dataDeCriacao = new Date();
-        preco = 0;
+        quantia = 0;
         avaliacao = null;
-        tipo = "";
     }
     
-    public Anuncio(String titulo, double preco, String tipo, Date dataDeCriacao, AvaliacaoEnum avaliacao, Usuario dono) {
+    public Anuncio(String titulo, double quantia, Usuario dono, Date dataDeCriacao) {
 		this.titulo = titulo;
-		this.preco = preco;
-		this.tipo = tipo;
-		this.dataDeCriacao = dataDeCriacao;
-		this.avaliacao = avaliacao;
-		this.dono = dono;
+		this.quantia = quantia;
+		this.dataDeCriacao =  dataDeCriacao;
 	}
+    
+    /**
+     * Retorna o tipo do anúncio
+     * @return
+     */
+    public abstract String getTipo();
     
     /**
      * Define o dono do anúncio
@@ -123,16 +120,16 @@ public class Anuncio {
      * Retorno o preço do anúncio
      * @return
      */
-    public double getPreco() {
-        return preco;
+    public double getQuantia() {
+        return quantia;
     }
     
     /**]
      * Define o preço do anúncio
-     * @param preco
+     * @param quantia
      */
-    public void setPreco(double preco) {
-        this.preco = preco;
+    public void setQuantia(double quantia) {
+        this.quantia = quantia;
     }
     
     /**
@@ -151,22 +148,6 @@ public class Anuncio {
         this.avaliacao = avaliacao;
     }
     
-    /**
-     * Retorna o tipo do anúncio
-     * @return
-     */
-    public String getTipo() {
-        return tipo;
-    }
-    
-    /**
-     * Define o tipo do anúncio
-     * @param tipo
-     */
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -174,7 +155,7 @@ public class Anuncio {
 
         Anuncio anuncio = (Anuncio) o;
 
-        if (Double.compare(anuncio.getPreco(), getPreco()) != 0) return false;
+        if (Double.compare(anuncio.getQuantia(), getQuantia()) != 0) return false;
         if (!get_id().equals(anuncio.get_id())) return false;
         if (!getTitulo().equals(anuncio.getTitulo())) return false;
         if (!getDataDeCriacao().equals(anuncio.getDataDeCriacao())) return false;
@@ -190,7 +171,7 @@ public class Anuncio {
         result = get_id().hashCode();
         result = 31 * result + getTitulo().hashCode();
         result = 31 * result + getDataDeCriacao().hashCode();
-        temp = Double.doubleToLongBits(getPreco());
+        temp = Double.doubleToLongBits(getQuantia());
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (getNota() != null ? getNota().hashCode() : 0);
         result = 31 * result + getTipo().hashCode();
@@ -203,9 +184,8 @@ public class Anuncio {
                 "_id=" + _id +
                 ", titulo='" + titulo + '\'' +
                 ", dataDeCriacao=" + getDataDeCriacao() +
-                ", preco=" + preco +
-                ", avaliacao=" + avaliacao.toString() +
-                ", tipo='" + tipo + '\'' +
+                ", quantia=" + quantia +
+                ", avaliacao=" + avaliacao.toString()+
                 '}';
     }
 }

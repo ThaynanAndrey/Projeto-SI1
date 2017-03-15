@@ -5,7 +5,7 @@ angular.module("adExtreme")
 	const rotaAdicaoDeAnuncio = "/user/cadastrar/anuncio";
 	const rotaTiposDeAnuncio = "/tiposDeAnuncio";
 
-	$scope.tiposDeAnuncio = ["imoveis"];
+	$scope.tiposDeAnuncio = ["imovel"];
 	//carregarTiposDeAnuncio();
 
 	function carregarTiposDeAnuncio() {

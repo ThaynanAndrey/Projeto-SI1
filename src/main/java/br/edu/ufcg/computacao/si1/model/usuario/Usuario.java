@@ -3,7 +3,6 @@ package br.edu.ufcg.computacao.si1.model.usuario;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.authority.AuthorityUtils;
-
 import br.edu.ufcg.computacao.si1.model.anuncio.Anuncio;
 import br.edu.ufcg.computacao.si1.model.enumeration.AvaliacaoEnum;
 import br.edu.ufcg.computacao.si1.model.enumeration.UsuarioRoleEnum;
@@ -11,6 +10,7 @@ import br.edu.ufcg.computacao.si1.utils.StringsConstantes;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "Usuario")
@@ -47,7 +47,7 @@ public class Usuario extends org.springframework.security.core.userdetails.User{
     @Enumerated(EnumType.STRING)
     private AvaliacaoEnum avaliacao;
     
-    @OneToMany(targetEntity= Anuncio.class, mappedBy = "dono", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL)
     private List<Anuncio> anuncios;
     
     /**
@@ -55,6 +55,7 @@ public class Usuario extends org.springframework.security.core.userdetails.User{
      */
     public Usuario() {
         super("default", "default", AuthorityUtils.createAuthorityList("USER"));
+        anuncios = new ArrayList<>();
     }
 
     public AvaliacaoEnum getAvaliacao() {
@@ -72,6 +73,7 @@ public class Usuario extends org.springframework.security.core.userdetails.User{
 		this.email = email;
 		this.senha = senha;
 		this.role = tipoDeUsuario;
+		this.anuncios = new ArrayList<>();
 		//this.anuncios = anuncios;
 		//this.saldoCredor = saldoCredor;
 		//this.saldoDevedor = saldoDevedor;

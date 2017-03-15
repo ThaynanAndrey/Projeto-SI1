@@ -1,6 +1,7 @@
 package br.edu.ufcg.computacao.si1.controller;
 
 import br.edu.ufcg.computacao.si1.model.anuncio.Anuncio;
+import br.edu.ufcg.computacao.si1.model.anuncio.AnuncioFactory;
 import br.edu.ufcg.computacao.si1.model.anuncio.AnuncioForm;
 import br.edu.ufcg.computacao.si1.model.usuario.Usuario;
 import br.edu.ufcg.computacao.si1.repository.AnuncioRepository;
@@ -14,18 +15,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.Collection;
 import java.util.Optional;
-
-import javax.validation.Valid;
 
 @CrossOrigin(origins="*")
 @Controller
@@ -40,6 +37,8 @@ public class AnuncioCtrl {
     
     @Autowired
     private UsuarioServiceImpl usuarioService;
+    
+    private AnuncioFactory anuncioFactory = new AnuncioFactory();
 
     
     @RequestMapping(method=RequestMethod.GET, value=Paths.PATH_LISTAR_ANUNCIOS_DE_USUARIO, produces=MediaType.APPLICATION_JSON_VALUE)
@@ -62,37 +61,34 @@ public class AnuncioCtrl {
     
     @RequestMapping(method=RequestMethod.POST, value=Paths.PATH_CADASTRAR_ANUNCIO_USUARIO, consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Anuncio> cadastrarAnuncioUsuario(@RequestBody AnuncioForm anuncioForm) {
-    	
-    	Anuncio anuncio = new Anuncio();
-        anuncio.setTitulo(anuncioForm.getTitulo());
-        anuncio.setPreco(anuncioForm.getPreco());
-        anuncio.setTipo(anuncioForm.getTipo());
-    	
+    	System.out.println("--------form:  " + anuncioForm);
+    	Anuncio anuncio = anuncioFactory.criarAnuncio(anuncioForm);
+    	System.out.println("PASSOUU");
 		Anuncio novoAnuncioCadastrado = anuncioService.create(anuncio);
 		
 		return new ResponseEntity<>(novoAnuncioCadastrado, HttpStatus.CREATED);
 	}
     //
-
-    @RequestMapping(value = Paths.PATH_CADASTRAR_ANUNCIO_USUARIO, method = RequestMethod.GET)
-    public ModelAndView getPaginaCadastrarAnuncioUsuario(AnuncioForm anuncioForm){
-        ModelAndView model = new ModelAndView();
-
-        model.addObject("tipos", anuncioForm.getTipos());
-        model.setViewName("user/cadastrar_anuncio");
-
-        return model;
-    }
-   
-    @RequestMapping(value = Paths.cadastrarAnuncioCompanhiaPath, method = RequestMethod.GET)
-    public ModelAndView getPaginaCadastarAnuncioCompanhia(AnuncioForm anuncioForm){
-        ModelAndView model = new ModelAndView();
-
-        model.addObject("tipos", anuncioForm.getTipos());
-        model.setViewName("company/cadastrar_anuncio");
-
-        return model;
-    }
+//	  PARA APAGAR
+//    @RequestMapping(value = Paths.PATH_CADASTRAR_ANUNCIO_USUARIO, method = RequestMethod.GET)
+//    public ModelAndView getPaginaCadastrarAnuncioUsuario(AnuncioForm anuncioForm){
+//        ModelAndView model = new ModelAndView();
+//
+//        model.addObject("tipos", anuncioForm.getTipos());
+//        model.setViewName("user/cadastrar_anuncio");
+//
+//        return model;
+//    }
+//   
+//    @RequestMapping(value = Paths.cadastrarAnuncioCompanhiaPath, method = RequestMethod.GET)
+//    public ModelAndView getPaginaCadastarAnuncioCompanhia(AnuncioForm anuncioForm){
+//        ModelAndView model = new ModelAndView();
+//
+//        model.addObject("tipos", anuncioForm.getTipos());
+//        model.setViewName("company/cadastrar_anuncio");
+//
+//        return model;
+//    }
 
     @RequestMapping(value = Paths.listarAnunciosDeCompanhiaPath, method = RequestMethod.GET)
     public ModelAndView getPaginaAnunciosDeCompanhia(){
@@ -105,28 +101,21 @@ public class AnuncioCtrl {
         return model;
     }
 
-    @RequestMapping(value = Paths.cadastrarAnuncioCompanhiaPath, method = RequestMethod.POST)
-    public ModelAndView cadastrarAnuncioCompanhia(@Valid AnuncioForm anuncioForm, BindingResult resultado, RedirectAttributes atributos){
-        if(resultado.hasErrors()){
-            return getPaginaCadastarAnuncioCompanhia(anuncioForm);
-        }
-
-        Anuncio anuncio = new Anuncio();
-        anuncio.setTitulo(anuncioForm.getTitulo());
-        anuncio.setPreco(anuncioForm.getPreco());
-        anuncio.setTipo(anuncioForm.getTipo());
-
-        anuncioService.create(anuncio);
-
-        atributos.addFlashAttribute("mensagem", "Anúncio cadastrado com sucesso!");
-        return new ModelAndView("redirect:/company/cadastrar/anuncio");
-    }
-    
-    
-
-
-    
-    
-   
-
+    //PARA APAGAR
+//    @RequestMapping(value = Paths.cadastrarAnuncioCompanhiaPath, method = RequestMethod.POST)
+//    public ModelAndView cadastrarAnuncioCompanhia(@Valid AnuncioForm anuncioForm, BindingResult resultado, RedirectAttributes atributos){
+//        if(resultado.hasErrors()){
+//            return getPaginaCadastarAnuncioCompanhia(anuncioForm);
+//        }
+//
+//        Anuncio anuncio = new Anuncio();
+//        anuncio.setTitulo(anuncioForm.getTitulo());
+//        anuncio.setQuantia(anuncioForm.getQuantia());
+//        anuncio.setTipo(anuncioForm.getTipo());
+//
+//        anuncioService.create(anuncio);
+//
+//        atributos.addFlashAttribute("mensagem", "Anúncio cadastrado com sucesso!");
+//        return new ModelAndView("redirect:/company/cadastrar/anuncio");
+//    }
 }
