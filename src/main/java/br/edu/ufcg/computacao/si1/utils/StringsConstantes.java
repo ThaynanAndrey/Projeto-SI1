@@ -1,8 +1,5 @@
 package br.edu.ufcg.computacao.si1.utils;
 
-/**
- * Classe para alocacao de constantes do tipo String utilizadas no projeto.
- */
 public class StringsConstantes {
 
 	private final static String TITULO = "O titulo";
@@ -32,6 +29,9 @@ public class StringsConstantes {
 	public final static String MESAGEM_DE_ERRO_NOME_VAZIO = StringsConstantes.NOME + " não pode ser vazio.";
 	public final static String MESAGEM_DE_ERRO_QTD_CARACTERES_NOME = StringsConstantes.NOME + " deve ter entre 2 e 100 caracteres.";
 	
+    //--------Array de Tipos de Anuncio---------//
+public static final String[] TIPOS_DE_ANUNCIO_USUARIO_FISICO = new String[] {"movel", "imovel"};
+public static final String[] TIPOS_DE_ANUNCIO_USUARIO_JURIDICO = new String[] {"movel", "imovel", "emprego", "servico"};
 	
 	//----------Email----------//
 	public final static String MESAGEM_DE_ERRO_EMAIL_VAZIO = StringsConstantes.EMAIL + " não pode ser vazio.";
