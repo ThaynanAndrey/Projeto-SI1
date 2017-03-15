@@ -1,7 +1,10 @@
-package br.edu.ufcg.computacao.si1.model;
+package br.edu.ufcg.computacao.si1.model.anuncio;
 
 
 import javax.persistence.*;
+
+import br.edu.ufcg.computacao.si1.model.enumeration.AvaliacaoEnum;
+import br.edu.ufcg.computacao.si1.model.usuario.Usuario;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -13,8 +16,6 @@ import java.util.Date;
 @Entity
 @Table(name="tb_anuncio")
 public class Anuncio {
-
-    private static final String[] tipos = new String[] {"movel", "imovel", "emprego"};
 
     private final static DateFormat DATE_FORMAT = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
 
@@ -35,8 +36,9 @@ public class Anuncio {
     @Column(name = "data_criacao", nullable = false)
     private Date dataDeCriacao;
 
-    @Column(name = "nota")
-    private String nota;
+    @Column(name = "avaliacao")
+    @Enumerated(EnumType.STRING)
+    private AvaliacaoEnum avaliacao;
     
     @ManyToOne
     @JoinColumn(name="usuario_id")
@@ -49,25 +51,17 @@ public class Anuncio {
         titulo = "";
         dataDeCriacao = new Date();
         preco = 0;
-        nota = "";
+        avaliacao = null;
         tipo = "";
     }
     
-    public Anuncio(String titulo, double preco, String tipo, Date dataDeCriacao, String nota, Usuario dono) {
+    public Anuncio(String titulo, double preco, String tipo, Date dataDeCriacao, AvaliacaoEnum avaliacao, Usuario dono) {
 		this.titulo = titulo;
 		this.preco = preco;
 		this.tipo = tipo;
 		this.dataDeCriacao = dataDeCriacao;
-		this.nota = nota;
+		this.avaliacao = avaliacao;
 		this.dono = dono;
-	}
-    
-    /**
-     * Retorna os tipos do anúncio
-     * @return
-     */
-    public static String[] getTipos() {
-		return tipos;
 	}
     
     /**
@@ -145,16 +139,16 @@ public class Anuncio {
      * Retorna a nota do anúncio
      * @return
      */
-    public String getNota() {
-        return nota;
+    public AvaliacaoEnum getNota() {
+        return avaliacao;
     }
     
     /**
      * Define a nota do anúncio
      * @param nota
      */
-    public void setNota(String nota) {
-        this.nota = nota;
+    public void setNota(AvaliacaoEnum avaliacao) {
+        this.avaliacao = avaliacao;
     }
     
     /**
@@ -210,7 +204,7 @@ public class Anuncio {
                 ", titulo='" + titulo + '\'' +
                 ", dataDeCriacao=" + getDataDeCriacao() +
                 ", preco=" + preco +
-                ", nota=" + nota +
+                ", avaliacao=" + avaliacao.toString() +
                 ", tipo='" + tipo + '\'' +
                 '}';
     }

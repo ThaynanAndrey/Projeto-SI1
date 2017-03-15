@@ -1,10 +1,12 @@
-package br.edu.ufcg.computacao.si1.model;
+package br.edu.ufcg.computacao.si1.model.usuario;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.authority.AuthorityUtils;
 
-import br.edu.ufcg.computacao.si1.model.enumerations.UsuarioRoleEnum;
+import br.edu.ufcg.computacao.si1.model.anuncio.Anuncio;
+import br.edu.ufcg.computacao.si1.model.enumeration.AvaliacaoEnum;
+import br.edu.ufcg.computacao.si1.model.enumeration.UsuarioRoleEnum;
 import br.edu.ufcg.computacao.si1.utils.StringsConstantes;
 
 import javax.persistence.*;
@@ -41,6 +43,10 @@ public class Usuario extends org.springframework.security.core.userdetails.User{
     @Column(name="saldo_credor")
     private double saldoCredor;
     
+    @Column(name="avaliacao")
+    @Enumerated(EnumType.STRING)
+    private AvaliacaoEnum avaliacao;
+    
     @OneToMany(targetEntity= Anuncio.class, mappedBy = "dono", cascade = CascadeType.ALL)
     private List<Anuncio> anuncios;
     
@@ -51,7 +57,15 @@ public class Usuario extends org.springframework.security.core.userdetails.User{
         super("default", "default", AuthorityUtils.createAuthorityList("USER"));
     }
 
-    public Usuario(String nome, String email, String senha, UsuarioRoleEnum tipoDeUsuario/*, double saldoDevedor, double saldoCredor, List<Anuncio> anuncios*/) {
+    public AvaliacaoEnum getAvaliacao() {
+		return avaliacao;
+	}
+
+	public void setAvaliacao(AvaliacaoEnum avaliacao) {
+		this.avaliacao = avaliacao;
+	}
+
+	public Usuario(String nome, String email, String senha, UsuarioRoleEnum tipoDeUsuario/*, double saldoDevedor, double saldoCredor, List<Anuncio> anuncios*/) {
     	super("default", "default", AuthorityUtils.createAuthorityList("USER"));
 		//this.id = id;
 		this.nome = nome;
@@ -189,5 +203,17 @@ public class Usuario extends org.springframework.security.core.userdetails.User{
 	 */
 	public void setSaldoCredor(double saldoCredor) {
 		this.saldoCredor = saldoCredor;
+	}
+	
+	public String[] getTiposDeAnunciosDisponiveis() {
+		
+		String[] tiposDeAnuncio;
+		
+		if(this.role.equals(UsuarioRoleEnum.USUARIO_FISICO))
+			tiposDeAnuncio = StringsConstantes.TIPOS_DE_ANUNCIO_USUARIO_FISICO;
+		else
+			tiposDeAnuncio = StringsConstantes.TIPOS_DE_ANUNCIO_USUARIO_JURIDICO;
+		
+		return tiposDeAnuncio;
 	}
 }

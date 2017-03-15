@@ -1,4 +1,4 @@
-package br.edu.ufcg.computacao.si1.model.enumerations;
+package br.edu.ufcg.computacao.si1.model.enumeration;
 
 public enum UsuarioRoleEnum {	
 	

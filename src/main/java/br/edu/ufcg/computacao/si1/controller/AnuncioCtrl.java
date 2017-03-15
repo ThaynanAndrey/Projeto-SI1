@@ -1,11 +1,12 @@
 package br.edu.ufcg.computacao.si1.controller;
 
-import br.edu.ufcg.computacao.si1.model.Anuncio;
-import br.edu.ufcg.computacao.si1.model.Usuario;
-import br.edu.ufcg.computacao.si1.model.form.AnuncioForm;
+import br.edu.ufcg.computacao.si1.model.anuncio.Anuncio;
+import br.edu.ufcg.computacao.si1.model.anuncio.AnuncioForm;
+import br.edu.ufcg.computacao.si1.model.usuario.Usuario;
 import br.edu.ufcg.computacao.si1.repository.AnuncioRepository;
 import br.edu.ufcg.computacao.si1.service.AnuncioServiceImpl;
 import br.edu.ufcg.computacao.si1.service.UsuarioServiceImpl;
+import br.edu.ufcg.computacao.si1.utils.Paths;
 import br.edu.ufcg.computacao.si1.utils.Utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class AnuncioCtrl {
     private UsuarioServiceImpl usuarioService;
 
     
-    @RequestMapping(method=RequestMethod.GET, value=Paths.listarAnunciosDeUsuarioPath, produces=MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method=RequestMethod.GET, value=Paths.PATH_LISTAR_ANUNCIOS_DE_USUARIO, produces=MediaType.APPLICATION_JSON_VALUE)
    	public ResponseEntity<Collection<Anuncio>> getPaginaAnunciosDeUsuario() {
    		
    		Collection<Anuncio> listaDeAnuncios= anuncioRep.findAll();
@@ -50,7 +51,7 @@ public class AnuncioCtrl {
    	}
     //
     
-    @RequestMapping(method=RequestMethod.GET, value=Paths.retornarUsuarioLogado, produces=MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method=RequestMethod.GET, value=Paths.PATH_RETORNAR_USUARIO_LOGADO, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Usuario> retornarUsuarioLogado() {
 		
     	String email = Utils.userNameUsuarioLogado();    	
@@ -59,7 +60,7 @@ public class AnuncioCtrl {
 		return new ResponseEntity<>(usuarioLogado.get(), HttpStatus.OK);
 	}
     
-    @RequestMapping(method=RequestMethod.POST, value=Paths.cadastrarAnuncioUsuarioPath, consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method=RequestMethod.POST, value=Paths.PATH_CADASTRAR_ANUNCIO_USUARIO, consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Anuncio> cadastrarAnuncioUsuario(@RequestBody AnuncioForm anuncioForm) {
     	
     	Anuncio anuncio = new Anuncio();
@@ -73,7 +74,7 @@ public class AnuncioCtrl {
 	}
     //
 
-    @RequestMapping(value = Paths.cadastrarAnuncioUsuarioPath, method = RequestMethod.GET)
+    @RequestMapping(value = Paths.PATH_CADASTRAR_ANUNCIO_USUARIO, method = RequestMethod.GET)
     public ModelAndView getPaginaCadastrarAnuncioUsuario(AnuncioForm anuncioForm){
         ModelAndView model = new ModelAndView();
 

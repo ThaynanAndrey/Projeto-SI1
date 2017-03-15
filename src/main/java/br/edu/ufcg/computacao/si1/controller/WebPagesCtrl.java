@@ -5,10 +5,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.edu.ufcg.computacao.si1.utils.Paths;
+
 @Controller
 public class WebPagesCtrl {
 
-    @RequestMapping(value = Paths.indexPrincipalPath, method = RequestMethod.GET)
+    @RequestMapping(value = Paths.PATH_INDEX_PRINCIPAL, method = RequestMethod.GET)
     public ModelAndView getPaginaIndex(){
         ModelAndView model = new ModelAndView();
         model.setViewName("index");
@@ -16,7 +18,7 @@ public class WebPagesCtrl {
         return model;
     }
 
-    @RequestMapping(value = Paths.loginPath, method = RequestMethod.GET)
+    @RequestMapping(value = Paths.PATH_LOGIN, method = RequestMethod.GET)
     public ModelAndView getPaginaLogin(){
         ModelAndView model = new ModelAndView();
         model.setViewName("login");
@@ -24,7 +26,7 @@ public class WebPagesCtrl {
         return model;
     }
 
-    @RequestMapping(value = Paths.indexUsuarioPath, method = RequestMethod.GET)
+    @RequestMapping(value = Paths.PATH_INDEX_USUARIO, method = RequestMethod.GET)
     public ModelAndView getPaginaIndexUser(){
         ModelAndView model = new ModelAndView();
         //Para testes
@@ -34,7 +36,7 @@ public class WebPagesCtrl {
         return model;
     }
 
-    @RequestMapping(value = Paths.indexCompanhiaPath, method = RequestMethod.GET)
+    @RequestMapping(value = Paths.PATH_INDEX_COMPANHIA, method = RequestMethod.GET)
     public ModelAndView getPaginaIndexCompany(){
         ModelAndView model = new ModelAndView();
         //Para testes

@@ -36,4 +36,9 @@ public class StringsConstantes {
 	//----------Senha----------//
 	public final static String MESAGEM_DE_ERRO_SENHA_NULA = StringsConstantes.SENHA + " não pode ser nula.";
 	public final static String MESAGEM_DE_ERRO_SENHA_QTD_CARACTERES = StringsConstantes.SENHA + " deve ter entre 4 e 16 caracteres.";
+	
+	
+	//--------Array de Tipos de Anuncio---------//
+	public static final String[] TIPOS_DE_ANUNCIO_USUARIO_FISICO = new String[] {"movel", "imovel"};
+	public static final String[] TIPOS_DE_ANUNCIO_USUARIO_JURIDICO = new String[] {"movel", "imovel", "emprego", "servico"};
 }

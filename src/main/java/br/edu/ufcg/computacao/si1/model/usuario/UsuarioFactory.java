@@ -1,7 +1,6 @@
-package br.edu.ufcg.computacao.si1.model.factories;
+package br.edu.ufcg.computacao.si1.model.usuario;
 
-import br.edu.ufcg.computacao.si1.model.Usuario;
-import br.edu.ufcg.computacao.si1.model.enumerations.UsuarioRoleEnum;
+import br.edu.ufcg.computacao.si1.model.enumeration.UsuarioRoleEnum;
 
 public class UsuarioFactory {
 	

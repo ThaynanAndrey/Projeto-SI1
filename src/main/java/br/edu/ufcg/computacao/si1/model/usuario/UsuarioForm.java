@@ -1,4 +1,4 @@
-package br.edu.ufcg.computacao.si1.model.form;
+package br.edu.ufcg.computacao.si1.model.usuario;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;

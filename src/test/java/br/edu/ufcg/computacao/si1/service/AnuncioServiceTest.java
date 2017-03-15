@@ -1,7 +1,7 @@
 package br.edu.ufcg.computacao.si1.service;
 
-import br.edu.ufcg.computacao.si1.model.Anuncio;
-import br.edu.ufcg.computacao.si1.model.enumerations.NotaEnum;
+import br.edu.ufcg.computacao.si1.model.anuncio.Anuncio;
+import br.edu.ufcg.computacao.si1.model.enumeration.AvaliacaoEnum;
 import br.edu.ufcg.computacao.si1.repository.AnuncioRepository;
 import org.junit.After;
 import org.junit.Before;
@@ -33,9 +33,9 @@ public class AnuncioServiceTest {
 
     @Before
     public void setUp() {
-        anuncio1 = new Anuncio("Anuncio de Movel", new Date(), 100, NotaEnum.DOIS.getEstrelas(), "movel");
-        anuncio2 = new Anuncio("Anuncio de Imovel", new Date(), 100000, NotaEnum.TRES.getEstrelas(), "imovel");
-        anuncio3 = new Anuncio("Anuncio de Emprego", new Date(), 0, NotaEnum.UM.getEstrelas(), "emprego");
+        anuncio1 = new Anuncio("Anuncio de Movel", new Date(), 100, AvaliacaoEnum.DOIS.getEstrelas(), "movel");
+        anuncio2 = new Anuncio("Anuncio de Imovel", new Date(), 100000, AvaliacaoEnum.TRES.getEstrelas(), "imovel");
+        anuncio3 = new Anuncio("Anuncio de Emprego", new Date(), 0, AvaliacaoEnum.UM.getEstrelas(), "emprego");
     }
 
     @After
@@ -200,17 +200,17 @@ public class AnuncioServiceTest {
         assertEquals(anuncioEmprego.getPreco(), anuncioService.getById(anuncioEmprego.get_id()).get().getPreco());
 
         //Update nota
-        anuncioMovel.setNota(NotaEnum.QUATRO.getEstrelas());
-        anuncioImovel.setNota(NotaEnum.QUATRO.getEstrelas());
-        anuncioEmprego.setNota(NotaEnum.QUATRO.getEstrelas());
+        anuncioMovel.setNota(AvaliacaoEnum.QUATRO.getEstrelas());
+        anuncioImovel.setNota(AvaliacaoEnum.QUATRO.getEstrelas());
+        anuncioEmprego.setNota(AvaliacaoEnum.QUATRO.getEstrelas());
 
         assertTrue(anuncioService.update(anuncioMovel));
         assertTrue(anuncioService.update(anuncioImovel));
         assertTrue(anuncioService.update(anuncioEmprego));
 
-        assertEquals(NotaEnum.QUATRO.getEstrelas(), anuncioService.getById(anuncioMovel.get_id()).get().getNota());
-        assertEquals(NotaEnum.QUATRO.getEstrelas(), anuncioService.getById(anuncioImovel.get_id()).get().getNota());
-        assertEquals(NotaEnum.QUATRO.getEstrelas(), anuncioService.getById(anuncioEmprego.get_id()).get().getNota());
+        assertEquals(AvaliacaoEnum.QUATRO.getEstrelas(), anuncioService.getById(anuncioMovel.get_id()).get().getNota());
+        assertEquals(AvaliacaoEnum.QUATRO.getEstrelas(), anuncioService.getById(anuncioImovel.get_id()).get().getNota());
+        assertEquals(AvaliacaoEnum.QUATRO.getEstrelas(), anuncioService.getById(anuncioEmprego.get_id()).get().getNota());
     }
 
 }

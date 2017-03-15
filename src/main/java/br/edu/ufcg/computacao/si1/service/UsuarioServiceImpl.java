@@ -1,9 +1,9 @@
 package br.edu.ufcg.computacao.si1.service;
 
-import br.edu.ufcg.computacao.si1.model.Usuario;
-import br.edu.ufcg.computacao.si1.model.enumerations.UsuarioRoleEnum;
-import br.edu.ufcg.computacao.si1.model.factories.UsuarioFactory;
-import br.edu.ufcg.computacao.si1.model.form.UsuarioForm;
+import br.edu.ufcg.computacao.si1.model.enumeration.UsuarioRoleEnum;
+import br.edu.ufcg.computacao.si1.model.usuario.Usuario;
+import br.edu.ufcg.computacao.si1.model.usuario.UsuarioFactory;
+import br.edu.ufcg.computacao.si1.model.usuario.UsuarioForm;
 import br.edu.ufcg.computacao.si1.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

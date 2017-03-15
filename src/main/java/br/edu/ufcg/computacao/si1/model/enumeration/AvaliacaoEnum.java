@@ -1,11 +1,11 @@
-package br.edu.ufcg.computacao.si1.model.enumerations;
+package br.edu.ufcg.computacao.si1.model.enumeration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created by Marcus Oliveira on 08/12/16.
  */
-public enum NotaEnum {
+public enum AvaliacaoEnum {
 	
 	ZERO(""),
 	/**
@@ -31,7 +31,7 @@ public enum NotaEnum {
 	
 	private String estrelas;
 	
-	NotaEnum(String estrelas){
+	AvaliacaoEnum(String estrelas){
 		this.estrelas = estrelas;
 	}
 
