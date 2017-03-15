@@ -4,6 +4,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * Classe para alocacao de paths, ou urls, como constantes.
+ */
 public class Paths {
 	public Paths(){}
 	
