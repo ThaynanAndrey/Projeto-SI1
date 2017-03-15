@@ -10,16 +10,28 @@ import br.edu.ufcg.computacao.si1.model.usuario.Usuario;
 import br.edu.ufcg.computacao.si1.service.UsuarioServiceImpl;
 import br.edu.ufcg.computacao.si1.utils.Utils;
 
+/**Classe para objeto do tipo AnuncioFactory, que implementa o factory method do objeto Anuncio.
+ * @author Caio Felipe
+ */
 public class AnuncioFactory {
 	
 	@Autowired
 	UsuarioServiceImpl usuarioService;
 	
+	/**
+	 * Metodo que retorna o usuario logado.
+	 * @return Usuario - usuario logado.
+	 */
 	private Usuario getUsuarioLogado() {
 		String emailUsuario = Utils.userNameUsuarioLogado();
 		return usuarioService.getByEmail(emailUsuario).get();
 	}
 	
+	/**
+	 * Metodo factory que cria e retorna um anuncio recebendo as informacoes do formulario referente a ele.
+	 * @param AnuncioForm form - formulario do anuncio.
+	 * @return Anuncio - Anuncio criado pelo factory method.
+	 */
 	public Anuncio criarAnuncio(AnuncioForm form){
 		Anuncio anuncioNovo;
 		double quantia = form.getQuantia();	

@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by Marcus Oliveira on 08/12/16.
+ * Classe abstrata para objetos do tipo Anuncio, onde seráo contidos, valores e metodos para o mesmo.
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -48,7 +48,10 @@ public abstract class Anuncio {
         quantia = 0;
         avaliacao = null;
     }
-    
+	
+    /**
+     * Construtor do objeto
+     */
     public Anuncio(String titulo, double quantia, Usuario dono, Date dataDeCriacao) {
 		this.titulo = titulo;
 		this.quantia = quantia;
@@ -56,92 +59,92 @@ public abstract class Anuncio {
 	}
     
     /**
-     * Retorna o tipo do anúncio
-     * @return
+     * Metodo abstrato para retorno do tipo do anúncio que deve ser implementado nas subclasses.
+     * @return String - Tipo do anuncio.
      */
     public abstract String getTipo();
     
     /**
-     * Define o dono do anúncio
-     * @param dono
+     * Metodo para alteracao do dono do anúncio
+     * @param Usuario dono = dono do anuncio.
      */
 	public void setDono(Usuario dono) {
 		this.dono = dono;
 	}
 
     /**
-     * Retorna o id do anúncio
-     * @return o id do anuncio
+     * Metodo para retorno do id do anúncio
+     * @return Long id - o id do anuncio
      */
     public Long get_id() {
         return _id;
     }
 
     /**
-     * Modifica o id do anúncio
-     * @param _id id a ser colocado no anuncio
+     * Metodo para alteracao do id do anúncio
+     * @param long _id -  id a ser colocado no anuncio
      */public void set_id(Long _id) {
         this._id = _id;
     }
     
     /**
-     * Retorna o titulo do anúncio
-     * @return
+     * Metodo para retorno do titulo do anúncio
+     * @return String - Titulo do anuncio.
      */
     public String getTitulo() {
         return titulo;
     }
     
     /**
-     * Define o titulo do anúncio
-     * @param titulo
+     * Metodo para alteracao do titulo do anúncio
+     * @param String titulo - Titulo do anuncio.
      */
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
     
     /**
-     * Retorna a data de criação do anúncio
-     * @return
+     * Metodo para retorno da data de criação do anúncio
+     * @return String - Data de criacao do anuncio.
      */
     public String getDataDeCriacao() {
         return DATE_FORMAT.format(dataDeCriacao);
     }
     
     /**
-     * Define a data de criação do anúncio
-     * @param dataDeCriacao
+     * Metodo para alteracao da data de criação do anúncio
+     * @param String dataDeCriacao - Data de criacao do anuncio.
      */
     public void setDataDeCriacao(Date dataDeCriacao) {
         this.dataDeCriacao = dataDeCriacao;
     }
     
     /**
-     * Retorno o preço do anúncio
-     * @return
+     * Metodo para retorno do preço do anúncio
+     * @return Double - Valor ou salario referente ao anuncio.
      */
     public double getQuantia() {
         return quantia;
     }
     
-    /**]
-     * Define o preço do anúncio
-     * @param quantia
+    /**
+     * Metodo para alteracao do preço do anúncio
+     * @param Double quantia - Valor ou salario referente ao anuncio.
      */
     public void setQuantia(double quantia) {
         this.quantia = quantia;
     }
     
     /**
-     * Retorna a nota do anúncio
-     * @return
+     * Metodo para retorno da avaliacao do anúncio
+     * @return AvaliacaoEnum - Avaliacao do anuncio.
      */
     public AvaliacaoEnum getNota() {
         return avaliacao;
     }
     
     /**
-     * Define a nota do anúncio
+     * Metodo para alteracao da avaliacao do anúncio
      * @param nota
      */
     public void setNota(AvaliacaoEnum avaliacao) {

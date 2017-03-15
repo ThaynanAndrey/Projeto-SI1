@@ -31,10 +31,18 @@ public enum AvaliacaoEnum {
 	
 	private String estrelas;
 	
+	/**
+	 * Metodo de definicao do enum
+	 * @param String estrelas - quantidade de estrelas referente a avaliacao do usuario
+	 */
 	AvaliacaoEnum(String estrelas){
 		this.estrelas = estrelas;
 	}
 
+	/**
+	 * Metodo para retorno das estrelas do usuario
+	 * @return estrelas - estrelas de avaliacao do usuario
+	 */
 	public String getEstrelas() {
 		return estrelas;
 	}

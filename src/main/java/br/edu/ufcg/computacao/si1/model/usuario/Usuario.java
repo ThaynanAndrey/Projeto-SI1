@@ -13,6 +13,9 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Classe para objetos do tipo Usuario, onde serao contidos, valores e metodos para o mesmo.
+ * @author Caio Felipe
+ */
 @Entity(name = "Usuario")
 @Table(name = "tb_usuario")
 public class Usuario extends org.springframework.security.core.userdetails.User{
@@ -57,15 +60,10 @@ public class Usuario extends org.springframework.security.core.userdetails.User{
         super("default", "default", AuthorityUtils.createAuthorityList("USER"));
         anuncios = new ArrayList<>();
     }
-
-    public AvaliacaoEnum getAvaliacao() {
-		return avaliacao;
-	}
-
-	public void setAvaliacao(AvaliacaoEnum avaliacao) {
-		this.avaliacao = avaliacao;
-	}
-
+    
+	/**
+     * Construtor do objeto
+     */
 	public Usuario(String nome, String email, String senha, UsuarioRoleEnum tipoDeUsuario/*, double saldoDevedor, double saldoCredor, List<Anuncio> anuncios*/) {
     	super("default", "default", AuthorityUtils.createAuthorityList("USER"));
 		//this.id = id;
@@ -80,133 +78,150 @@ public class Usuario extends org.springframework.security.core.userdetails.User{
 	}
     
     /**
-     * Retorna os anuncios cadastrados pelo usuário
-     * @return
+     * Metodo para retorno dos anuncios cadastrados pelo usuário
+     * @return anuncios - anuncios pertencentes ao usuario.
      */
     public List<Anuncio> getAnuncios() {
 		return anuncios;
 	}
     
     /**
-     * Define os anuncios cadastrados pelo usuário
-     * @param anuncios
+     * Metodo para alteracao dos anuncios cadastrados pelo usuário
+     * @param List<Anuncio> anuncios - Novos anuncios do usuario.
      */
 	public void setAnuncios(List<Anuncio> anuncios) {
 		this.anuncios = anuncios;
 	}
 	
 	/**
-	 * Retorna o id do usuário
-	 * @return
+	 * Metodo para retorno do id do usuário
+	 * @return id - Id do usuario
 	 */
 	public Long getId() {
         return id;
     }
 	
 	/**
-	 * Define o id do usuário
-	 * @param id
+	 * Metodo para alteracao do id do usuário
+	 * @param Long id - Novo id usuario.
 	 */
     public void setId(Long id) {
         this.id = id;
     }
     
     /**
-     * Retorna o nome do usuário
-     * @return
+     * Metodo para retorno do nome do usuário
+     * @return nome - Nome do usuario.
      */
     public String getNome() {
         return nome;
     }
     
     /**
-     * Define o nome do usuário
-     * @param n
+     * Metodo para alteracao do nome do usuário
+     * @param String n - Nome do usuario.
      */
     public void setNome(String n) {
         this.nome = n;
     }
     
     /**
-     * Retorna o email do usuário
-     * @return
+     * Metodo para retorno do email do usuário
+     * @return email - Email do usuario
      */
     public String getEmail() {
         return email;
     }
     
     /**
-     * Define o email do usuário
-     * @param email
+     * Metodo para alteracao do email do usuário
+     * @param String email - novo email do usuario.
      */
     public void setEmail(String email) {
         this.email = email;
     }
     
     /**
-     * Retorna a senha do usuário
-     * @return
+     * Metodo para retorno da senha do usuário
+     * @return senha - senha do usuario
      */
     public String getSenha() {
         return senha;
     }
     
     /**
-     * Define a senha do usuário
-     * @param senha
+     * Metodo para alteracao da senha do usuário
+     * @param String senha - nova senha do usuario
      */
     public void setSenha(String senha) {
         this.senha = senha;
     }
     
     /**
-     * Retorna o tipo do usuário
-     * @return
+     * Metodo para retorno do tipo do usuário
+     * @return role - tipo do usuario
      */
     public UsuarioRoleEnum getRoleUsuario() {
         return role;
     }
     
     /**
-     * Define o tipo do usuário
-     * @param roleUsuario
+     * Metodo para alteracao do tipo do usuário
+     * @param UsuarioRoleEnunm role - novo tipo do usuario
      */
-    public void setRoleUsuario(UsuarioRoleEnum roleUsuario) {
-        this.role = roleUsuario;
+    public void setRoleUsuario(UsuarioRoleEnum role) {
+        this.role = role;
     }
     
     /**
-     * Retorna o saldo devedor do usuário
-     * @return
+     * Metodo para retorno do saldo devedor do usuário
+     * @return saldoDevedor - saldo devedor do usuario
      */
 	public double getSaldoDevedor() {
 		return saldoDevedor;
 	}
 	
 	/**
-	 * Define o saldo devedor do usuário
-	 * @param saldoDevedor
+	 * Metodo para alteracao do saldo devedor do usuário
+	 * @param double saldoDevedor - novo saldo devedor do usuario
 	 */
 	public void setSaldoDevedor(double saldoDevedor) {
 		this.saldoDevedor = saldoDevedor;
 	}
 	
 	/**
-	 * Retorna o saldo credor do usuário
-	 * @return
+	 * Metodo para retorno do saldo credor do usuário
+	 * @return saldoCredor - saldo credor do usuario
 	 */
 	public double getSaldoCredor() {
 		return saldoCredor;
 	}
 	
 	/**
-	 * Define o saldo credor do usuário
-	 * @param saldoCredor
+	 * Metodo para alteracao do saldo credor do usuário
+	 * @param double saldoCredor - Novo saldo credor do usuario
 	 */
 	public void setSaldoCredor(double saldoCredor) {
 		this.saldoCredor = saldoCredor;
 	}
-	
+	/**
+	 * Metodo para retorno da avaliacao do usuario.
+	 * @return AvaliacaoEnum - Avaliacao do usuario.
+	 */
+	 public AvaliacaoEnum getAvaliacao() {
+		 return avaliacao;
+	}
+	 /**
+	  * Metodo para alteracao da avaliacao do usuario
+	  * @param AvaliacaoEnum avaliacao - Avaliacao do usuario.
+	  */
+	 public void setAvaliacao(AvaliacaoEnum avaliacao) {
+		 this.avaliacao = avaliacao;
+	}
+	 /**
+	  * Metodo para retorno dos tipos de anuncios disponiveis de acordo com o tipo de usuario.
+	  * @return String[] - Tipos de anuncios disponiveis para o usuario criar.
+	  */
 	public String[] getTiposDeAnunciosDisponiveis() {
 		
 		String[] tiposDeAnuncio;

@@ -2,8 +2,18 @@ package br.edu.ufcg.computacao.si1.model.usuario;
 
 import br.edu.ufcg.computacao.si1.model.enumeration.UsuarioRoleEnum;
 
+/** Classe para objeto do tipo UsuarioFactory, que implementa o factory method do objeto Usuario.
+ * @author Caio Felipe
+ */
 public class UsuarioFactory {
 	
+	/** Metodo factory que cria e retorna um objeto do tipo Usuario recebendo as informacoes necessarias para criacao.
+	 * @param String tipoDeUsuario -Tipo do usuario
+	 * @param String nomeUsuario - Nome do usuario
+	 * @param String emailUsuario - Email do usuario
+	 * @param String senhaUsuario - Senha do usuario
+	 * @return Usuario - Usuario criado pelo factory method.
+	 */
 	public Usuario criarUsuario(String tipoDeUsuario, String nomeUsuario, String emailUsuario, String senhaUsuario){
 
 		Usuario usuario;
