@@ -38,9 +38,6 @@ public class AnuncioCtrl {
     @Autowired
     private UsuarioServiceImpl usuarioService;
     
-    private AnuncioFactory anuncioFactory = new AnuncioFactory();
-
-    
     @RequestMapping(method=RequestMethod.GET, value=Paths.PATH_LISTAR_ANUNCIOS_DE_USUARIO, produces=MediaType.APPLICATION_JSON_VALUE)
    	public ResponseEntity<Collection<Anuncio>> getPaginaAnunciosDeUsuario() {
    		
@@ -61,10 +58,8 @@ public class AnuncioCtrl {
     
     @RequestMapping(method=RequestMethod.POST, value=Paths.PATH_CADASTRAR_ANUNCIO_USUARIO, consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Anuncio> cadastrarAnuncioUsuario(@RequestBody AnuncioForm anuncioForm) {
-    	System.out.println("--------form:  " + anuncioForm);
-    	Anuncio anuncio = anuncioFactory.criarAnuncio(anuncioForm);
-    	System.out.println("PASSOUU");
-		Anuncio novoAnuncioCadastrado = anuncioService.create(anuncio);
+
+		Anuncio novoAnuncioCadastrado = anuncioService.create(anuncioForm);
 		
 		return new ResponseEntity<>(novoAnuncioCadastrado, HttpStatus.CREATED);
 	}

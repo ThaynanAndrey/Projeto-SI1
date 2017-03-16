@@ -1,6 +1,8 @@
 package br.edu.ufcg.computacao.si1.service;
 
 import br.edu.ufcg.computacao.si1.model.anuncio.Anuncio;
+import br.edu.ufcg.computacao.si1.model.anuncio.AnuncioFactory;
+import br.edu.ufcg.computacao.si1.model.anuncio.AnuncioForm;
 import br.edu.ufcg.computacao.si1.repository.AnuncioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,10 +16,11 @@ import java.util.stream.Collectors;
  * Created by Marcus Oliveira on 28/12/16.
  */
 @Service
-public class AnuncioServiceImpl implements IService<Anuncio, Anuncio> {
+public class AnuncioServiceImpl implements IService<Anuncio, AnuncioForm> {
     //TODO add validity checks
 
     private AnuncioRepository anuncioRepository;
+    private AnuncioFactory anuncioFactory = new AnuncioFactory();
 
     @Autowired
     public AnuncioServiceImpl(AnuncioRepository anuncioRepository) {
@@ -30,7 +33,9 @@ public class AnuncioServiceImpl implements IService<Anuncio, Anuncio> {
     }
 
     @Override
-    public Anuncio create(Anuncio anuncio) {
+    public Anuncio create(AnuncioForm anuncioForm) {
+    	
+    	Anuncio anuncio = anuncioFactory.criarAnuncio(anuncioForm);
         /*aqui salvamos o anuncio recem criado no repositorio jpa*/
         return anuncioRepository.save(anuncio);
     }
