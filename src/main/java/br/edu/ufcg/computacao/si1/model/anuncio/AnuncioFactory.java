@@ -38,7 +38,9 @@ public class AnuncioFactory {
 		String titulo = form.getTitulo();
 		Date dataDeCriacao =  new Date();
 		
-		Usuario dono = null; //TEMPORARIO
+		System.out.println("PASSOU NA DATA");
+		Usuario dono = form.getDono(); //TEMPORARIO
+		System.out.println("PASSOU NO USUARIO");
 		
 		if(form.getTipo().equals(TipoDeAnuncioEnum.MOVEL.toString().toLowerCase())){
 			anuncioNovo = new AnuncioMovel(titulo, quantia,dono,dataDeCriacao);

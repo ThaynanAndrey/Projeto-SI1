@@ -3,6 +3,7 @@ package br.edu.ufcg.computacao.si1.model.anuncio;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import br.edu.ufcg.computacao.si1.model.usuario.Usuario;
 import br.edu.ufcg.computacao.si1.utils.StringsConstantes;
 
 import java.util.Date;
@@ -32,8 +33,21 @@ public class AnuncioForm {
      
     private Date dataDeAgendamento;
     
+    private Usuario dono;
     
-    /**
+    public Usuario getDono() {
+		return dono;
+	}
+
+	public void setDono(Usuario dono) {
+		this.dono = dono;
+	}
+
+	public void setQuantia(Double quantia) {
+		this.quantia = quantia;
+	}
+
+	/**
      * Metodo para retorno do titulo do anúncio
      * @return String - Titulo do anuncio.
      */

@@ -20,7 +20,7 @@
           
           <tbody>
             <tr ng-repeat="anuncio in anuncios">
-              <td>{{anuncio.titulo}}</td>
+              <td ng-click="pegarDono(anuncio._id)">{{anuncio.titulo}}</td>
               <td>{{anuncio.tipo}}</td>
               <td>{{anuncio.dataDeCriacao}}</td>
               <td>R$ {{anuncio.quantia}}</td>

@@ -16,12 +16,14 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin(origins="*")
@@ -56,12 +58,38 @@ public class AnuncioCtrl {
 		return new ResponseEntity<>(usuarioLogado.get(), HttpStatus.OK);
 	}
     
+    @RequestMapping(method=RequestMethod.GET, value="/user/meus_anuncios", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Anuncio>> retornarAnunciosUsuarioLogado() {
+		
+    	String email = Utils.userNameUsuarioLogado();    	
+		Optional<Usuario> usuarioLogado = usuarioService.getByEmail(email);
+		Usuario usuario = usuarioLogado.get(); 
+		
+		return new ResponseEntity<>(usuario.getAnuncios(), HttpStatus.OK);
+	}
+    
     @RequestMapping(method=RequestMethod.POST, value=Paths.PATH_CADASTRAR_ANUNCIO_USUARIO, consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Anuncio> cadastrarAnuncioUsuario(@RequestBody AnuncioForm anuncioForm) {
 
+    	String email = Utils.userNameUsuarioLogado();
+    	Optional<Usuario> usuarioLogado = usuarioService.getByEmail(email);
+    	Usuario usuario = usuarioLogado.get(); 
+    	
+    	anuncioForm.setDono(usuario);
 		Anuncio novoAnuncioCadastrado = anuncioService.create(anuncioForm);
 		
 		return new ResponseEntity<>(novoAnuncioCadastrado, HttpStatus.CREATED);
+	}
+    
+    @RequestMapping(method=RequestMethod.GET, value="/user/anuncio/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Usuario> retornaListaDeTarefasEspecifica(@PathVariable Long id) {
+		
+		Anuncio anuncio = anuncioService.getById(id).get();
+		
+		if(anuncio == null)
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		
+		return new ResponseEntity<>(anuncio.pegueDono(), HttpStatus.OK);
 	}
     //
 //	  PARA APAGAR

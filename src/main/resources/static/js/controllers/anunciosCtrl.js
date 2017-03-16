@@ -40,4 +40,22 @@ angular.module("adExtreme")
 		
 	};
 	
+	$scope.meusAnuncios = function() {
+		
+		$http({
+			  method: 'GET',
+			  url: 'http://localhost:8080/user/meus_anuncios',
+		      headers: {
+                'Cross-Origin': "*"
+     			}
+		
+			}).then(function successCallback(response) {
+					console.log("certo");
+					console.log(response.data);
+			  }, function errorCallback(response) {
+				  console.log("errado");
+				  console.log(response);
+			  });
+		
+	};
 });

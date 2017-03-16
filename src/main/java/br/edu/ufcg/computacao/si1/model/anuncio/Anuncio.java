@@ -56,6 +56,7 @@ public abstract class Anuncio {
 		this.titulo = titulo;
 		this.quantia = quantia;
 		this.dataDeCriacao =  dataDeCriacao;
+		this.dono = dono;
 	}
     
     /**
@@ -72,6 +73,10 @@ public abstract class Anuncio {
 		this.dono = dono;
 	}
 
+	public Usuario pegueDono() {
+		return this.dono;
+	}
+	
     /**
      * Metodo para retorno do id do anúncio
      * @return Long id - o id do anuncio
