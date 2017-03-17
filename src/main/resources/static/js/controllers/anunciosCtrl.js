@@ -2,60 +2,34 @@ angular.module("adExtreme")
 
 .controller("anunciosCtrl", function($scope, RestService, $state, $http) {
 
+	const rotaListarAnuncios = "/usuario/listar/anuncios";
+	const rotaPegarUsuarioLogado = "/usuario/usuarioLogado";
+	const rotaAnunciosDeUsuarioLogado = "/usuario/logado/anuncios"
+
+	pegarUsuario();
+		
 	$scope.testar = function() {
-		console.log("Chamouuu");
 		
-		$http({
-			  method: 'GET',
-			  url: 'http://localhost:8080/usuario/listar/anuncios',
-		      headers: {
-                  'Cross-Origin': "*"
-       			}
-		
-			}).then(function successCallback(response) {
-					console.log("certo");
-					console.log(response.data);
-			  }, function errorCallback(response) {
-				  console.log("errado");
-				  console.log(response);
-			  });
+		RestService.find(rotaListarAnuncios, function(response) {
+			console.log(response);
+		});
 	};
 	
-	$scope.testarUsuario = function() {
+	function pegarUsuario() {
 	
-		$http({
-			  method: 'GET',
-			  url: 'http://localhost:8080/usuario/usuarioLogado',
-		      headers: {
-                'Cross-Origin': "*"
-     			}
-		
-			}).then(function successCallback(response) {
-					console.log("certo");
-					console.log(response.data);
-			  }, function errorCallback(response) {
-				  console.log("errado");
-				  console.log(response);
-			  });
-		
+		RestService.find(rotaPegarUsuarioLogado, function(response) {
+			//console.log(response);
+			$scope.usuarioLogado = response.data;
+			$scope.saldoUsuario = $scope.usuarioLogado.saldoCredor + $scope.usuarioLogado.saldoDevedor;
+			$scope.saldoDevedor = - $scope.usuarioLogado.saldoDevedor;
+			console.log($scope.usuarioLogado);
+		});
 	};
 	
 	$scope.meusAnuncios = function() {
 		
-		$http({
-			  method: 'GET',
-			  url: 'http://localhost:8080/usuario/logado/anuncios',
-		      headers: {
-                'Cross-Origin': "*"
-     			}
-		
-			}).then(function successCallback(response) {
-					console.log("certo");
-					console.log(response.data);
-			  }, function errorCallback(response) {
-				  console.log("errado");
-				  console.log(response);
-			  });
-		
+		RestService.find(rotaAnunciosDeUsuarioLogado, function(response) {
+			console.log(response);
+		});	
 	};
 });

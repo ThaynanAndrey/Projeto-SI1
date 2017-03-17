@@ -1,7 +1,14 @@
-<div class="container-fluid" style="margin-top: 100px">
+<div class="container-fluid" style="margin-top: 30px">
     
-    <h1>ME MOSTRE AGORA</h1>
-    <button ng-click="testar()">TESTAR</button>
+    <h1>Olá, {{usuarioLogado.nome}}</h1>
+    <h3>Como vai?</h3>
+    
+    <br></br>
+    
+    <h3>Seu saldo atual é: R$ {{saldoUsuario}}</h3>
+    <h4>Você tem seu saldo de compra de: R$ {{saldoDevedor}} </h4>
+    <h4>E seu saldo de venda é de: R$ {{usuarioLogado.saldoCredor}} </h4>
+    <!--<button ng-click="testar()">TESTAR</button>
     <button ng-click="testarUsuario()">TESTAR USUARIO</button>
-    <button ng-click="meusAnuncios()">Meus Anuncios</button>
+    <button ng-click="meusAnuncios()">Meus Anuncios</button> -->
 </div>
