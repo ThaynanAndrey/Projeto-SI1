@@ -2,14 +2,14 @@ angular.module("adExtreme")
 
 .controller("cadastrarAnuncioCtrl", function($scope, RestService, $state, $http) {
 
-	const rotaAdicaoDeAnuncio = "/user/cadastrar/anuncio";
-	const rotaTiposDeAnuncio = "/tiposDeAnuncio";
+	const rotaAdicaoDeAnuncio = "/usuario/cadastrar/anuncio";
+	const rotaTiposDeAnuncios = "/usuario/anuncios/tipos/cadastrar";
 
-	$scope.tiposDeAnuncio = ["emprego"];
-	//carregarTiposDeAnuncio();
+	$scope.tiposDeAnuncio = [];
+	carregarTiposDeAnuncio();
 
 	function carregarTiposDeAnuncio() {
-		RestService.find(rotaTiposDeAnuncio, function(tiposDeAnuncio) {
+		RestService.find(rotaTiposDeAnuncios, function(tiposDeAnuncio) {
 			$scope.tiposDeAnuncio = tiposDeAnuncio;
 		});
 	};

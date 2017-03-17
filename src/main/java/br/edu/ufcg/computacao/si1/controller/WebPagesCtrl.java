@@ -35,14 +35,4 @@ public class WebPagesCtrl {
 
         return model;
     }
-
-    @RequestMapping(value = Paths.PATH_INDEX_COMPANHIA, method = RequestMethod.GET)
-    public ModelAndView getPaginaIndexCompany(){
-        ModelAndView model = new ModelAndView();
-        //Para testes
-        System.out.println("me chamou company");
-        model.setViewName("user/index");
-
-        return model;
-    }
 }

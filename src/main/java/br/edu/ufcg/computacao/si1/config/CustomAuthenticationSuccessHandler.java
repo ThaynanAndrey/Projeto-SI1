@@ -62,7 +62,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         }
 
         if (isUser || isAdmin) {
-            return "/user";
+            return "/usuario";
         } else {	
             throw new IllegalStateException();
         }

@@ -7,7 +7,7 @@ angular.module("adExtreme")
 		
 		$http({
 			  method: 'GET',
-			  url: 'http://localhost:8080/user/listar/anuncios',
+			  url: 'http://localhost:8080/usuario/listar/anuncios',
 		      headers: {
                   'Cross-Origin': "*"
        			}
@@ -25,7 +25,7 @@ angular.module("adExtreme")
 	
 		$http({
 			  method: 'GET',
-			  url: 'http://localhost:8080/usuarioLogado',
+			  url: 'http://localhost:8080/usuario/usuarioLogado',
 		      headers: {
                 'Cross-Origin': "*"
      			}
@@ -44,7 +44,7 @@ angular.module("adExtreme")
 		
 		$http({
 			  method: 'GET',
-			  url: 'http://localhost:8080/user/meus_anuncios',
+			  url: 'http://localhost:8080/usuario/logado/anuncios',
 		      headers: {
                 'Cross-Origin': "*"
      			}

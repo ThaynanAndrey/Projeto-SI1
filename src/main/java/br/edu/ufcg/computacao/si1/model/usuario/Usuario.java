@@ -233,4 +233,15 @@ public class Usuario extends org.springframework.security.core.userdetails.User{
 		
 		return tiposDeAnuncio;
 	}
+	
+	public void comprarAnuncio(Anuncio anuncio) {
+		
+		this.saldoDevedor -= anuncio.getQuantia();
+	}
+	
+	public void venderAnuncio(Anuncio anuncio) {
+		
+		this.saldoCredor += anuncio.getQuantia();
+	}
+	
 }

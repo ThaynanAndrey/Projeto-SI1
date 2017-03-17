@@ -10,11 +10,9 @@ import org.springframework.web.servlet.ModelAndView;
 public class Paths {
 	public Paths(){}
 	
-	public static final String PATH_CADASTRAR_ANUNCIO_USUARIO = "/user/cadastrar/anuncio";
-	public static final String PATH_LISTAR_ANUNCIOS_DE_USUARIO = "/user/listar/anuncios";
-	public static final String PATH_RETORNAR_USUARIO_LOGADO = "/usuarioLogado";
-	public static final String cadastrarAnuncioCompanhiaPath = "/company/cadastrar/anuncio";
-	public static final String listarAnunciosDeCompanhiaPath = "/company/listar/anuncios";
+	public static final String PATH_CADASTRAR_ANUNCIO_USUARIO = "/usuario/cadastrar/anuncio";
+	public static final String PATH_LISTAR_ANUNCIOS_DE_USUARIO = "/usuario/listar/anuncios";
+	public static final String PATH_RETORNAR_USUARIO_LOGADO = "usuario/usuarioLogado";
 
 	public static final String PATH_CADASTRO_DE_USUARIO = "/cadastrar-se";
 	
@@ -24,7 +22,7 @@ public class Paths {
 
 	public static final String PATH_INDEX_PRINCIPAL = "/";
 	public static final String PATH_LOGIN = "/login";
-	public static final String PATH_INDEX_USUARIO = "/user";
+	public static final String PATH_INDEX_USUARIO = "/usuario";
 	public static final String PATH_INDEX_COMPANHIA = "/company";
 	
 	private static final String ERRO = "error";
