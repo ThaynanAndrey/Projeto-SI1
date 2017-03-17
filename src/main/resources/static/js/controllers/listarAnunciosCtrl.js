@@ -2,7 +2,7 @@ angular.module("adExtreme")
 
 .controller("listarAnunciosCtrl", function($scope, RestService, $state, $http) {
 
-	const rotaDePegarAnuncios = "/usuario/listar/anuncios";
+	const rotaDePegarAnuncios = "/usuario/listar/anuncios/comprar";
 
 	$scope.anuncios = [];
 
@@ -10,6 +10,7 @@ angular.module("adExtreme")
 
 	function pegarAnuncios() {
 		RestService.find(rotaDePegarAnuncios, function(response) {
+			console.log(response);
 			$scope.anuncios = response.data;
 		});
 	};
@@ -34,5 +35,30 @@ angular.module("adExtreme")
 				  console.log(response);
 			  });
 		
+	};
+	
+	$scope.comprarAnuncio = function(anuncio) {
+		$http({
+	        url: 'http://localhost:8080/usuario/comprar/anuncio',
+	        method: "POST",
+	        headers: {
+		 		'Content-type': 'application/json',
+		 		'Cross-Origin': "*" 
+	        },
+	        data: {
+	        	titulo: anuncio.titulo,
+	        	quantia: anuncio.quantia,
+	        	tipo: anuncio.tipo,
+	        	id: anuncio._id
+	        }
+	    })
+	    .then(function(response) {
+	    	console.log("certo");
+	    	console.log(response);
+	    }, 
+	    function(response) {
+	    	console.log("errado");
+	    	console.log(response);
+	    });
 	};
 });

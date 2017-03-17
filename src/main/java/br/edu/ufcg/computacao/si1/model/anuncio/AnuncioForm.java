@@ -30,8 +30,20 @@ public class AnuncioForm {
     @NotNull(message = StringsConstantes.MESAGEM_DE_ERRO_TIPO_ANUNCIO_NULO)
     @NotEmpty(message = StringsConstantes.MESAGEM_DE_ERRO_TIPO_ANUNCIO_VAZIO)
     private String tipo;
+    
+    private Long id;
+   
+    
      
-    private Date dataDeAgendamento;
+    public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	private Date dataDeAgendamento;
     
     private Usuario dono;
     

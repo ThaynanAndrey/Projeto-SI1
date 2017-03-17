@@ -100,11 +100,7 @@
 		      <artifactId>spring-security-config</artifactId>
 		      <version>4.0.3.RELEASE</version>
 		</dependency>
-
-	    <dependency>
-	    	<groupId>org.springframework.boot</groupId>
-	    	<artifactId>spring-boot-starter-jta-narayana</artifactId>
-	    </dependency>
+		
 	</dependencies>
 
 	<build>

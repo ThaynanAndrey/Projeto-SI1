@@ -54,10 +54,10 @@ public class AnuncioCtrl {
    		Collection<Anuncio> anunciosParaComprar = new ArrayList<Anuncio>();
    		
    		String email = Utils.userNameUsuarioLogado();    	
-		Usuario usuarioLogado = usuarioService.getByEmail(email).get();
+		//Usuario usuarioLogado = usuarioService.getByEmail(email).get();
    		 		
    		for (Anuncio anuncio : listaDeAnuncios){
-   			if(!anuncio.pegueDono().equals(usuarioLogado)){
+   			if(!anuncio.pegueDono().getEmail().equals(email)){
    				anunciosParaComprar.add(anuncio);
    			}
    		}	
@@ -88,7 +88,7 @@ public class AnuncioCtrl {
 	}
     
     @RequestMapping(method=RequestMethod.GET, value="/usuario/anuncios/tipos/cadastrar", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String[]> getTodosOsTiposDeAnunciosParaCadastro() {
+	public ResponseEntity<List<String>> getTodosOsTiposDeAnunciosParaCadastro() {
 		
     	String email = Utils.userNameUsuarioLogado();    	
 		Optional<Usuario> usuarioLogado = usuarioService.getByEmail(email);
@@ -121,18 +121,28 @@ public class AnuncioCtrl {
 		return new ResponseEntity<>(novoAnuncioCadastrado, HttpStatus.CREATED);
 	}
     
-    @RequestMapping(method=RequestMethod.POST, value="usuario/comprar/anuncio", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-   	public void comprarAnuncioUsuario(@RequestBody Anuncio anuncio) {
+    @RequestMapping(method=RequestMethod.POST, value="/usuario/comprar/anuncio", consumes=MediaType.APPLICATION_JSON_VALUE)
+   	public ResponseEntity<Anuncio> comprarAnuncioUsuario(@RequestBody AnuncioForm anuncioForm) {
 
+    	System.out.println("CHAMOUUUUUU");
+    	
        	String email = Utils.userNameUsuarioLogado();
        	Optional<Usuario> usuarioLogado = usuarioService.getByEmail(email);
        	Usuario comprador = usuarioLogado.get(); 
+       	
+       	Anuncio anuncio = anuncioService.getById(anuncioForm.getId()).get();
        	Usuario vendedor = anuncio.pegueDono();
        	
-       	vendedor.venderAnuncio(anuncio);
-       	comprador.comprarAnuncio(anuncio);
+       	System.out.println(comprador.getUsername());
+       	System.out.println(vendedor.getUsername());
        	
-   		anuncioService.delete(anuncio.get_id());
+       	vendedor.venderAnuncio(anuncio.getQuantia());
+       	comprador.comprarAnuncio(anuncio.getQuantia());
+       	
+   		anuncioService.delete(anuncioForm.getId());
+   		
+		return new ResponseEntity<>(anuncio, HttpStatus.CREATED);
+
    	}
     
     @RequestMapping(method=RequestMethod.PUT, value="/usuario/editar/anuncio", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)

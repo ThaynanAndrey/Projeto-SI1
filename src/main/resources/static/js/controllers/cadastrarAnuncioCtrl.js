@@ -5,11 +5,12 @@ angular.module("adExtreme")
 	const rotaAdicaoDeAnuncio = "/usuario/cadastrar/anuncio";
 	const rotaTiposDeAnuncios = "/usuario/anuncios/tipos/cadastrar";
 
-	$scope.tiposDeAnuncio = [];
-	carregarTiposDeAnuncio();
+	$scope.tiposDeAnuncio = ["movel"];
+//	carregarTiposDeAnuncio();
 
 	function carregarTiposDeAnuncio() {
 		RestService.find(rotaTiposDeAnuncios, function(tiposDeAnuncio) {
+			console.log(tiposDeAnuncio);
 			$scope.tiposDeAnuncio = tiposDeAnuncio;
 		});
 	};
@@ -17,7 +18,7 @@ angular.module("adExtreme")
 	$scope.cadastrarAnuncio = function(anuncioNovo) {
 		
 		 $http({
-		        url: 'http://localhost:8080/user/cadastrar/anuncio',
+		        url: 'http://localhost:8080/usuario/cadastrar/anuncio',
 		        method: "POST",
 		        headers: {
 			 		'Content-type': 'application/json',

@@ -222,9 +222,9 @@ public class Usuario extends org.springframework.security.core.userdetails.User{
 	  * Metodo para retorno dos tipos de anuncios disponiveis de acordo com o tipo de usuario.
 	  * @return String[] - Tipos de anuncios disponiveis para o usuario criar.
 	  */
-	public String[] getTiposDeAnunciosDisponiveis() {
+	public List<String> getTiposDeAnunciosDisponiveis() {
 		
-		String[] tiposDeAnuncio;
+		List<String> tiposDeAnuncio;
 		
 		if(this.role.equals(UsuarioRoleEnum.USUARIO_FISICO))
 			tiposDeAnuncio = StringsConstantes.TIPOS_DE_ANUNCIO_USUARIO_FISICO;
@@ -234,14 +234,14 @@ public class Usuario extends org.springframework.security.core.userdetails.User{
 		return tiposDeAnuncio;
 	}
 	
-	public void comprarAnuncio(Anuncio anuncio) {
+	public void comprarAnuncio(double valor) {
 		
-		this.saldoDevedor -= anuncio.getQuantia();
+		this.saldoDevedor -= valor;
 	}
 	
-	public void venderAnuncio(Anuncio anuncio) {
+	public void venderAnuncio(double valor) {
 		
-		this.saldoCredor += anuncio.getQuantia();
+		this.saldoCredor += valor;
 	}
 	
 }

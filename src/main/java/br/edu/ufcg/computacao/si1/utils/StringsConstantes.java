@@ -1,5 +1,8 @@
 package br.edu.ufcg.computacao.si1.utils;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class StringsConstantes {
 
 	private final static String TITULO = "O titulo";
@@ -30,8 +33,10 @@ public class StringsConstantes {
 	public final static String MESAGEM_DE_ERRO_QTD_CARACTERES_NOME = StringsConstantes.NOME + " deve ter entre 2 e 100 caracteres.";
 	
     //--------Array de Tipos de Anuncio---------//
-public static final String[] TIPOS_DE_ANUNCIO_USUARIO_FISICO = new String[] {"movel", "imovel"};
-public static final String[] TIPOS_DE_ANUNCIO_USUARIO_JURIDICO = new String[] {"movel", "imovel", "emprego", "servico"};
+private static final String[] tiposFisico = {"movel", "imovel"};
+private static final String[] tiposJuridico = {"movel", "imovel", "emprego", "servico"};
+public static final List<String> TIPOS_DE_ANUNCIO_USUARIO_FISICO = Arrays.asList(tiposFisico); 
+public static final List<String> TIPOS_DE_ANUNCIO_USUARIO_JURIDICO =  Arrays.asList(tiposJuridico); 
 	
 	//----------Email----------//
 	public final static String MESAGEM_DE_ERRO_EMAIL_VAZIO = StringsConstantes.EMAIL + " não pode ser vazio.";
