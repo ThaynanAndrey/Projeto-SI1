@@ -29,9 +29,7 @@ public class WebPagesCtrl {
     @RequestMapping(value = Paths.PATH_INDEX_USUARIO, method = RequestMethod.GET)
     public ModelAndView getPaginaIndexUser(){
         ModelAndView model = new ModelAndView();
-        //Para testes
-        System.out.println("me chamou ususario");
-        model.setViewName("user/index");
+        model.setViewName("layout/layout_usuario_index");
 
         return model;
     }

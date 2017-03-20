@@ -3,6 +3,8 @@
 	<head>		
 		<meta charset="UTF-8"/>
 		
+		<link rel="shortcut icon" href="./img/favicon.ico"/>
+		
 		<title>Ad Extreme</title>
 	    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css"></link>
 	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
@@ -22,15 +24,10 @@
 		        </div>
 		        <div class="collapse navbar-collapse navbar-menubuilder">
 		            <ul class="nav navbar-nav navbar-left">
-		                <li class="dropdown">
-		                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Anúncios <span class="caret"></span></a>
-		                    <ul class="dropdown-menu">
-		                        <li><a ui-sref="cadastrarAnuncio">Cadastrar</a></li>
-		                        <li><a ui-sref="listarAnuncios">Todos os Anúncios</a></li>
-		                    </ul>
-		                </li>
+		            	<li><a ui-sref="listarAnuncios">Anúncios à Venda</a></li>
 		            </ul>
 		            <ul class="nav navbar-nav navbar-right">
+		            <li><a ui-sref="perfilPessoal">Meu Perfil</a></li>
 		                <li>
 		                    <a href="javascript:document.logout.submit()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
 		                    <form name="logout" th:action="@{/logout}" method="post" th:hidden="true">

@@ -14,7 +14,7 @@
               <th>Titulo</th>
               <th>Tipo</th>
               <th>Postado</th>
-              <th align="right">Preço</th>
+              <th>Preço</th>
             </tr>
           </thead>
           
@@ -24,7 +24,7 @@
               <td>{{anuncio.tipo}}</td>
               <td>{{anuncio.dataDeCriacao}}</td>
               <td>R$ {{anuncio.quantia}}</td>
-              <td><button ng-click="comprarAnuncio(anuncio)">comprar</button></td>
+              <td><button type="button" ng-click="comprarAnuncio(anuncio)" class="btn btn-success">Comprar</button></td>
             </tr>
           </tbody>
 

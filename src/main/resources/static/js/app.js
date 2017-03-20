@@ -22,5 +22,11 @@ angular.module("adExtreme", ['ui.router'])
                 url: "/listarAnuncios",
                 templateUrl: "../partials/listar_anuncios.html",
                 controller: "listarAnunciosCtrl"
+            })
+            
+            .state('perfilPessoal', {
+                url: "/meuPerfil",
+                templateUrl: "../partials/perfil_pessoal.html",
+                controller: "anunciosCtrl"
             });
 }]);

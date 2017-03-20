@@ -39,6 +39,7 @@ angular.module("adExtreme")
 		
 		RestService.add(rotaDecomprarAnuncio, anuncioComprado, function(response) {
 			console.log(response);
+			$state.go("home");	
 		});
 	};
 });

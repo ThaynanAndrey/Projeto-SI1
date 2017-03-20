@@ -4,10 +4,12 @@ angular.module("adExtreme")
 
 	const rotaListarAnuncios = "/usuario/listar/anuncios";
 	const rotaPegarUsuarioLogado = "/usuario/usuarioLogado";
-	const rotaAnunciosDeUsuarioLogado = "/usuario/logado/anuncios"
+	const rotaAnunciosDeUsuarioLogado = "/usuario/logado/anuncios";
+	const rotaPegarMeusAnuncios = "/usuario/logado/anuncios";
 
 	pegarUsuario();
-		
+	pegarMeusAnuncios();
+	
 	$scope.testar = function() {
 		
 		RestService.find(rotaListarAnuncios, function(response) {
@@ -15,15 +17,50 @@ angular.module("adExtreme")
 		});
 	};
 	
+	function pegarMeusAnuncios() {
+		
+		RestService.find(rotaPegarMeusAnuncios, function(response) {
+			$scope.meusAnuncios = response.data;
+		});
+	};
+	
 	function pegarUsuario() {
 	
 		RestService.find(rotaPegarUsuarioLogado, function(response) {
-			//console.log(response);
 			$scope.usuarioLogado = response.data;
 			$scope.saldoUsuario = $scope.usuarioLogado.saldoCredor + $scope.usuarioLogado.saldoDevedor;
 			$scope.saldoDevedor = - $scope.usuarioLogado.saldoDevedor;
-			console.log($scope.usuarioLogado);
+			$scope.saldoCredor = $scope.usuarioLogado.saldoCredor;
+			
+			consertarNumerosFlutuantes();
 		});
+	};
+	
+	function isDecimal(numero) {
+
+		if(isNaN(numero)) 
+			return false;
+		
+		return parseInt(numero) != parseFloat(numero);
+	};
+	
+	function consertarNumerosFlutuantes() {
+		
+		if(isDecimal($scope.saldoUsuario)) {
+			$scope.saldoUsuario = $scope.saldoUsuario.toFixed(2);
+		}
+		
+		if(isDecimal($scope.saldoDevedor)) {
+			$scope.saldoDevedor = $scope.saldoDevedor.toFixed(2);
+		}
+		
+		if(isDecimal($scope.saldoCredor)) {
+			$scope.saldoCredor = $scope.saldoCredor.toFixed(2);
+		}
+	}
+	
+	$scope.meusAnunciosEstaVazio = function() {
+		return $scope.meusAnuncios.length == 0;
 	};
 	
 	$scope.meusAnuncios = function() {
@@ -32,4 +69,9 @@ angular.module("adExtreme")
 			console.log(response);
 		});	
 	};
+	
+	$scope.criarNovoAnuncio = function() {
+		$state.go("cadastrarAnuncio");		
+	};
+	
 });

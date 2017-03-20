@@ -19,6 +19,7 @@ angular.module("adExtreme")
 		
 		RestService.add(rotaAdicaoDeAnuncio, anuncioNovo, function(response) {
 			console.log(response);
+			$state.go("home");
 		});
 	};
 
