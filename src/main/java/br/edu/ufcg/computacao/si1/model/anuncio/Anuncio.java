@@ -15,8 +15,6 @@ import java.util.Date;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Anuncio {
 
-    private final static DateFormat DATE_FORMAT = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
-
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "anuncio_id", nullable = false, unique = true)
@@ -29,7 +27,7 @@ public abstract class Anuncio {
     private double quantia;
 
     @Column(name = "data_criacao", nullable = false)
-    private Date dataDeCriacao;
+    private Long dataDeCriacao;
 
     @Column(name = "avaliacao")
     @Enumerated(EnumType.STRING)
@@ -44,7 +42,7 @@ public abstract class Anuncio {
 	 */
 	public Anuncio() {
         titulo = "";
-        dataDeCriacao = new Date();
+        dataDeCriacao = new Date().getTime();
         quantia = 0;
         avaliacao = null;
     }
@@ -52,7 +50,7 @@ public abstract class Anuncio {
     /**
      * Construtor do objeto
      */
-    public Anuncio(String titulo, double quantia, Usuario dono, Date dataDeCriacao) {
+    public Anuncio(String titulo, double quantia, Usuario dono, Long dataDeCriacao) {
 		this.titulo = titulo;
 		this.quantia = quantia;
 		this.dataDeCriacao =  dataDeCriacao;
@@ -112,15 +110,15 @@ public abstract class Anuncio {
      * Metodo para retorno da data de criação do anúncio
      * @return String - Data de criacao do anuncio.
      */
-    public String getDataDeCriacao() {
-        return DATE_FORMAT.format(dataDeCriacao);
+    public Long getDataDeCriacao() {
+        return dataDeCriacao;
     }
     
     /**
      * Metodo para alteracao da data de criação do anúncio
      * @param String dataDeCriacao - Data de criacao do anuncio.
      */
-    public void setDataDeCriacao(Date dataDeCriacao) {
+    public void setDataDeCriacao(Long dataDeCriacao) {
         this.dataDeCriacao = dataDeCriacao;
     }
     

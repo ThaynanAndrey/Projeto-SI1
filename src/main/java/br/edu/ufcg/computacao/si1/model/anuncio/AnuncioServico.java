@@ -18,7 +18,7 @@ import br.edu.ufcg.computacao.si1.model.usuario.Usuario;
 @Table(name="tb_anuncio_servico")
 public class AnuncioServico extends Anuncio{
 
-    @Column(name = "data_agendamento", nullable = false)
+    @Column(name = "data_agendamento")
     private Date dataDeAgendamento;
 	
     /**
@@ -31,7 +31,7 @@ public class AnuncioServico extends Anuncio{
 	/**
      * Construtor do objeto
      */
-	public AnuncioServico(String titulo, double quantia,Usuario dono, Date dataDeCriacao, Date dataDeAgendamento){
+	public AnuncioServico(String titulo, double quantia,Usuario dono, Long dataDeCriacao, Date dataDeAgendamento){
 		super(titulo,quantia,dono, dataDeCriacao);
 		this.dataDeAgendamento = dataDeAgendamento;
 	}

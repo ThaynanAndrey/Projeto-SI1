@@ -27,7 +27,7 @@ public class AnuncioEmprego extends Anuncio{
 	/**
      * Construtor do objeto
      */
-	public AnuncioEmprego(String titulo, double quantia,Usuario dono, Date dataDeCriacao){
+	public AnuncioEmprego(String titulo, double quantia,Usuario dono, Long dataDeCriacao){
 		super(titulo,quantia,dono, dataDeCriacao);
 	}
 	

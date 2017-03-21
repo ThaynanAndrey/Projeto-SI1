@@ -27,7 +27,7 @@ public class AnuncioMovel extends Anuncio{
 	/**
      * Construtor do objeto
      */
-	public AnuncioMovel(String titulo, double quantia,Usuario dono, Date dataDeCriacao){
+	public AnuncioMovel(String titulo, double quantia,Usuario dono, Long dataDeCriacao){
 		super(titulo,quantia,dono, dataDeCriacao);
 	}
 

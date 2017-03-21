@@ -36,7 +36,7 @@ public class AnuncioFactory {
 		Anuncio anuncioNovo;
 		double quantia = form.getQuantia();	
 		String titulo = form.getTitulo();
-		Date dataDeCriacao =  new Date();
+		Long dataDeCriacao =  new Date().getTime();
 		
 		System.out.println("PASSOU NA DATA");
 		Usuario dono = form.getDono(); //TEMPORARIO

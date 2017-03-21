@@ -6,17 +6,16 @@ angular.module("adExtreme")
 	const rotaTiposDeAnuncios = "/usuario/anuncios/tipos/cadastrar";
 
 	$scope.tiposDeAnuncio = [];
+
 	carregarTiposDeAnuncio();
 
 	function carregarTiposDeAnuncio() {
 		RestService.find(rotaTiposDeAnuncios, function(tiposDeAnuncio) {
-			console.log(tiposDeAnuncio.data);
 			$scope.tiposDeAnuncio = tiposDeAnuncio.data;
 		});
 	};
 
 	$scope.cadastrarAnuncio = function(anuncioNovo) {
-		
 		RestService.add(rotaAdicaoDeAnuncio, anuncioNovo, function(response) {
 			console.log(response);
 			$state.go("home");
@@ -26,4 +25,8 @@ angular.module("adExtreme")
 	$scope.limpar = function(anuncioNovo) {
 		anuncioNovo = {};
 	};
+
+	$scope.$watchCollection('anuncioNovo',function(novo){
+		console.log(novo);
+	});
 });

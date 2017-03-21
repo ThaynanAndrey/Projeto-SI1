@@ -6,20 +6,23 @@
             <span th:text="${mensagem}"></span>
         </div> -->
         <form class="form-horizontal" role="form">
-            <!-- <div class="alert alert-danger alert-dismissible" role="alert" th:if="${#fields.hasAnyErrors()}">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <ul class="list-unstyled">
-                    <th:block th:each="erro : ${#fields.detailedErrors()}">
-                        <li>
-                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-                            <span th:text="${erro.message}"></span>
-                        </li>
-                    </th:block>
-                </ul>
-            </div> -->
-            <fieldset>
-                <!-- Form Name -->
-                <legend>Cadastrar Anúncio</legend>
+
+            <legend>Cadastrar Anúncio</legend>
+
+            <div class="form-group"> 
+                <label class="col-md-4 control-label">Tipo de Anuncio</label>
+                    <div class="col-md-4 selectContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                            <select ng-model="anuncioNovo.tipo" name="state" class="form-control selectpicker">
+                            <option ng-repeat="tipo in tiposDeAnuncio">{{tipo}}</option>
+                        </select>
+                        </div>
+                    </div>
+                </div>
+
+            <fieldset ng-show="anuncioNovo.tipo">
+                
                 <!-- Text input-->
                 <div class="form-group">
                     <label class="col-md-4 control-label">Titulo</label>
@@ -28,25 +31,19 @@
                     </div>
                 </div>
                 <!-- Text input-->
-                <div class="form-group">
+                <div class="form-group" ng-if="anuncioNovo.tipo!='emprego'">
                     <label class="col-md-4 control-label">Preço</label>
                     <div class="col-md-4">
                         <input id="preco" ng-model="anuncioNovo.quantia" name="quantia" type="number" min="0.1"  step="any" placeholder="Preço" class="form-control input-md" required="required"/>
                     </div>
                 </div>
-               <div class="form-group"> 
-				<label class="col-md-4 control-label">Tipo de Anuncio</label>
-					<div class="col-md-4 selectContainer">
-						<div class="input-group">
-							<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-							<select ng-model="anuncioNovo.tipo" name="state" class="form-control selectpicker">
-							<option ng-repeat="tipo in tiposDeAnuncio">{{tipo}}</option>
-						</select>
-						</div>
-					</div>
-				</div>
+                <div class="form-group" ng-if="anuncioNovo.tipo=='emprego'">
+                    <label class="col-md-4 control-label">Salário</label>
+                    <div class="col-md-4">
+                        <input id="salario" ng-model="anuncioNovo.quantia" name="quantia" type="number" min="0.1"  step="any" placeholder="Salário" class="form-control input-md" required="required"/>
+                    </div>
+                </div>
 
-                
                 <!-- Button (Double) -->
                 <div class="form-group">
                     <div class="col-md-8 col-md-offset-4">
@@ -60,3 +57,5 @@
 
     </div>
 </div>
+
+

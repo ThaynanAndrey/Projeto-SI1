@@ -33,31 +33,41 @@ public class AnuncioForm {
     
     private Long id;
    
+    private Date dataDeAgendamento;
     
-     
+    private Usuario dono;
+    
+    /**
+     * Retorna o id do anuncio
+     * @return
+     */
     public Long getId() {
 		return id;
 	}
-
+    
+    /**
+     * Define o id do anuncio
+     * @param id
+     */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	private Date dataDeAgendamento;
-    
-    private Usuario dono;
-    
+    /**
+     * Retorna o dono do anuncio
+     * @return
+     */
     public Usuario getDono() {
 		return dono;
 	}
-
+    
+    /**
+     * Define o dono do anuncio
+     * @param dono
+     */
 	public void setDono(Usuario dono) {
 		this.dono = dono;
-	}
-
-	public void setQuantia(Double quantia) {
-		this.quantia = quantia;
-	}
+	}	
 
 	/**
      * Metodo para retorno do titulo do anúncio
@@ -92,12 +102,20 @@ public class AnuncioForm {
     }
     
     /**
-     * Metodo para retorno do preço do anúncio
+     * Metodo para retorno a quantia de compra do anuncio
      * @return Double - Valor ou salario referente ao anuncio.
      */
     public double getQuantia() {
         return quantia;
     }
+    
+    /**
+	 * Define a quantia de compra do anuncio
+	 * @param quantia
+	 */
+	public void setQuantia(Double quantia) {
+		this.quantia = quantia;
+	}
     
     /**
      * Metodo para alteracao do preço do anúncio
@@ -106,11 +124,19 @@ public class AnuncioForm {
     public void setQuantia(double quantia) {
         this.quantia = quantia;
     }
-
+    
+    /**
+     * Retorna o tipo de anuncio
+     * @return
+     */
     public String getTipo() {
         return tipo;
     }
-
+    
+    /**
+     * Define o tipo de anuncio
+     * @param tipo
+     */
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }

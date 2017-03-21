@@ -8,6 +8,10 @@ angular.module("adExtreme")
 
 	$scope.anuncios = [];
 
+	$scope.tiposDeAnuncioStatus = {'movel':true,'imovel':true,'emprego':true,'servico':true};
+	$scope.tiposDeAnuncio = ['movel','imovel','emprego','servico'];
+	$scope.tipoDeFiltragemSelecionado = 'TIPO_DE_ANUNCIO';
+	$scope.tiposDeFiltragem = ['DATA','TIPO_DE_ANUNCIO'];
 	pegarAnuncios();
 
 	function pegarAnuncios() {
@@ -42,4 +46,16 @@ angular.module("adExtreme")
 			$state.go("home");	
 		});
 	};
+
+	$scope.validarPeriodo = function(anuncio){
+		if($scope.inicioDataDeFiltragem && $scope.fimDataDeFiltragem){
+			var dataDeCriacao = anuncio.dataDeCriacao;
+			var inicio = $scope.inicioDataDeFiltragem.getTime();
+			var fim = $scope.fimDataDeFiltragem.getTime();
+			return dataDeCriacao>=inicio && dataDeCriacao<=fim;
+		}
+		else{
+			return true;
+		}
+	}
 });
