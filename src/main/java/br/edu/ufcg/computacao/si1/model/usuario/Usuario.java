@@ -6,6 +6,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import br.edu.ufcg.computacao.si1.model.anuncio.Anuncio;
 import br.edu.ufcg.computacao.si1.model.enumeration.AvaliacaoEnum;
 import br.edu.ufcg.computacao.si1.model.enumeration.UsuarioRoleEnum;
+import br.edu.ufcg.computacao.si1.model.notificacao.Notificacao;
 import br.edu.ufcg.computacao.si1.utils.StringsConstantes;
 
 import javax.persistence.*;
@@ -53,12 +54,15 @@ public class Usuario extends org.springframework.security.core.userdetails.User{
     @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL)
     private List<Anuncio> anuncios;
     
+    @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL)
+    private List<Notificacao> notificacoes;
     /**
      * Construtor default
      */
     public Usuario() {
         super("default", "default", AuthorityUtils.createAuthorityList("USER"));
-        anuncios = new ArrayList<>();
+        this.anuncios = new ArrayList<>();
+        this.notificacoes = new ArrayList<>(); 
     }
     
 	/**
@@ -72,6 +76,7 @@ public class Usuario extends org.springframework.security.core.userdetails.User{
 		this.senha = senha;
 		this.role = tipoDeUsuario;
 		this.anuncios = new ArrayList<>();
+        this.notificacoes = new ArrayList<>(); 
 		//this.anuncios = anuncios;
 		//this.saldoCredor = saldoCredor;
 		//this.saldoDevedor = saldoDevedor;
@@ -93,6 +98,22 @@ public class Usuario extends org.springframework.security.core.userdetails.User{
 		this.anuncios = anuncios;
 	}
 	
+	/**
+     * Metodo para retorno das notificacoes do usuário
+     * @return notificacoes - notificacoes pertencentes ao usuario.
+     */
+	public List<Notificacao> getNotificacao() {
+		return notificacoes;
+	}
+	
+	/**
+     * Metodo para alteracao das notificacoes pertencente ao usuário
+     * @param List<Notificacao> notificacoes - Novos notificacoes do usuario.
+     */
+	public void setNotificacao(List<Notificacao> notificacoes) {
+		this.notificacoes = notificacoes;
+	}
+
 	/**
 	 * Metodo para retorno do id do usuário
 	 * @return id - Id do usuario
