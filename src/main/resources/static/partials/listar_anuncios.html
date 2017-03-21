@@ -1,6 +1,6 @@
 <div class="col-md-offset-2 col-md-8">
     <h1>Anúncios</h1>
-  
+        
         <!-- EM ANGULAR -->
 
         <div ng-if="anunciosIsEmpty()">
@@ -22,7 +22,7 @@
             <tr ng-repeat="anuncio in anuncios" ng-show="tiposDeAnuncioStatus[anuncio.tipo] && validarPeriodo(anuncio)">
               <td ng-click="pegarDono(anuncio._id)">{{anuncio.titulo}}</td>
               <td>{{anuncio.tipo}}</td>
-              <td>{{anuncio.dataDeCriacao}}</td>
+              <td>{{anuncio.dataDeCriacaoFormatada}}</td>
               <td>R$ {{anuncio.quantia}}</td>
               <td><button type="button" ng-click="comprarAnuncio(anuncio)" class="btn btn-success">Comprar</button></td>
             </tr>
@@ -31,18 +31,18 @@
 
         <form name="filtragem">
             <span>Filtrar por: 
-                <select ng-model="tipoDeFiltragemSelecionado" ng-options="tipo for tipo in tiposDeFiltragem"></select>
+                <select class="selectpicker" ng-model="tipoDeFiltragemSelecionado" ng-options="tipo for tipo in tiposDeFiltragem"></select>
                 <br></br>
               </span>
 
-              <div ng-show="tipoDeFiltragemSelecionado=='TIPO_DE_ANUNCIO'">
+              <div ng-show="tipoDeFiltragemSelecionado=='Tipo'">
                 <span ng-repeat="tipo in tiposDeAnuncio">
                     <input type="checkbox" ng-model="tiposDeAnuncioStatus[tipo]" checked>{{tipo}}</input>
                 </span>
               </div>
               
-              <div ng-show="tipoDeFiltragemSelecionado=='DATA'">
-                <span>De: 
+              <div ng-show="tipoDeFiltragemSelecionado=='Data'">
+                <span>De 
                     <input type="date" ng-model="inicioDataDeFiltragem"></input>
                 </span>
                 <span>até

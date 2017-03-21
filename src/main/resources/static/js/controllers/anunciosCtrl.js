@@ -10,8 +10,8 @@ angular.module("adExtreme")
 	$scope.tiposDeAnuncioStatus = {'movel':true,'imovel':true,'emprego':true,'servico':true};
 	$scope.tiposDeAnuncio = ['movel','imovel','emprego','servico'];
 
-	$scope.tipoDeFiltragemSelecionado = 'TIPO_DE_ANUNCIO';
-	$scope.tiposDeFiltragem = ['DATA','TIPO_DE_ANUNCIO'];
+	$scope.tipoDeFiltragemSelecionado = 'Tipo';
+	$scope.tiposDeFiltragem = ['Data','Tipo'];
 	
 
 	pegarUsuario();
@@ -27,9 +27,18 @@ angular.module("adExtreme")
 	function pegarMeusAnuncios() {
 		
 		RestService.find(rotaPegarMeusAnuncios, function(response) {
-			$scope.meusAnuncios = response.data;
+			$scope.meusAnuncios = addAtributoDataFormatada(response.data);
 		});
 	};
+
+	function addAtributoDataFormatada(anuncios){
+		var anunciosAtualizados = [];
+		anuncios.forEach(function(anuncio){
+			anuncio.dataDeCriacaoFormatada = new Date(anuncio.dataDeCriacao).toLocaleString();;
+			anunciosAtualizados.push(anuncio);
+		});
+		return anunciosAtualizados;
+	}
 	
 	function pegarUsuario() {
 	

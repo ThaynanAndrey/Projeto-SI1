@@ -10,16 +10,26 @@ angular.module("adExtreme")
 
 	$scope.tiposDeAnuncioStatus = {'movel':true,'imovel':true,'emprego':true,'servico':true};
 	$scope.tiposDeAnuncio = ['movel','imovel','emprego','servico'];
-	$scope.tipoDeFiltragemSelecionado = 'TIPO_DE_ANUNCIO';
-	$scope.tiposDeFiltragem = ['DATA','TIPO_DE_ANUNCIO'];
+
+	$scope.tipoDeFiltragemSelecionado = 'Tipo';
+	$scope.tiposDeFiltragem = ['Data','Tipo'];
+
 	pegarAnuncios();
 
 	function pegarAnuncios() {
 		RestService.find(rotaDePegarAnuncios, function(response) {
-			console.log(response);
-			$scope.anuncios = response.data;
+			$scope.anuncios = adcAtributoDataFormatada(response.data);
 		});
 	};
+
+	function adcAtributoDataFormatada(anuncios){
+		var anunciosAtualizados = [];
+		anuncios.forEach(function(anuncio){
+			anuncio.dataDeCriacaoFormatada = new Date(anuncio.dataDeCriacao).toLocaleString();;
+			anunciosAtualizados.push(anuncio);
+		});
+		return anunciosAtualizados;
+	}
 
 	$scope.anunciosIsEmpty = function() {
 		return $scope.anuncios.length === 0;
@@ -57,5 +67,5 @@ angular.module("adExtreme")
 		else{
 			return true;
 		}
-	}
+	};
 });
