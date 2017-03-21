@@ -7,6 +7,13 @@ angular.module("adExtreme")
 	const rotaAnunciosDeUsuarioLogado = "/usuario/logado/anuncios";
 	const rotaPegarMeusAnuncios = "/usuario/logado/anuncios";
 
+	$scope.tiposDeAnuncioStatus = {'movel':true,'imovel':true,'emprego':true,'servico':true};
+	$scope.tiposDeAnuncio = ['movel','imovel','emprego','servico'];
+
+	$scope.tipoDeFiltragemSelecionado = 'TIPO_DE_ANUNCIO';
+	$scope.tiposDeFiltragem = ['DATA','TIPO_DE_ANUNCIO'];
+	
+
 	pegarUsuario();
 	pegarMeusAnuncios();
 	
@@ -72,6 +79,18 @@ angular.module("adExtreme")
 	
 	$scope.criarNovoAnuncio = function() {
 		$state.go("cadastrarAnuncio");		
+	};
+
+	$scope.validarPeriodo = function(anuncio){
+		if($scope.inicioDataDeFiltragem && $scope.fimDataDeFiltragem){
+			var dataDeCriacao = anuncio.dataDeCriacao;
+			var inicio = $scope.inicioDataDeFiltragem.getTime();
+			var fim = $scope.fimDataDeFiltragem.getTime();
+			return dataDeCriacao>=inicio && dataDeCriacao<=fim;
+		}
+		else{
+			return true;
+		}
 	};
 	
 });

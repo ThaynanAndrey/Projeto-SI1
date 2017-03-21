@@ -25,7 +25,7 @@
 		    </tr>
 		  </thead>
 		  <tbody>
-		    <tr ng-repeat="anuncio in meusAnuncios">
+		    <tr ng-repeat="anuncio in meusAnuncios" ng-show="tiposDeAnuncioStatus[anuncio.tipo] && validarPeriodo(anuncio)">
 	          <td ng-click="pegarDono(anuncio._id)">{{anuncio.titulo}}</td>
 	          <td>{{anuncio.tipo}}</td>
 	          <td>{{anuncio.dataDeCriacao}}</td>
@@ -34,7 +34,30 @@
 		  </tbody>
 		</table>
 	</div>
-	
+
+	<form name="filtragem">
+		<span>Filtrar por: 
+	      <select ng-model="tipoDeFiltragemSelecionado" ng-options="tipo for tipo in tiposDeFiltragem"></select>
+	      <br></br>
+	    </span>
+
+	    <div ng-show="tipoDeFiltragemSelecionado=='TIPO_DE_ANUNCIO'">
+	      <span ng-repeat="tipo in tiposDeAnuncio">
+	          <input type="checkbox" ng-model="tiposDeAnuncioStatus[tipo]" checked>{{tipo}}</input>
+	      </span>
+	    </div>
+	    
+	    <div ng-show="tipoDeFiltragemSelecionado=='DATA'">
+	      <span>De: 
+	          <input type="date" ng-model="inicioDataDeFiltragem"></input>
+	      </span>
+	      <span>até
+	          <input type="date" ng-model="fimDataDeFiltragem"></input>
+	      </span>
+	    </div>
+	    <br></br>
+	<form>
+
 	<button type="button" ng-click="criarNovoAnuncio()" class="btn btn-success">Cadastrar Anuncio</button>
 	
     <!--<button ng-click="testar()">TESTAR</button>
