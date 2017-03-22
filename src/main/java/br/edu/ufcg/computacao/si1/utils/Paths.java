@@ -13,6 +13,13 @@ public class Paths {
 	public static final String PATH_CADASTRAR_ANUNCIO_USUARIO = "/usuario/cadastrar/anuncio";
 	public static final String PATH_LISTAR_ANUNCIOS_DE_USUARIO = "/usuario/listar/anuncios";
 	public static final String PATH_RETORNAR_USUARIO_LOGADO = "usuario/usuarioLogado";
+	
+	public static final String PATH_CADASTRAR_NOTIFICACAO_USUARIO = "/usuario/cadastrar/notificacao";
+	public static final String PATH_LISTAR_NOTIFICACOES = "/usuario/listar/notificacao";
+	public static final String PATH_APAGAR_NOTIFICACAO_DE_USUARIO = "/usuario/deletar/notificacao/{id}";
+	public static final String PATH_LISTAR_NOTIFICACOES_DE_USUARIO_LOGADO = "/usuario/listar/minhas/notificacao";
+
+
 
 	public static final String PATH_CADASTRO_DE_USUARIO = "/cadastrar-se";
 	

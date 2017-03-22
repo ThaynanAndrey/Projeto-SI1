@@ -20,49 +20,49 @@ public class Notificacao {
 	    @Column(name = "notificacao_id", nullable = false, unique = true)
 	    private Long _id;
 
-	    @Column(name = "titulo", nullable = false)
-	    private String titulo;
+	    @Column(name = "descricao", nullable = false)
+	    private String descricao;
 	    
 	    @Column(name = "data_notificacao", nullable = false)
 	    private Long dataDeNotificacao;
 	    
-	    @ManyToOne(targetEntity = Usuario.class)
-	    @JoinColumn(name="usuario_id")
-	    private Usuario dono;
-	    
+//	    @ManyToOne(targetEntity = Usuario.class)
+//	    @JoinColumn(name="usuario_id")
+//	    private Usuario dono;
+//	    
 	    /**
 		 * Construtor default
 		 */
 		public Notificacao() {
-	        titulo = "";
+	        descricao = "";
 	        dataDeNotificacao = new Date().getTime();
 	    }
 		
 	    /**
 	     * Construtor do objeto
 	     */
-	    public Notificacao(String titulo,Usuario dono, Long dataDeNotificacao) {
-			this.titulo = titulo;
+	    public Notificacao(String titulo, Long dataDeNotificacao) {
+			this.descricao = titulo;
 			this.dataDeNotificacao =  dataDeNotificacao;
-			//this.dono = dono;
+//			this.dono = dono;
 		}
 	    
 	    
-		    /**
-		     * Metodo para alteracao do dono da notificacao
-		     * @param Usuario dono - Dono da notificacao
-		     */
-			public void setDono(Usuario dono) {
-				this.dono = dono;
-			}
-	
-			/**
-			 * Metodo para retorno do dono da notificacao
-			 * @return Usuario dono - Dono da notificacao
-			 */
-			public Usuario getDono() {
-				return this.dono;
-			}
+//		    /**
+//		     * Metodo para alteracao do dono da notificacao
+//		     * @param Usuario dono - Dono da notificacao
+//		     */
+//			public void setDono(Usuario dono) {
+//				this.dono = dono;
+//			}
+//	
+//			/**
+//			 * Metodo para retorno do dono da notificacao
+//			 * @return Usuario dono - Dono da notificacao
+//			 */
+//			public Usuario getDono() {
+//				return this.dono;
+//			}
 			
 	    /**
 	     * Metodo para retorno do id da notificacao
@@ -83,16 +83,16 @@ public class Notificacao {
 	     * Metodo para retorno do titulo da notificacao
 	     * @return String - Titulo da notificacao
 	     */
-	    public String getTitulo() {
-	        return titulo;
+	    public String getDescricao() {
+	        return descricao;
 	    }
 	    
 	    /**
 	     * Metodo para alteracao do titulo da notificacao
 	     * @param String titulo - Titulo da notificacao.
 	     */
-	    public void setTitulo(String titulo) {
-	        this.titulo = titulo;
+	    public void setDescricao(String descricao) {
+	        this.descricao = descricao;
 	    }
 	    
 	    /**

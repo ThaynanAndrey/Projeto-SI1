@@ -5,6 +5,8 @@ angular.module("adExtreme")
 	const rotaDePegarAnuncios = "/usuario/listar/anuncios/comprar";
 	const rotaDonoDoAnuncio = "/usuario/dono/anuncio/";
 	const rotaDecomprarAnuncio = "/usuario/comprar/anuncio";
+	const rotaCadastrarNotificacao = "/usuario/cadastrar/notificacao";
+	const rotaPegarUsuarioLogado = "usuario/usuarioLogado";
 
 	$scope.anuncios = [];
 
@@ -43,19 +45,36 @@ angular.module("adExtreme")
 	};
 	
 	$scope.comprarAnuncio = function(anuncio) {
-		anuncioComprado = {
+		var anuncioComprado = {
 	        	titulo: anuncio.titulo,
 	        	quantia: anuncio.quantia,
 	        	tipo: anuncio.tipo,
 	        	id: anuncio._id
 	        }; 
-		
+
+		var novaNotificacao = {
+				descricao: "Parabéns! Seu anúncio " + anuncio.titulo +" foi comprado pelo usuário " + /*$scope.usuarioLogado.nome  +*/ ".",
+				//dono: $scope.donoDoAnuncio.id,	
+				dataDeNotificacao: new Date().getTime()
+		};
+
 		if(anuncio.tipo=="servico"){
 			anuncioComprado.dataDeAgendamento = anuncio.dataDeAgendamento;
 		}
 
-		RestService.add(rotaDecomprarAnuncio, anuncioComprado, function(response) {
-			$state.go("home");	
+
+		RestService.add(rotaCadastrarNotificacao, novaNotificacao, function(data) {
+			RestService.add(rotaDecomprarAnuncio, anuncioComprado, function(response) {
+				$state.go("home");	
+			});
+		});
+	};
+
+	function pegarUsuario() {
+		console.log("11s");
+		RestService.find(rotaPegarUsuarioLogado, function(response) {
+			console.log(response);
+			$scope.usuarioLogado = response.data;
 		});
 	};
 
@@ -93,6 +112,7 @@ angular.module("adExtreme")
 		$scope.anuncioQuantia = quatiaAnuncioPorTipo(anuncio.tipo);
 		$scope.anuncioAdiquirir = compraAnuncioPorTipo(anuncio.tipo);
 		$scope.pegarDono(anuncio._id);
+		pegarUsuario();
 		$mdSidenav('anuncioInfo').toggle();
 	};
 	
