@@ -40,7 +40,7 @@ angular.module("adExtreme")
 
 	$scope.pegarDono = function(id) {
 		RestService.find(rotaDonoDoAnuncio + id, function(response) {
-			$scope.donoDoAnuncio = response.data.nome;
+			$scope.donoDoAnuncio = response.data;
 		});
 	};
 	
@@ -51,9 +51,16 @@ angular.module("adExtreme")
 	        	tipo: anuncio.tipo,
 	        	id: anuncio._id
 	        }; 
+	        console.log("11111");
+	        console.log($scope.donoDoAnuncio);
+
 		var novaNotificacao = {
 				descricao: "Parabéns! Seu anúncio " + anuncio.titulo +" foi comprado pelo usuário " + $scope.usuarioLogado.nome + ".",
-				//dono: $scope.donoDoAnuncio.id,	
+				dono: {"id": $scope.donoDoAnuncio.id,
+						"nome": $scope.donoDoAnuncio.nome,
+						"email": $scope.donoDoAnuncio.email,
+						"role": $scope.donoDoAnuncio.role
+					},	
 				dataDeNotificacao: new Date().getTime()
 		};
 

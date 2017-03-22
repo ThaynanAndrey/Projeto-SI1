@@ -31,9 +31,9 @@ public class NotificacaoCtrl {
 	
 	@RequestMapping(method=RequestMethod.POST, value=Paths.PATH_CADASTRAR_NOTIFICACAO_USUARIO, consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Notificacao> cadastrarNotificacaoUsuario(@RequestBody NotificacaoForm notificacaoForm) {
-
+		System.out.println("PASSOU UM");
 		Notificacao novaNotificacaoCadastrada = notificacaoService.create(notificacaoForm);
-		
+		System.out.println("PASSOU DOIS");
 		return new ResponseEntity<>(novaNotificacaoCadastrada, HttpStatus.CREATED);
 	}
 	

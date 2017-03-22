@@ -26,10 +26,10 @@ public class Notificacao {
 	    @Column(name = "data_notificacao", nullable = false)
 	    private Long dataDeNotificacao;
 	    
-//	    @ManyToOne(targetEntity = Usuario.class)
-//	    @JoinColumn(name="usuario_id")
-//	    private Usuario dono;
-//	    
+	    @ManyToOne(targetEntity = Usuario.class)
+	    @JoinColumn(name="usuario_id")
+	    private Usuario donoDeNotificacao;
+	    
 	    /**
 		 * Construtor default
 		 */
@@ -41,28 +41,20 @@ public class Notificacao {
 	    /**
 	     * Construtor do objeto
 	     */
-	    public Notificacao(String titulo, Long dataDeNotificacao) {
+	    public Notificacao(String titulo, Usuario dono, Long dataDeNotificacao) {
 			this.descricao = titulo;
 			this.dataDeNotificacao =  dataDeNotificacao;
-//			this.dono = dono;
+			this.donoDeNotificacao = dono;
 		}
 	    
 	    
-//		    /**
-//		     * Metodo para alteracao do dono da notificacao
-//		     * @param Usuario dono - Dono da notificacao
-//		     */
-//			public void setDono(Usuario dono) {
-//				this.dono = dono;
-//			}
-//	
-//			/**
-//			 * Metodo para retorno do dono da notificacao
-//			 * @return Usuario dono - Dono da notificacao
-//			 */
-//			public Usuario getDono() {
-//				return this.dono;
-//			}
+	    /**
+	     * Metodo para alteracao do dono da notificacao
+	     * @param Usuario dono - Dono da notificacao
+	     */
+		public void setDonoDeNotificacao(Usuario dono) {
+			this.donoDeNotificacao = dono;
+		}
 			
 	    /**
 	     * Metodo para retorno do id da notificacao

@@ -26,8 +26,8 @@ public class NotificacaoForm {
     private Long dataDeNotificacao;
    
     private Long _id;
-//   
-//    private Usuario dono;
+   
+    private Usuario dono;
 
 	public String getDescricao() {
 		return descricao;
@@ -53,13 +53,13 @@ public class NotificacaoForm {
 		this._id = _id;
 	}
 
-//	public Usuario getDono() {
-//		return dono;
-//	}
-//
-//	public void setDono(Usuario dono) {
-//		this.dono = dono;
-//	}
+	public Usuario getDono() {
+		return dono;
+	}
+
+	public void setDono(Usuario donoId) {
+		this.dono = donoId;
+	}
     
     
 }

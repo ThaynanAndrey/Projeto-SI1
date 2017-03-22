@@ -1,6 +1,6 @@
 angular.module("adExtreme")
 
-.controller("notificacoesCtrl", function($scope) {
+.controller("notificacoesCtrl", function($scope, RestService) {
 
 	const rotaPegarNotificacoesUsuarioLogado = "/usuario/listar/minhas/notificacao";
 
@@ -8,11 +8,22 @@ angular.module("adExtreme")
 
 	function pegarNotificoes() {
 		RestService.find(rotaPegarNotificacoesUsuarioLogado, function(response) {
-			$scope.notificacoes = response.data;
+			$scope.notificacoes = construcaoDeObjDeNotificacao(response.data);
 		});
 	};
 
-	$scope.notificacoesIsEmpty = function() {
-		return $scope.notificacoes.length === 0;
+	function construcaoDeObjDeNotificacao(notificacoes){
+		var notificacoesAtualizadas = [];
+		notificacoes.forEach(function(notificacao){
+			notificacao.dataDeNotificacaoFormatada = new Date(notificacao.dataDeNotificacao).toLocaleString().split(" ")[0];
+			notificacoesAtualizadas.push(notificacao);
+		});
+		return notificacoesAtualizadas;
 	}
+
+	$scope.notificacoesIsEmpty = function() {
+		return $scope.notificacoes.length == 0;
+	}
+
+	pegarNotificoes();
 });

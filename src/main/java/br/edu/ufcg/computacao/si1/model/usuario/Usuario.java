@@ -54,15 +54,15 @@ public class Usuario extends org.springframework.security.core.userdetails.User{
     @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL)
     private List<Anuncio> anuncios;
     
-//    @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL)
-//    private List<Notificacao> notificacoes;
+    @OneToMany(mappedBy = "donoDeNotificacao", cascade = CascadeType.ALL)
+    private List<Notificacao> notificacoes;
     /**
      * Construtor default
      */
     public Usuario() {
         super("default", "default", AuthorityUtils.createAuthorityList("USER"));
         this.anuncios = new ArrayList<>();
-//        this.notificacoes = new ArrayList<>(); 
+        this.notificacoes = new ArrayList<>(); 
     }
     
 	/**
@@ -76,7 +76,7 @@ public class Usuario extends org.springframework.security.core.userdetails.User{
 		this.senha = senha;
 		this.role = tipoDeUsuario;
 		this.anuncios = new ArrayList<>();
-//        this.notificacoes = new ArrayList<>(); 
+        this.notificacoes = new ArrayList<>(); 
 		//this.anuncios = anuncios;
 		//this.saldoCredor = saldoCredor;
 		//this.saldoDevedor = saldoDevedor;
@@ -98,21 +98,21 @@ public class Usuario extends org.springframework.security.core.userdetails.User{
 		this.anuncios = anuncios;
 	}
 	
-//	/**
-//     * Metodo para retorno das notificacoes do usuário
-//     * @return notificacoes - notificacoes pertencentes ao usuario.
-//     */
-//	public List<Notificacao> getNotificacao() {
-//		return notificacoes;
-//	}
-//	
-//	/**
-//     * Metodo para alteracao das notificacoes pertencente ao usuário
-//     * @param List<Notificacao> notificacoes - Novos notificacoes do usuario.
-//     */
-//	public void setNotificacao(List<Notificacao> notificacoes) {
-//		this.notificacoes = notificacoes;
-//	}
+	/**
+     * Metodo para retorno das notificacoes do usuário
+     * @return notificacoes - notificacoes pertencentes ao usuario.
+     */
+	public List<Notificacao> getNotificacao() {
+		return notificacoes;
+	}
+	
+	/**
+     * Metodo para alteracao das notificacoes pertencente ao usuário
+     * @param List<Notificacao> notificacoes - Novos notificacoes do usuario.
+     */
+	public void setNotificacao(List<Notificacao> notificacoes) {
+		this.notificacoes = notificacoes;
+	}
 
 	/**
 	 * Metodo para retorno do id do usuário

@@ -59,7 +59,7 @@
 			    <li class="list-group-item list-group-item-action"><span class="glyphicon glyphicon-pencil"></span> <b>Tipo: </b>{{anuncioSelecionado.tipo}}</li>
 			    <li class="list-group-item list-group-item-action"><span class="glyphicon glyphicon-equalizer"></span> <b>Data: </b> {{anuncioSelecionado.dataDeCriacaoFormatada}}</li>
 			    <li class="list-group-item list-group-item-action"><span class="glyphicon glyphicon-align-left"></span> <b>{{anuncioQuantia}}: R$ </b>{{anuncioSelecionado.quantia}}</li>
-			    <li class="list-group-item list-group-item-action"><span class="glyphicon glyphicon-align-left"></span> <b>Anunciante: </b>{{donoDoAnuncio}}</li>
+			    <li class="list-group-item list-group-item-action"><span class="glyphicon glyphicon-align-left"></span> <b>Anunciante: </b>{{donoDoAnuncio.nome}}</li>
 
           <form name="agendarServicoForm">
             <li class="list-group-item list-group-item-action" ng-if="anuncioSelecionado.tipo=='servico'"><span class="glyphicon glyphicon-align-left"></span> <b>Data de agendamento: </b><input type="datetime-local" ng-model="anuncioSelecionado.dataDeAgendamento" ng-required="true"></input></li>

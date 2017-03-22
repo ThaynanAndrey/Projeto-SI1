@@ -1,14 +1,26 @@
- <table class="table table-inverse" ng-if="!notificacoesIsEmpty()">
+<div class="col-md-offset-2 col-md-8">
+    <h1>Notificações</h1>
+        
+        <!-- EM ANGULAR -->
+
+        <div ng-if="notificacoesIsEmpty()">
+            <h4>Nenhuma notificação listado</h4>
+        </div>
+
+        <table class="table table-inverse" ng-if="!notificacoesIsEmpty()">
+          
           <thead class="thead-inverse">
             <tr>
               <th>Descrição</th>
               <th>Data</th>
             </tr>
           </thead>
+          
           <tbody>
             <tr ng-repeat="notificacao in notificacoes">
               <td>{{notificacao.descricao}}</td>
-              <td>{{notificacao.data}}</td>
+              <td>{{notificacao.dataDeNotificacaoFormatada}}</td>
             </tr>
           </tbody>
         </table>
+</div>

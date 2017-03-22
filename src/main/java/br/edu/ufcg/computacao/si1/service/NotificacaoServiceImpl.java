@@ -30,11 +30,11 @@ public class NotificacaoServiceImpl implements IService<Notificacao,NotificacaoF
 	@Override
 	public Notificacao create(NotificacaoForm notificacaoForm) {
     	String titulo = notificacaoForm.getDescricao();
-//    	Usuario dono = notificacaoForm.getDono();
+    	Usuario dono = notificacaoForm.getDono();
+    	System.out.println("id dono: " + dono.getNome());
     	Long dataDeNotificacao = notificacaoForm.getDataDeNotificacao();
     	
-		Notificacao novaNotificacao = new Notificacao(titulo, dataDeNotificacao);
-		System.out.println("3");
+		Notificacao novaNotificacao = new Notificacao(titulo, dono, dataDeNotificacao);
         /*aqui salvamos a notificacao recem criada no repositorio jpa*/
         return notificacaoRepository.save(novaNotificacao);
 	}
@@ -77,8 +77,6 @@ public class NotificacaoServiceImpl implements IService<Notificacao,NotificacaoF
     
 	 public List<Notificacao> notificacoesUsuarioLogado() {
 		Usuario usuario = this.getUsuarioLogado();
-		
-//			return usuario.getNotificacao();
-		return null;
+		return usuario.getNotificacao();
     }
 }
