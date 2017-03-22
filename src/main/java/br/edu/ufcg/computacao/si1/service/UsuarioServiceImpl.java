@@ -1,10 +1,12 @@
 package br.edu.ufcg.computacao.si1.service;
 
-import br.edu.ufcg.computacao.si1.model.enumeration.UsuarioRoleEnum;
+import br.edu.ufcg.computacao.si1.model.enumerations.UsuarioRoleEnum;
+import br.edu.ufcg.computacao.si1.model.factories.UsuarioFactory;
+import br.edu.ufcg.computacao.si1.model.forms.UsuarioForm;
 import br.edu.ufcg.computacao.si1.model.usuario.Usuario;
-import br.edu.ufcg.computacao.si1.model.usuario.UsuarioFactory;
-import br.edu.ufcg.computacao.si1.model.usuario.UsuarioForm;
 import br.edu.ufcg.computacao.si1.repository.UsuarioRepository;
+import br.edu.ufcg.computacao.si1.utils.Utils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,14 @@ public class UsuarioServiceImpl implements IService<Usuario,UsuarioForm>{
     @Autowired
     public void setUsuarioRepository(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
+    }
+    
+    public Usuario getUsuarioLogado() {
+    	String email = Utils.userNameUsuarioLogado();    	
+		Optional<Usuario> usuarioLogado = this.getByEmail(email);
+		Usuario usuario = usuarioLogado.get();
+		
+		return usuario;
     }
     
     @Override

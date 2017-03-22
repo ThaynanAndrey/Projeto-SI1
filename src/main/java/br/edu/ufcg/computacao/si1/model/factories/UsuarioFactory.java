@@ -1,6 +1,7 @@
-package br.edu.ufcg.computacao.si1.model.usuario;
+package br.edu.ufcg.computacao.si1.model.factories;
 
-import br.edu.ufcg.computacao.si1.model.enumeration.UsuarioRoleEnum;
+import br.edu.ufcg.computacao.si1.model.enumerations.UsuarioRoleEnum;
+import br.edu.ufcg.computacao.si1.model.usuario.Usuario;
 
 /** Classe para objeto do tipo UsuarioFactory, que implementa o factory method do objeto Usuario.
  * @author Caio Felipe

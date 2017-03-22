@@ -1,8 +1,8 @@
 package br.edu.ufcg.computacao.si1.controller;
 
 import br.edu.ufcg.computacao.si1.model.anuncio.Anuncio;
+import br.edu.ufcg.computacao.si1.model.forms.UsuarioForm;
 import br.edu.ufcg.computacao.si1.model.usuario.Usuario;
-import br.edu.ufcg.computacao.si1.model.usuario.UsuarioForm;
 import br.edu.ufcg.computacao.si1.service.UsuarioServiceImpl;
 import br.edu.ufcg.computacao.si1.utils.Paths;
 import br.edu.ufcg.computacao.si1.utils.Utils;
@@ -36,10 +36,9 @@ public class UsuarioCtrl {
     @RequestMapping(method=RequestMethod.GET, value=Paths.PATH_RETORNAR_USUARIO_LOGADO, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Usuario> retornarUsuarioLogado() {
 		
-    	String email = Utils.userNameUsuarioLogado();    	
-		Optional<Usuario> usuarioLogado = usuarioService.getByEmail(email);
-		
-		return new ResponseEntity<>(usuarioLogado.get(), HttpStatus.OK);
+    	Usuario usuarioLogado = usuarioService.getUsuarioLogado();
+    	
+		return new ResponseEntity<>(usuarioLogado, HttpStatus.OK);
 	}
     
     @RequestMapping(method=RequestMethod.GET, value="/usuario/todos/usuarios", produces=MediaType.APPLICATION_JSON_VALUE)

@@ -9,27 +9,8 @@
 
         <table class="table table-inverse" ng-if="!anunciosIsEmpty()">
 
-          <thead class="thead-inverse">
-            <tr>
-              <th>Titulo</th>
-              <th>Tipo</th>
-              <th>Postado</th>
-              <th>Valor</th>
-            </tr>
-          </thead>
-          
-          <tbody>
-            <tr ng-repeat="anuncio in anuncios" ng-show="tiposDeAnuncioStatus[anuncio.tipo] && validarPeriodo(anuncio)">
-              <td ng-click="pegarDono(anuncio._id)">{{anuncio.titulo}}</td>
-              <td>{{anuncio.tipo}}</td>
-              <td>{{anuncio.dataDeCriacaoFormatada}}</td>
-              <td>R$ {{anuncio.quantia}}</td>
-              <td><button type="button" ng-click="comprarAnuncio(anuncio)" class="btn btn-success">Comprar</button></td>
-            </tr>
-          </tbody>
-        </table>
-
-        <form name="filtragem">
+          <form name="filtragem">
+            </br>
             <span>Filtrar por: 
                 <select class="selectpicker" ng-model="tipoDeFiltragemSelecionado" ng-options="tipo for tipo in tiposDeFiltragem"></select>
                 <br></br>
@@ -49,5 +30,42 @@
                     <input type="date" ng-model="fimDataDeFiltragem"></input>
                 </span>
               </div>
-        <form> 
+              </br>
+          <form> 
+          
+          <thead class="thead-inverse">
+            <tr>
+              <th>Titulo</th>
+              <th>Tipo</th>
+              <th>Postado</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+          
+          <tbody>
+            <tr ng-click="apresentarSideNav(anuncio)" ng-repeat="anuncio in anuncios" ng-show="tiposDeAnuncioStatus[anuncio.tipo] && validarPeriodo(anuncio)">
+              <td ng-click="pegarDono(anuncio._id)">{{anuncio.titulo}}</td>
+              <td>{{anuncio.tipo}}</td>
+              <td>{{anuncio.dataDeCriacaoFormatada}}</td>
+              <td>R$ {{anuncio.quantia}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+		<md-sidenav style="padding-top:50px; height: 100%; width: 300px; position: fixed;" class="md-sidenav-right md-whiteframe-4dp" md-component-id="anuncioInfo">
+			
+			<div class="list-group">
+				<li class="list-group-item list-group-item-action"><span class="glyphicon glyphicon-file"></span> <b>Nome: </b>{{anuncioSelecionado.titulo}}</li>
+			    <li class="list-group-item list-group-item-action"><span class="glyphicon glyphicon-pencil"></span> <b>Tipo: </b>{{anuncioSelecionado.tipo}}</li>
+			    <li class="list-group-item list-group-item-action"><span class="glyphicon glyphicon-equalizer"></span> <b>Data: </b> {{anuncioSelecionado.dataDeCriacaoFormatada}}</li>
+			    <li class="list-group-item list-group-item-action"><span class="glyphicon glyphicon-align-left"></span> <b>{{anuncioQuantia}}: R$ </b>{{anuncioSelecionado.quantia}}</li>
+			    <li class="list-group-item list-group-item-action"><span class="glyphicon glyphicon-align-left"></span> <b>Anunciante: </b>{{donoDoAnuncio}}</li>
+
+          <form name="agendarServicoForm">
+            <li class="list-group-item list-group-item-action" ng-if="anuncioSelecionado.tipo=='servico'"><span class="glyphicon glyphicon-align-left"></span> <b>Data de agendamento: </b><input type="datetime-local" ng-model="anuncioSelecionado.dataDeAgendamento" ng-required="true"></input></li>
+
+  			    <button style="margin-left:10px; margin-top:10px" type="button" ng-click="comprarAnuncio(anuncioSelecionado)" class="btn btn-success" ng-disabled="agendarServicoForm.$invalid">{{anuncioAdiquirir}}</button>
+          </form>
+			</div>
+		</md-sidenav>
 </div>

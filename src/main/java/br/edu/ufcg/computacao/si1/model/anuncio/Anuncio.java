@@ -2,7 +2,8 @@ package br.edu.ufcg.computacao.si1.model.anuncio;
 
 
 import javax.persistence.*;
-import br.edu.ufcg.computacao.si1.model.enumeration.AvaliacaoEnum;
+
+import br.edu.ufcg.computacao.si1.model.enumerations.AvaliacaoEnum;
 import br.edu.ufcg.computacao.si1.model.usuario.Usuario;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

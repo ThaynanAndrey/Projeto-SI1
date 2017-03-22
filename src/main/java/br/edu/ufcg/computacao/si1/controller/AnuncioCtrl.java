@@ -1,14 +1,10 @@
 package br.edu.ufcg.computacao.si1.controller;
 
 import br.edu.ufcg.computacao.si1.model.anuncio.Anuncio;
-import br.edu.ufcg.computacao.si1.model.anuncio.AnuncioFactory;
-import br.edu.ufcg.computacao.si1.model.anuncio.AnuncioForm;
+import br.edu.ufcg.computacao.si1.model.forms.AnuncioForm;
 import br.edu.ufcg.computacao.si1.model.usuario.Usuario;
-import br.edu.ufcg.computacao.si1.repository.AnuncioRepository;
 import br.edu.ufcg.computacao.si1.service.AnuncioServiceImpl;
-import br.edu.ufcg.computacao.si1.service.UsuarioServiceImpl;
 import br.edu.ufcg.computacao.si1.utils.Paths;
-import br.edu.ufcg.computacao.si1.utils.Utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,12 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin(origins="*")
 @Controller
@@ -35,9 +28,6 @@ public class AnuncioCtrl {
 
     @Autowired
     private AnuncioServiceImpl anuncioService;
-    
-    @Autowired
-    private UsuarioServiceImpl usuarioService;
     
     @RequestMapping(method=RequestMethod.GET, value=Paths.PATH_LISTAR_ANUNCIOS_DE_USUARIO, produces=MediaType.APPLICATION_JSON_VALUE)
    	public ResponseEntity<Collection<Anuncio>> getTodosOsAnuncios() {
@@ -50,18 +40,7 @@ public class AnuncioCtrl {
     @RequestMapping(method=RequestMethod.GET, value="/usuario/listar/anuncios/comprar", produces=MediaType.APPLICATION_JSON_VALUE)
    	public ResponseEntity<Collection<Anuncio>> getTodosOsAnunciosParaComprar() {
    		
-   		Collection<Anuncio> listaDeAnuncios= anuncioService.getAll();
-   		Collection<Anuncio> anunciosParaComprar = new ArrayList<Anuncio>();
-   		
-   		String email = Utils.userNameUsuarioLogado();    	
-		//Usuario usuarioLogado = usuarioService.getByEmail(email).get();
-   		 		
-   		for (Anuncio anuncio : listaDeAnuncios){
-   			if(!anuncio.pegueDono().getEmail().equals(email)){
-   				anunciosParaComprar.add(anuncio);
-   			}
-   		}	
-   		
+    	Collection<Anuncio> anunciosParaComprar = anuncioService.anunciosDisponiveisParaUsuarioComprar();    		
    		return new ResponseEntity<>(anunciosParaComprar, HttpStatus.OK);
    	}
     
@@ -78,23 +57,19 @@ public class AnuncioCtrl {
     
     
     @RequestMapping(method=RequestMethod.GET, value="/usuario/logado/anuncios", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Anuncio>> getTodosOsAnunciosDoUsuarioLogado() {
+	public ResponseEntity<List<Anuncio>> getTodosOsAnunciosDoUsuarioLogado() { 
 		
-    	String email = Utils.userNameUsuarioLogado();    	
-		Optional<Usuario> usuarioLogado = usuarioService.getByEmail(email);
-		Usuario usuario = usuarioLogado.get(); 
-		
-		return new ResponseEntity<>(usuario.getAnuncios(), HttpStatus.OK);
+    	List<Anuncio> anunciosDoUsuarioLogado = anuncioService.todosAnunciosUsuarioLogado();
+    	
+		return new ResponseEntity<>(anunciosDoUsuarioLogado, HttpStatus.OK);
 	}
     
     @RequestMapping(method=RequestMethod.GET, value="/usuario/anuncios/tipos/cadastrar", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<String>> getTodosOsTiposDeAnunciosParaCadastro() {
 		
-    	String email = Utils.userNameUsuarioLogado();    	
-		Optional<Usuario> usuarioLogado = usuarioService.getByEmail(email);
-		Usuario usuario = usuarioLogado.get(); 
+    	List<String> tiposDeAnuncioParaCadastrar = anuncioService.tiposAnunciosParaCadastrarUsuarioLogado();
 		
-		return new ResponseEntity<>(usuario.getTiposDeAnunciosDisponiveis(), HttpStatus.OK);
+		return new ResponseEntity<>(tiposDeAnuncioParaCadastrar, HttpStatus.OK);
 	}
     
     @RequestMapping(method=RequestMethod.GET, value="/usuario/anuncio/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
@@ -111,38 +86,15 @@ public class AnuncioCtrl {
     @RequestMapping(method=RequestMethod.POST, value=Paths.PATH_CADASTRAR_ANUNCIO_USUARIO, consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Anuncio> cadastrarAnuncioUsuario(@RequestBody AnuncioForm anuncioForm) {
 
-    	String email = Utils.userNameUsuarioLogado();
-    	Optional<Usuario> usuarioLogado = usuarioService.getByEmail(email);
-    	Usuario usuario = usuarioLogado.get(); 
-    	
-    	anuncioForm.setDono(usuario);
 		Anuncio novoAnuncioCadastrado = anuncioService.create(anuncioForm);
 		
 		return new ResponseEntity<>(novoAnuncioCadastrado, HttpStatus.CREATED);
 	}
     
     @RequestMapping(method=RequestMethod.POST, value="/usuario/comprar/anuncio", consumes=MediaType.APPLICATION_JSON_VALUE)
-   	public ResponseEntity<Anuncio> comprarAnuncioUsuario(@RequestBody AnuncioForm anuncioForm) {
-
-    	System.out.println("CHAMOUUUUUU");
+   	public void comprarAnuncioUsuario(@RequestBody AnuncioForm anuncioForm) {
     	
-       	String email = Utils.userNameUsuarioLogado();
-       	Optional<Usuario> usuarioLogado = usuarioService.getByEmail(email);
-       	Usuario comprador = usuarioLogado.get(); 
-       	
-       	Anuncio anuncio = anuncioService.getById(anuncioForm.getId()).get();
-       	Usuario vendedor = anuncio.pegueDono();
-       	
-       	System.out.println(comprador.getUsername());
-       	System.out.println(vendedor.getUsername());
-       	
-       	vendedor.venderAnuncio(anuncio.getQuantia());
-       	comprador.comprarAnuncio(anuncio.getQuantia());
-       	
-   		anuncioService.delete(anuncioForm.getId());
-   		
-		return new ResponseEntity<>(anuncio, HttpStatus.CREATED);
-
+       	anuncioService.comprarAnuncio(anuncioForm);
    	}
     
     @RequestMapping(method=RequestMethod.PUT, value="/usuario/editar/anuncio", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)

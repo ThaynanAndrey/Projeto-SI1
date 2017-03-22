@@ -1,6 +1,6 @@
 angular.module("adExtreme")
 
-.controller("listarAnunciosCtrl", function($scope, RestService, $state, $http) {
+.controller("listarAnunciosCtrl", function($scope, RestService, $state, $mdSidenav) {
 
 	const rotaDePegarAnuncios = "/usuario/listar/anuncios/comprar";
 	const rotaDonoDoAnuncio = "/usuario/dono/anuncio/";
@@ -18,14 +18,15 @@ angular.module("adExtreme")
 
 	function pegarAnuncios() {
 		RestService.find(rotaDePegarAnuncios, function(response) {
-			$scope.anuncios = adcAtributoDataFormatada(response.data);
+			$scope.anuncios = construcaoDeObjDeAnuncio(response.data);
 		});
 	};
 
-	function adcAtributoDataFormatada(anuncios){
+
+	function construcaoDeObjDeAnuncio(anuncios){
 		var anunciosAtualizados = [];
 		anuncios.forEach(function(anuncio){
-			anuncio.dataDeCriacaoFormatada = new Date(anuncio.dataDeCriacao).toLocaleString();;
+			anuncio.dataDeCriacaoFormatada = new Date(anuncio.dataDeCriacao).toLocaleString().split(" ")[0];
 			anunciosAtualizados.push(anuncio);
 		});
 		return anunciosAtualizados;
@@ -36,14 +37,12 @@ angular.module("adExtreme")
 	};
 
 	$scope.pegarDono = function(id) {
-		
 		RestService.find(rotaDonoDoAnuncio + id, function(response) {
-			console.log(response);
-		});	
+			$scope.donoDoAnuncio = response.data.nome;
+		});
 	};
 	
 	$scope.comprarAnuncio = function(anuncio) {
-		
 		anuncioComprado = {
 	        	titulo: anuncio.titulo,
 	        	quantia: anuncio.quantia,
@@ -51,8 +50,11 @@ angular.module("adExtreme")
 	        	id: anuncio._id
 	        }; 
 		
+		if(anuncio.tipo=="servico"){
+			anuncioComprado.dataDeAgendamento = anuncio.dataDeAgendamento;
+		}
+
 		RestService.add(rotaDecomprarAnuncio, anuncioComprado, function(response) {
-			console.log(response);
 			$state.go("home");	
 		});
 	};
@@ -60,12 +62,38 @@ angular.module("adExtreme")
 	$scope.validarPeriodo = function(anuncio){
 		if($scope.inicioDataDeFiltragem && $scope.fimDataDeFiltragem){
 			var dataDeCriacao = anuncio.dataDeCriacao;
-			var inicio = $scope.inicioDataDeFiltragem.getTime();
-			var fim = $scope.fimDataDeFiltragem.getTime();
+			var inicio = $scope.inicioDataDeFiltragem.setHours(0,0,0,0);
+			var fim = $scope.fimDataDeFiltragem.setHours(23,59,59,999);
 			return dataDeCriacao>=inicio && dataDeCriacao<=fim;
 		}
 		else{
 			return true;
 		}
 	};
+	
+	function quatiaAnuncioPorTipo(tipo) {
+		if(tipo === "emprego")
+			return "Salário";
+
+		return "Preço";
+	}
+
+	function compraAnuncioPorTipo(tipo) {
+		if(tipo === "emprego")
+			return "Solicitar Vaga";
+
+		else if(tipo === "servico")
+			return "Agendar";
+
+		return "Comprar";
+	}
+
+	$scope.apresentarSideNav = function(anuncio) {
+		$scope.anuncioSelecionado = anuncio;
+		$scope.anuncioQuantia = quatiaAnuncioPorTipo(anuncio.tipo);
+		$scope.anuncioAdiquirir = compraAnuncioPorTipo(anuncio.tipo);
+		$scope.pegarDono(anuncio._id);
+		$mdSidenav('anuncioInfo').toggle();
+	};
+	
 });

@@ -7,7 +7,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
-import br.edu.ufcg.computacao.si1.model.enumeration.TipoDeAnuncioEnum;
+import br.edu.ufcg.computacao.si1.model.enumerations.TipoDeAnuncioEnum;
 import br.edu.ufcg.computacao.si1.model.usuario.Usuario;
 
 /**
@@ -37,6 +37,6 @@ public class AnuncioImovel extends Anuncio{
      */
 	@Override
 	public String getTipo() {
-		return TipoDeAnuncioEnum.IMOVEL.toString().toLowerCase();
+		return TipoDeAnuncioEnum.IMOVEL.getValor();
 	}
 }

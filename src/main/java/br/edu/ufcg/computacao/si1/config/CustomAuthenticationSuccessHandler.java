@@ -9,7 +9,7 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import br.edu.ufcg.computacao.si1.model.enumeration.UsuarioRoleEnum;
+import br.edu.ufcg.computacao.si1.model.enumerations.UsuarioRoleEnum;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

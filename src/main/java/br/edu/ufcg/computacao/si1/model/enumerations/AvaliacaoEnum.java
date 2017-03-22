@@ -1,4 +1,4 @@
-package br.edu.ufcg.computacao.si1.model.enumeration;
+package br.edu.ufcg.computacao.si1.model.enumerations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

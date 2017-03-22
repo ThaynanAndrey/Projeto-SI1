@@ -25,16 +25,15 @@ angular.module("adExtreme")
 	};
 	
 	function pegarMeusAnuncios() {
-		
 		RestService.find(rotaPegarMeusAnuncios, function(response) {
-			$scope.meusAnuncios = addAtributoDataFormatada(response.data);
+			$scope.meusAnuncios = construcaoDeObjDeAnuncio(response.data);
 		});
 	};
 
-	function addAtributoDataFormatada(anuncios){
+	function construcaoDeObjDeAnuncio(anuncios){
 		var anunciosAtualizados = [];
 		anuncios.forEach(function(anuncio){
-			anuncio.dataDeCriacaoFormatada = new Date(anuncio.dataDeCriacao).toLocaleString();;
+			anuncio.dataDeCriacaoFormatada = new Date(anuncio.dataDeCriacao).toLocaleString().split(" ")[0];
 			anunciosAtualizados.push(anuncio);
 		});
 		return anunciosAtualizados;
@@ -101,5 +100,4 @@ angular.module("adExtreme")
 			return true;
 		}
 	};
-	
 });

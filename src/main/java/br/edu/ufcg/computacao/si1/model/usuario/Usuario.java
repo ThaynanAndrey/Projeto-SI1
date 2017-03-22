@@ -4,8 +4,8 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.authority.AuthorityUtils;
 import br.edu.ufcg.computacao.si1.model.anuncio.Anuncio;
-import br.edu.ufcg.computacao.si1.model.enumeration.AvaliacaoEnum;
-import br.edu.ufcg.computacao.si1.model.enumeration.UsuarioRoleEnum;
+import br.edu.ufcg.computacao.si1.model.enumerations.AvaliacaoEnum;
+import br.edu.ufcg.computacao.si1.model.enumerations.UsuarioRoleEnum;
 import br.edu.ufcg.computacao.si1.utils.StringsConstantes;
 
 import javax.persistence.*;

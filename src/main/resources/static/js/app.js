@@ -1,4 +1,4 @@
-angular.module("adExtreme", ['ui.router'])
+angular.module("adExtreme", ['ui.router', 'ngMaterial', 'ngMessages'])
 
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
     
@@ -22,6 +22,12 @@ angular.module("adExtreme", ['ui.router'])
                 url: "/listarAnuncios",
                 templateUrl: "../partials/listar_anuncios.html",
                 controller: "listarAnunciosCtrl"
+            })
+
+            .state('notificacoesUsuario', {
+                url: "/minhasNotificacoes",
+                templateUrl: "../partials/notificacoes.html",
+                controller: "notificacoesCtrl"
             })
             
             .state('perfilPessoal', {

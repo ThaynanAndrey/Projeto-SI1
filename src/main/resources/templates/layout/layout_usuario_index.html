@@ -6,8 +6,8 @@
 		<link rel="shortcut icon" href="./img/favicon.ico"/>
 		
 		<title>Ad Extreme</title>
-	    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css"></link>
 	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+	    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css"></link>
 	</head>
 
 	<body>
@@ -27,6 +27,7 @@
 		            	<li><a ui-sref="listarAnuncios">Anúncios à Venda</a></li>
 		            </ul>
 		            <ul class="nav navbar-nav navbar-right">
+		            <li><a ui-sref="notificacoesUsuario">Minhas Notificações</a></li>
 		            <li><a ui-sref="perfilPessoal">Meu Perfil</a></li>
 		                <li>
 		                    <a href="javascript:document.logout.submit()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
@@ -53,6 +54,13 @@
 		
 		<script src="./node_modules/angular/angular.min.js"></script>
 		
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+	  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+	  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script> 
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+		
 		<script src="./node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
  
 		<script type="text/javascript" src="./js/app.js"></script>
@@ -61,6 +69,7 @@
 		<script type="text/javascript" src="./js/controllers/listarAnunciosCtrl.js"></script>
 		<script type="text/javascript" src="./js/services/httpRequestService.js"></script>
 		<script type="text/javascript" src="./js/services/restService.js"></script>
+		<script type="text/javascript" src="./js/controllers/notificacoesCtrl.js"></script>
 	</body>
 
 </html>
