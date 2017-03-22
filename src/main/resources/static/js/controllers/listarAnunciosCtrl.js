@@ -6,7 +6,7 @@ angular.module("adExtreme")
 	const rotaDonoDoAnuncio = "/usuario/dono/anuncio/";
 	const rotaDecomprarAnuncio = "/usuario/comprar/anuncio";
 	const rotaCadastrarNotificacao = "/usuario/cadastrar/notificacao";
-	const rotaPegarUsuarioLogado = "usuario/usuarioLogado";
+	const rotaPegarUsuarioLogado = "/usuario/usuarioLogado";
 
 	$scope.anuncios = [];
 
@@ -51,9 +51,8 @@ angular.module("adExtreme")
 	        	tipo: anuncio.tipo,
 	        	id: anuncio._id
 	        }; 
-
 		var novaNotificacao = {
-				descricao: "Parabéns! Seu anúncio " + anuncio.titulo +" foi comprado pelo usuário " + /*$scope.usuarioLogado.nome  +*/ ".",
+				descricao: "Parabéns! Seu anúncio " + anuncio.titulo +" foi comprado pelo usuário " + $scope.usuarioLogado.nome + ".",
 				//dono: $scope.donoDoAnuncio.id,	
 				dataDeNotificacao: new Date().getTime()
 		};
@@ -71,9 +70,7 @@ angular.module("adExtreme")
 	};
 
 	function pegarUsuario() {
-		console.log("11s");
 		RestService.find(rotaPegarUsuarioLogado, function(response) {
-			console.log(response);
 			$scope.usuarioLogado = response.data;
 		});
 	};
