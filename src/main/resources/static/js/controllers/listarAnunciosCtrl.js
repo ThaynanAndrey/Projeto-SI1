@@ -51,16 +51,28 @@ angular.module("adExtreme")
 	        	tipo: anuncio.tipo,
 	        	id: anuncio._id
 	        }; 
-	        console.log("11111");
-	        console.log($scope.donoDoAnuncio);
+	    var menssagemDeNotificacao;
+
+	    if(anuncio.tipo=="emprego"){
+			menssagemDeNotificacao = "Parabéns! O usuário " + $scope.usuarioLogado.nome + " solicitou uma vaga ao emprego " + 
+									anuncio.titulo + "."; 
+	    }
+	    else if(anuncio.tipo=="servico"){
+	    	var dataCompleta = (new Date(anuncio.dataDeCriacao).toLocaleString()).split(" ");
+	    	var data = dataCompleta[0];
+	    	var horario = dataCompleta[1];
+
+	    	menssagemDeNotificacao = "Parabéns! O usuário " + $scope.usuarioLogado.nome + " agendou seu serviço " + 
+	    							anuncio.titulo + " para o dia " + data + " às " + horario + ".";
+	    }
+	    else{
+	    	menssagemDeNotificacao = "Parabéns! Seu anúncio " + anuncio.titulo +" foi comprado pelo usuário " + 
+	    							$scope.usuarioLogado.nome + ".";
+	    }
 
 		var novaNotificacao = {
-				descricao: "Parabéns! Seu anúncio " + anuncio.titulo +" foi comprado pelo usuário " + $scope.usuarioLogado.nome + ".",
-				dono: {"id": $scope.donoDoAnuncio.id,
-						"nome": $scope.donoDoAnuncio.nome,
-						"email": $scope.donoDoAnuncio.email,
-						"role": $scope.donoDoAnuncio.role
-					},	
+				descricao: menssagemDeNotificacao,
+				dono: {"id": $scope.donoDoAnuncio.id},	
 				dataDeNotificacao: new Date().getTime()
 		};
 
