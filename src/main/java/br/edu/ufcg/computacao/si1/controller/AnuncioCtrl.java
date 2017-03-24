@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,42 +20,48 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Controller responsável por intermediar operações sobre os anúncios cadastrados
+ * do usuário.
+ * 
+ * @author Thaynan Andrey
+ *
+ */
 @CrossOrigin(origins="*")
-@Controller
 @RestController
 public class AnuncioCtrl {
 
     @Autowired
     private AnuncioServiceImpl anuncioService;
     
-    @RequestMapping(method=RequestMethod.GET, value=Paths.PATH_LISTAR_ANUNCIOS_DE_USUARIO, produces=MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method=RequestMethod.GET, value=Paths.PATH_LISTAR_TODOS_ANUNCIOS, produces=MediaType.APPLICATION_JSON_VALUE)
    	public ResponseEntity<Collection<Anuncio>> getTodosOsAnuncios() {
    		
-   		Collection<Anuncio> listaDeAnuncios= anuncioService.getAll();
+   		Collection<Anuncio> listaDeAnuncios= anuncioService.obterTodasEntidadesCadastradas();
    		
    		return new ResponseEntity<>(listaDeAnuncios, HttpStatus.OK);
    	}
     
-    @RequestMapping(method=RequestMethod.GET, value="/usuario/listar/anuncios/comprar", produces=MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method=RequestMethod.GET, value=Paths.PATH_LISTAR_ANUNCIOS_PARA_COMPRAR, produces=MediaType.APPLICATION_JSON_VALUE)
    	public ResponseEntity<Collection<Anuncio>> getTodosOsAnunciosParaComprar() {
    		
     	Collection<Anuncio> anunciosParaComprar = anuncioService.anunciosDisponiveisParaUsuarioComprar();    		
    		return new ResponseEntity<>(anunciosParaComprar, HttpStatus.OK);
    	}
     
-    @RequestMapping(method=RequestMethod.GET, value="/usuario/dono/anuncio/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method=RequestMethod.GET, value=Paths.PATH_DONO_DO_ANUNCIO_POR_ID, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Usuario> getDonoDoAnuncio(@PathVariable Long id) {
+    	
+    	Usuario dono = anuncioService.obterDonoDoAnuncio(id);
 		
-		Anuncio anuncio = anuncioService.getById(id).get();
-		
-		if(anuncio == null)
+		if(dono == null)
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		
-		return new ResponseEntity<>(anuncio.pegueDono(), HttpStatus.OK);
+		return new ResponseEntity<>(dono, HttpStatus.OK);
 	}
     
     
-    @RequestMapping(method=RequestMethod.GET, value="/usuario/logado/anuncios", produces=MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method=RequestMethod.GET, value=Paths.PATH_LISTAR_ANUNCIOS_DE_USUARIO_LOGADO, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Anuncio>> getTodosOsAnunciosDoUsuarioLogado() { 
 		
     	List<Anuncio> anunciosDoUsuarioLogado = anuncioService.todosAnunciosUsuarioLogado();
@@ -64,7 +69,7 @@ public class AnuncioCtrl {
 		return new ResponseEntity<>(anunciosDoUsuarioLogado, HttpStatus.OK);
 	}
     
-    @RequestMapping(method=RequestMethod.GET, value="/usuario/anuncios/tipos/cadastrar", produces=MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method=RequestMethod.GET, value=Paths.PATH_LISTAR_TIPOS_ANUNCIOS_USUARIO_LOGADO_PODE_CADASTRAR, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<String>> getTodosOsTiposDeAnunciosParaCadastro() {
 		
     	List<String> tiposDeAnuncioParaCadastrar = anuncioService.tiposAnunciosParaCadastrarUsuarioLogado();
@@ -72,10 +77,10 @@ public class AnuncioCtrl {
 		return new ResponseEntity<>(tiposDeAnuncioParaCadastrar, HttpStatus.OK);
 	}
     
-    @RequestMapping(method=RequestMethod.GET, value="/usuario/anuncio/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method=RequestMethod.GET, value=Paths.PATH_BUSCAR_ANUNCIO_POR_ID, produces=MediaType.APPLICATION_JSON_VALUE)
    	public ResponseEntity<Anuncio> getAnuncioPorID(@PathVariable Long id) {
    		
-   		Anuncio anuncio = anuncioService.getById(id).get();
+   		Anuncio anuncio = anuncioService.obterEntidadePorId(id).get();
    		
    		if(anuncio == null)
    			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -86,34 +91,36 @@ public class AnuncioCtrl {
     @RequestMapping(method=RequestMethod.POST, value=Paths.PATH_CADASTRAR_ANUNCIO_USUARIO, consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Anuncio> cadastrarAnuncioUsuario(@RequestBody AnuncioForm anuncioForm) {
 
-		Anuncio novoAnuncioCadastrado = anuncioService.create(anuncioForm);
+		Anuncio novoAnuncioCadastrado = anuncioService.criarNovaEntidade(anuncioForm);
 		
 		return new ResponseEntity<>(novoAnuncioCadastrado, HttpStatus.CREATED);
 	}
     
-    @RequestMapping(method=RequestMethod.POST, value="/usuario/comprar/anuncio", consumes=MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method=RequestMethod.POST, value=Paths.PATH_USUARIO_COMPRA_ANUNCIO, consumes=MediaType.APPLICATION_JSON_VALUE)
    	public void comprarAnuncioUsuario(@RequestBody AnuncioForm anuncioForm) {
     	
        	anuncioService.comprarAnuncio(anuncioForm);
    	}
     
-    @RequestMapping(method=RequestMethod.PUT, value="/usuario/editar/anuncio", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-	public boolean editarTarefa(@RequestBody Anuncio anuncio) {
+    @RequestMapping(method=RequestMethod.PUT, value=Paths.PATH_USUARIO_EDITAR_ANUNCIO, consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Boolean> editarTarefa(@RequestBody Anuncio anuncio) {
 		
-		boolean anuncioEditado = anuncioService.update(anuncio);
+		boolean anuncioEditado = anuncioService.atualizarEntidade(anuncio);
 		
-		return anuncioEditado;
+		if(!anuncioEditado)
+			return new ResponseEntity<>(anuncioEditado, HttpStatus.NOT_MODIFIED);
+		
+		return new ResponseEntity<>(anuncioEditado, HttpStatus.OK);
 	}
 	
-	@RequestMapping(method=RequestMethod.DELETE, value="/usuario/deletar/anuncio/{id}")
+	@RequestMapping(method=RequestMethod.DELETE, value=Paths.PATH_USUARIO_DELETAR_ANUNCIO_POR_ID)
 	public ResponseEntity<Anuncio> removerTarefa(@PathVariable Long id) {
 		
-		Anuncio anuncioEncontrado = anuncioService.getById(id).get();
+		boolean anuncioDeletado = anuncioService.deletarEntidade(id);
 		
-		if(anuncioEncontrado == null)
+		if(!anuncioDeletado)
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		
-		anuncioService.delete(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}   
     

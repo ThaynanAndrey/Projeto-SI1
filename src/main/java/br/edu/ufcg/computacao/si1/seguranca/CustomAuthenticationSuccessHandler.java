@@ -1,4 +1,4 @@
-package br.edu.ufcg.computacao.si1.config;
+package br.edu.ufcg.computacao.si1.seguranca;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -10,6 +10,8 @@ import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import br.edu.ufcg.computacao.si1.model.enumerations.UsuarioRoleEnum;
+import br.edu.ufcg.computacao.si1.utils.Constantes;
+import br.edu.ufcg.computacao.si1.utils.Paths;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,7 +42,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         String targetUrl = determineTargetUrl(authentication);
 
         if (response.isCommitted()) {
-            logger.debug("Não foi possível redirecionar para" + targetUrl);
+            logger.debug(Constantes.MESAGEM_DE_ERRO_REDIRECIONAMENTO_DE_PAGINA + targetUrl);
             return;
         }
 
@@ -62,7 +64,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         }
 
         if (isUser || isAdmin) {
-            return "/usuario";
+            return Paths.PATH_USUARIO;
         } else {	
             throw new IllegalStateException();
         }

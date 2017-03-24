@@ -15,12 +15,12 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import br.edu.ufcg.computacao.si1.model.usuario.Usuario;
-import br.edu.ufcg.computacao.si1.utils.StringsConstantes;
+import br.edu.ufcg.computacao.si1.utils.Constantes;
 
 public class NotificacaoForm {
-	@NotNull(message = StringsConstantes.MESAGEM_DE_ERRO_TITULO_NULO)
-    @NotEmpty(message = StringsConstantes.MESAGEM_DE_ERRO_TITULO_VAZIO)
-    @Size(min = 10, max = 100, message = StringsConstantes.MESAGEM_DE_ERRO_TITULO_QTD_CARACTERES)
+	@NotNull(message = Constantes.MESAGEM_DE_ERRO_TITULO_NULO)
+    @NotEmpty(message = Constantes.MESAGEM_DE_ERRO_TITULO_VAZIO)
+    @Size(min = 10, max = 100, message = Constantes.MESAGEM_DE_ERRO_TITULO_QTD_CARACTERES)
     private String descricao;
     
     private Long dataDeNotificacao;

@@ -11,27 +11,31 @@ import br.edu.ufcg.computacao.si1.model.forms.NotificacaoForm;
 import br.edu.ufcg.computacao.si1.model.notificacao.Notificacao;
 import br.edu.ufcg.computacao.si1.model.usuario.Usuario;
 import br.edu.ufcg.computacao.si1.repository.NotificacaoRepository;
-import br.edu.ufcg.computacao.si1.repository.UsuarioRepository;
-import br.edu.ufcg.computacao.si1.utils.Utils;
 
+/**
+ * Serviço responsável por gerenciar as operações sobre as entidades notificações que
+ * estão ou serão armazenadas no banco de dados.
+ * 
+ * @author Thaynan Andrey
+ * 
+ */
 @Service
 public class NotificacaoServiceImpl implements IService<Notificacao,NotificacaoForm>{
 
 	private NotificacaoRepository notificacaoRepository;
 	
 	@Autowired
+    private UsuarioServiceImpl usuarioService;
+	
+	@Autowired
     public void setNotificacaoRepository(NotificacaoRepository notificacaoRepository) {
         this.notificacaoRepository = notificacaoRepository;
     }
 	
-	@Autowired
-    private UsuarioServiceImpl usuarioService;
-	
 	@Override
-	public Notificacao create(NotificacaoForm notificacaoForm) {
+	public Notificacao criarNovaEntidade(NotificacaoForm notificacaoForm) {
     	String titulo = notificacaoForm.getDescricao();
     	Usuario dono = notificacaoForm.getDono();
-    	System.out.println("id dono: " + dono.getNome());
     	Long dataDeNotificacao = notificacaoForm.getDataDeNotificacao();
     	
 		Notificacao novaNotificacao = new Notificacao(titulo, dono, dataDeNotificacao);
@@ -40,43 +44,41 @@ public class NotificacaoServiceImpl implements IService<Notificacao,NotificacaoF
 	}
 
 	@Override
-	public boolean update(Notificacao notificacao) {
-		// Não necessário
-		return false;
+	public boolean atualizarEntidade(Notificacao notificacao) {
+		
+		boolean existeNotificao = notificacaoRepository.exists(notificacao.get_id());
+		
+		if(existeNotificao)
+			notificacaoRepository.save(notificacao);
+		
+		return existeNotificao;
 	}
 
 	@Override
-	public Optional<Notificacao> getById(Long id) {
+	public Optional<Notificacao> obterEntidadePorId(Long id) {
 		/*aqui recuperamos a notificacao pelo seu id*/
         return Optional.ofNullable(notificacaoRepository.findOne(id));
 	}
 
 	@Override
-	public Collection<Notificacao> getAll() {
+	public Collection<Notificacao> obterTodasEntidadesCadastradas() {
 		/*aqui retornamos todas as notificacoes, sem distincao*/
 		return notificacaoRepository.findAll();
 	}
 
 	@Override
-	public boolean delete(Long id) {
+	public boolean deletarEntidade(Long id) {
 		/*aqui se apaga a notificacao se ela existir*/
-        if (notificacaoRepository.exists(id)) {
-        	notificacaoRepository.delete(id);
-            return true;
-        }
-        return false;
-	}
-	
-	private Usuario getUsuarioLogado() {
-    	String email = Utils.userNameUsuarioLogado();    	
-		Optional<Usuario> usuarioLogado = usuarioService.getByEmail(email);
-		Usuario usuario = usuarioLogado.get();
+        boolean existeNotificacao = notificacaoRepository.exists(id);
 		
-		return usuario;
-    }
+        if (existeNotificacao)
+        	notificacaoRepository.delete(id);
+        
+        return existeNotificacao;
+	}
     
 	 public List<Notificacao> notificacoesUsuarioLogado() {
-		Usuario usuario = this.getUsuarioLogado();
+		Usuario usuario = usuarioService.getUsuarioLogado();
 		return usuario.getNotificacao();
     }
 }

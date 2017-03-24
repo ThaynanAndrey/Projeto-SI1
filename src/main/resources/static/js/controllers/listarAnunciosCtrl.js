@@ -34,7 +34,7 @@ angular.module("adExtreme")
 		return anunciosAtualizados;
 	}
 
-	$scope.anunciosIsEmpty = function() {
+	$scope.anunciosEstaVazio = function() {
 		return $scope.anuncios.length === 0;
 	};
 

@@ -5,7 +5,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * Classe auxiliar com implementacao de metodos estaticos para utilizacao no projeto.
- * @author OSMAR
+ * 
+ * @author Thaynan Andrey
  *
  */
 public class Utils {

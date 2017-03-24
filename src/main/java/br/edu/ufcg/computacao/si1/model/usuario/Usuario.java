@@ -7,7 +7,7 @@ import br.edu.ufcg.computacao.si1.model.anuncio.Anuncio;
 import br.edu.ufcg.computacao.si1.model.enumerations.AvaliacaoEnum;
 import br.edu.ufcg.computacao.si1.model.enumerations.UsuarioRoleEnum;
 import br.edu.ufcg.computacao.si1.model.notificacao.Notificacao;
-import br.edu.ufcg.computacao.si1.utils.StringsConstantes;
+import br.edu.ufcg.computacao.si1.utils.Constantes;
 
 import javax.persistence.*;
 
@@ -30,7 +30,7 @@ public class Usuario extends org.springframework.security.core.userdetails.User{
     private String nome;
     
 	@Column(name="email", unique= true)
-	@NotEmpty(message = StringsConstantes.MESAGEM_DE_ERRO_EMAIL_VAZIO)
+	@NotEmpty(message = Constantes.MESAGEM_DE_ERRO_EMAIL_VAZIO)
     @Email
     private String email;
 	
@@ -248,9 +248,9 @@ public class Usuario extends org.springframework.security.core.userdetails.User{
 		List<String> tiposDeAnuncio;
 		
 		if(this.role.equals(UsuarioRoleEnum.USUARIO_FISICO))
-			tiposDeAnuncio = StringsConstantes.TIPOS_DE_ANUNCIO_USUARIO_FISICO;
+			tiposDeAnuncio = Constantes.TIPOS_DE_ANUNCIO_USUARIO_FISICO;
 		else
-			tiposDeAnuncio = StringsConstantes.TIPOS_DE_ANUNCIO_USUARIO_JURIDICO;
+			tiposDeAnuncio = Constantes.TIPOS_DE_ANUNCIO_USUARIO_JURIDICO;
 		
 		return tiposDeAnuncio;
 	}

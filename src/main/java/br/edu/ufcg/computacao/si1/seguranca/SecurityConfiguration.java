@@ -1,8 +1,10 @@
-package br.edu.ufcg.computacao.si1.config;
+package br.edu.ufcg.computacao.si1.seguranca;
 
 import br.edu.ufcg.computacao.si1.model.enumerations.UsuarioRoleEnum;
 import br.edu.ufcg.computacao.si1.model.usuario.Usuario;
 import br.edu.ufcg.computacao.si1.service.UsuarioServiceImpl;
+import br.edu.ufcg.computacao.si1.utils.Constantes;
+import br.edu.ufcg.computacao.si1.utils.Paths;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -36,21 +38,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                    .antMatchers("/","/cadastrar-se").permitAll()
-                    .antMatchers("/user/**").hasAnyAuthority(UsuarioRoleEnum.USUARIO_FISICO.toString(), UsuarioRoleEnum.USUARIO_JURIDICO.toString())
-                    //.antMatchers("/user/**").hasAuthority("USUARIO_JURIDICO")
+                    .antMatchers(Paths.PATH_RAIZ,Paths.PATH_CADASTRO_DE_USUARIO).permitAll()
+                    .antMatchers(Paths.PATH_TODOS_CAMINHOS_USUARIO).hasAnyAuthority(UsuarioRoleEnum.USUARIO_FISICO.toString(), UsuarioRoleEnum.USUARIO_JURIDICO.toString())
                     .anyRequest().authenticated().and()
                     .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class).csrf().csrfTokenRepository(csrfTokenRepository())	
                .and()
             .formLogin()
-                    .loginPage("/login").permitAll()
+                    .loginPage(Paths.PATH_LOGIN).permitAll()
                     .successHandler(new CustomAuthenticationSuccessHandler())
-                    .failureUrl("/login?error")
+                    .failureUrl(Paths.PATH_LOGIN_ERRO)
                 .and()
             .logout()
-                    .logoutUrl("/logout")
-                    .deleteCookies("remember-me","JSESSIONID")
-                    .logoutSuccessUrl("/login").permitAll()
+                    .logoutUrl(Paths.PATH_LOGOUT)
+                    .deleteCookies(Constantes.PRECO_RELEMBRAR_USUARIO,"JSESSIONID")
+                    .logoutSuccessUrl(Paths.PATH_LOGIN).permitAll()
                 .and()
                     .rememberMe();
     }
@@ -68,13 +69,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
      */
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//            .inMemoryAuthentication()
-//                .withUser("user").password("password").roles("USER")
-//                .and()
-//                .withUser("company").password("password").roles("COMPANY");
-
-
         auth.jdbcAuthentication().dataSource(dataSource)
                 .usersByUsernameQuery(
                         "select email as username,senha as password, true as enabled from tb_usuario where email=?")
@@ -82,22 +76,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                         "select email as username, role from tb_usuario where email=?");
     }
 
-//    @Autowired
-//    public final void configAuthentication(final AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//            .userDetailsService(userDetailsService())
-//            .passwordEncoder(new BasicEncoder());
-//    }
-//
     @Bean
     protected UserDetailsService userDetailsService(){
     	
         return new UserDetailsService() {
             @Autowired
             UsuarioServiceImpl usuarioService;
-            
-            
-            
+                    
             @Override
             public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
                 Usuario usuario = usuarioService.getByEmail(email).get();
@@ -105,7 +90,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                     return new User(usuario.getEmail(), usuario.getSenha(), true, true, true, true,
                             AuthorityUtils.createAuthorityList(usuario.getRoleUsuario().toString()));
                 }else {
-                    throw new UsernameNotFoundException("Não foi possível localizar o usuário" + usuario);
+                    throw new UsernameNotFoundException(Constantes.MESAGEM_DE_ERRO_USUARIO_NAO_LOCALIZADO + usuario);
                 }
             }
         };

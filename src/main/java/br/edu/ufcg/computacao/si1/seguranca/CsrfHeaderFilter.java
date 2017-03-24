@@ -1,4 +1,4 @@
-package br.edu.ufcg.computacao.si1.config;
+package br.edu.ufcg.computacao.si1.seguranca;
 
 import java.io.IOException;
 
@@ -12,6 +12,12 @@ import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.WebUtils;
 
+/**
+ * @author Thaynan Andrey
+ * 
+ * Tem por função, permitir que um token seja criado e armazenado em um cookie 
+ * no navegador, permitindo que o front-end seja desenvolvido em AngularJs.
+ */
 public class CsrfHeaderFilter extends OncePerRequestFilter {
   
 	@Override

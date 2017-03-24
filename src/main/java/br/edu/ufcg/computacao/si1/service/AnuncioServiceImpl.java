@@ -18,7 +18,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * Created by Marcus Oliveira on 28/12/16.
+ * Serviço responsável por gerenciar as operações sobre as entidades anúncios que
+ * estão ou serão armazenadas no banco de dados. 
+ * 
+ * @author Thaynan Andrey
+ * 
  */
 @Service
 public class AnuncioServiceImpl implements IService<Anuncio, AnuncioForm> {
@@ -39,20 +43,12 @@ public class AnuncioServiceImpl implements IService<Anuncio, AnuncioForm> {
     public AnuncioRepository getAnuncioRepository(){
         return this.anuncioRepository;
     }
-
-    private Usuario getUsuarioLogado() {
-    	String email = Utils.userNameUsuarioLogado();    	
-		Optional<Usuario> usuarioLogado = usuarioService.getByEmail(email);
-		Usuario usuario = usuarioLogado.get();
-		
-		return usuario;
-    }
     
     @Override
-    public Anuncio create(AnuncioForm anuncioForm) {
+    public Anuncio criarNovaEntidade(AnuncioForm anuncioForm) {
     	
-    	Usuario usuario = getUsuarioLogado(); 
-    	anuncioForm.setDono(usuario);
+    	Usuario usuarioLogado = usuarioService.getUsuarioLogado();
+    	anuncioForm.setDono(usuarioLogado);
     	
     	Anuncio anuncio = anuncioFactory.criarAnuncio(anuncioForm);
         /*aqui salvamos o anuncio recem criado no repositorio jpa*/
@@ -60,13 +56,13 @@ public class AnuncioServiceImpl implements IService<Anuncio, AnuncioForm> {
     }
 
     @Override
-    public Optional<Anuncio> getById(Long id) {
+    public Optional<Anuncio> obterEntidadePorId(Long id) {
         /*aqui recuperamos o anuncio pelo seu id*/
         return Optional.ofNullable(anuncioRepository.findOne(id));
     }
 
 
-    public Collection<Anuncio> getByTipo(String tipo) {
+    public Collection<Anuncio> obterAnuncioPorTipo(String tipo) {
 
         /*pegamos aqui todos os anuncios, mas retornamos os anuncios por tipo
         * filtrando o tipo, pelo equals, retornando um arrayLista*/
@@ -76,36 +72,36 @@ public class AnuncioServiceImpl implements IService<Anuncio, AnuncioForm> {
     }
 
     @Override
-    public Collection<Anuncio> getAll() {
+    public Collection<Anuncio> obterTodasEntidadesCadastradas() {
         /*aqui retornamos todos os anuncios, sem distincao*/
 
         return anuncioRepository.findAll();
     }
 
     @Override
-    public boolean update(Anuncio anuncio) {
+    public boolean atualizarEntidade(Anuncio anuncio) {
         /*a atualizacao do anuncio eh feita apenas se o anuncio ja existir*/
-        if (anuncioRepository.exists(anuncio.get_id())) {
+    	boolean existeAnuncio = anuncioRepository.exists(anuncio.get_id());
+    	
+    	if (existeAnuncio)
             anuncioRepository.save(anuncio);
-            return true;
-        }
-        return false;
+        
+        return existeAnuncio;
     }
 
     @Override
-    public boolean delete(Long id) {
+    public boolean deletarEntidade(Long id) {
         /*aqui se apaga o anuncio se ele existir*/
+    	boolean existeAnuncio = anuncioRepository.exists(id);
 
-
-        if (anuncioRepository.exists(id)) {
+        if (existeAnuncio) 
             anuncioRepository.delete(id);
-            return true;
-        }
-        return false;
+        
+        return existeAnuncio;
     }
     
     public Collection<Anuncio> anunciosDisponiveisParaUsuarioComprar() {
-    	Collection<Anuncio> listaDeAnuncios= this.getAll();
+    	Collection<Anuncio> listaDeAnuncios= this.obterTodasEntidadesCadastradas();
    		Collection<Anuncio> anunciosParaComprar = new ArrayList<Anuncio>();
    		
    		String email = Utils.userNameUsuarioLogado();    	
@@ -119,27 +115,38 @@ public class AnuncioServiceImpl implements IService<Anuncio, AnuncioForm> {
     }
     
     public List<Anuncio> todosAnunciosUsuarioLogado() {
-		Usuario usuario = getUsuarioLogado();
+		Usuario usuario = usuarioService.getUsuarioLogado();
 		
 		return usuario.getAnuncios();
     };
     
     public List<String> tiposAnunciosParaCadastrarUsuarioLogado() {
-		Usuario usuario = getUsuarioLogado();
+		Usuario usuario = usuarioService.getUsuarioLogado();
 		
 		return usuario.getTiposDeAnunciosDisponiveis();
     }
 
 	public void comprarAnuncio(AnuncioForm anuncioForm) {
        	if(!anuncioForm.getTipo().equals(TipoDeAnuncioEnum.EMPREGO.getValor())){
-       		Usuario comprador = getUsuarioLogado(); 
+       		Usuario comprador = usuarioService.getUsuarioLogado();
            	
-           	Anuncio anuncio = this.getById(anuncioForm.getId()).get();
+           	Anuncio anuncio = this.obterEntidadePorId(anuncioForm.getId()).get();
            	Usuario vendedor = anuncio.pegueDono();
        		
        		vendedor.venderAnuncio(anuncio.getQuantia());
            	comprador.comprarAnuncio(anuncio.getQuantia());
 		}
-   		this.delete(anuncioForm.getId());
-	};
+   		this.deletarEntidade(anuncioForm.getId());
+	}
+	
+	public Usuario obterDonoDoAnuncio(Long id) {
+		
+		Usuario dono = null;
+		Anuncio anuncio = this.obterEntidadePorId(id).get();
+
+		if(anuncio != null)
+			dono = anuncio.pegueDono();
+		
+		return dono;
+	}
 }

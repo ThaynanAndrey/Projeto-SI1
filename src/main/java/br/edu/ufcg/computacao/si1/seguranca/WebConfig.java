@@ -1,4 +1,4 @@
-package br.edu.ufcg.computacao.si1.config;
+package br.edu.ufcg.computacao.si1.seguranca;
 
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.context.embedded.ErrorPage;
@@ -9,6 +9,12 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import br.edu.ufcg.computacao.si1.utils.Paths;
+
+/**
+ * @author Thaynan Andrey
+ * 
+ * Tem a função de customizar a apresentação de páginas de erro. 
+ */
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
     @Bean

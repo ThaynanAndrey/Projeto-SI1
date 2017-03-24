@@ -13,6 +13,13 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.Optional;
 
+/**
+ * Serviço responsável por gerenciar as operações sobre as entidades usuários que
+ * estão ou serão armazenadas no banco de dados.
+ * 
+ * @author Thaynan Andrey
+ * 
+ */
 @Service
 public class UsuarioServiceImpl implements IService<Usuario,UsuarioForm>{
 
@@ -33,51 +40,51 @@ public class UsuarioServiceImpl implements IService<Usuario,UsuarioForm>{
     }
     
     @Override
-    public Usuario create(UsuarioForm usuarioForm) {
+    public Usuario criarNovaEntidade(UsuarioForm usuarioForm) {
     	
     	String value = usuarioForm.getRole() == 1 ?  UsuarioRoleEnum.USUARIO_FISICO.toString() : UsuarioRoleEnum.USUARIO_JURIDICO.toString();
 
         Usuario usuario= usuarioFactory.criarUsuario(value, usuarioForm.getNome(), usuarioForm.getEmail(), usuarioForm.getSenha());
 
-        System.out.println(usuario + "estah sendo criado");
         return usuarioRepository.save(usuario);
     }
 
     @Override
-    public Optional<Usuario> getById(Long id) {
+    public Optional<Usuario> obterEntidadePorId(Long id) {
+    	
         return Optional.ofNullable(usuarioRepository.findOne(id));
     }
 
     public Optional<Usuario> getByEmail(String email) {
-        System.out.println(email + "estah sendo retornado");
-        
-        System.out.println("procurando email " + usuarioRepository.findByEmail(email));
         
         return Optional.ofNullable(usuarioRepository.findByEmail(email));
     }
 
     @Override
-    public Collection<Usuario> getAll() {
+    public Collection<Usuario> obterTodasEntidadesCadastradas() {
+    	
         return usuarioRepository.findAll();
     }
 
     @Override
-    public boolean update(Usuario usuario) {
-        System.out.println(usuario + "estah sendo atualizado");
-
-        if (usuarioRepository.exists(usuario.getId())) {
+    public boolean atualizarEntidade(Usuario usuario) {
+        
+    	boolean existeUsuario = usuarioRepository.exists(usuario.getId());
+    	
+        if (existeUsuario)
             usuarioRepository.save(usuario);
-            return true;
-        }
-        return false;
+        
+        return existeUsuario;
     }
 
     @Override
-    public boolean delete(Long id) {
-        if (usuarioRepository.exists(id)) {
+    public boolean deletarEntidade(Long id) {
+    	
+    	boolean existeUsuario = usuarioRepository.exists(id);
+    	
+        if (existeUsuario) 
             usuarioRepository.delete(id);
-            return true;
-        }
-        return false;
+        
+        return existeUsuario;
     }
 }

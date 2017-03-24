@@ -1,4 +1,4 @@
-package br.edu.ufcg.computacao.si1.config;
+package br.edu.ufcg.computacao.si1.seguranca;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 

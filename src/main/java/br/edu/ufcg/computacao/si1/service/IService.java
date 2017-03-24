@@ -3,15 +3,25 @@ package br.edu.ufcg.computacao.si1.service;
 import java.util.Collection;
 import java.util.Optional;
 
-public interface IService<Modelo,Form> {
+/**
+ * Definindo-se uma interface genérica, a qual reflete todas as operações báscias
+ * que todo repositório deve possuir.
+ * 
+ * @author Thaynan Andrey
+ *
+ * @param <Entidade> representa a entidade que está ou será armazenada no banco de dados.
+ * @param <EntidadeForm> utilizando-se o padrão DTO, a mesma reflete os dados necessários 
+ * 						para a construção de uma nova entidade que será armazenada no banco de dados.
+ */
+public interface IService<Entidade, EntidadeForm> {
 	
-	public Modelo create(Form form);
+	public Entidade criarNovaEntidade(EntidadeForm form);
 
-	public Optional<Modelo> getById(Long id);
+	public Optional<Entidade> obterEntidadePorId(Long id);
 
-	public Collection<Modelo> getAll();
+	public Collection<Entidade> obterTodasEntidadesCadastradas();
 
-	public boolean update(Modelo modelo);
+	public boolean atualizarEntidade(Entidade modelo);
 
-	public boolean delete(Long id);
+	public boolean deletarEntidade(Long id);
 }

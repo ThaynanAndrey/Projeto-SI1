@@ -4,7 +4,7 @@ package br.edu.ufcg.computacao.si1.model.forms;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import br.edu.ufcg.computacao.si1.model.usuario.Usuario;
-import br.edu.ufcg.computacao.si1.utils.StringsConstantes;
+import br.edu.ufcg.computacao.si1.utils.Constantes;
 
 import java.util.Date;
 
@@ -18,17 +18,17 @@ import javax.validation.constraints.Size;
  */
 public class AnuncioForm {
 
-    @NotNull(message = StringsConstantes.MESAGEM_DE_ERRO_TITULO_NULO)
-    @NotEmpty(message = StringsConstantes.MESAGEM_DE_ERRO_TITULO_VAZIO)
-    @Size(min = 10, max = 100, message = StringsConstantes.MESAGEM_DE_ERRO_TITULO_QTD_CARACTERES)
+    @NotNull(message = Constantes.MESAGEM_DE_ERRO_TITULO_NULO)
+    @NotEmpty(message = Constantes.MESAGEM_DE_ERRO_TITULO_VAZIO)
+    @Size(min = 10, max = 100, message = Constantes.MESAGEM_DE_ERRO_TITULO_QTD_CARACTERES)
     private String titulo;
     
-    @NotNull(message = StringsConstantes.MESAGEM_DE_ERRO_PRECO_NULO)
-    @DecimalMin(value = StringsConstantes.PRECO_MINIMO_ANUNCIO, message = StringsConstantes.MESAGEM_DE_ERRO_PRECO_MINIMO_PERMETIDO)
+    @NotNull(message = Constantes.MESAGEM_DE_ERRO_PRECO_NULO)
+    @DecimalMin(value = Constantes.PRECO_MINIMO_ANUNCIO, message = Constantes.MESAGEM_DE_ERRO_PRECO_MINIMO_PERMETIDO)
     private Double quantia;
     
-    @NotNull(message = StringsConstantes.MESAGEM_DE_ERRO_TIPO_ANUNCIO_NULO)
-    @NotEmpty(message = StringsConstantes.MESAGEM_DE_ERRO_TIPO_ANUNCIO_VAZIO)
+    @NotNull(message = Constantes.MESAGEM_DE_ERRO_TIPO_ANUNCIO_NULO)
+    @NotEmpty(message = Constantes.MESAGEM_DE_ERRO_TIPO_ANUNCIO_VAZIO)
     private String tipo;
     
     private Long id;
