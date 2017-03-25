@@ -34,6 +34,10 @@ public class AnuncioCtrl {
     @Autowired
     private AnuncioServiceImpl anuncioService;
     
+    /**
+     * Método Get que ao ser requisitado retorna uma coleção de todos os anúncios do banco de dados.
+     * @return	Coleção de Anuncios
+     */
     @RequestMapping(method=RequestMethod.GET, value=Paths.PATH_LISTAR_TODOS_ANUNCIOS, produces=MediaType.APPLICATION_JSON_VALUE)
    	public ResponseEntity<Collection<Anuncio>> getTodosOsAnuncios() {
    		
@@ -42,6 +46,10 @@ public class AnuncioCtrl {
    		return new ResponseEntity<>(listaDeAnuncios, HttpStatus.OK);
    	}
     
+    /**
+     * Método Get que ao ser requisitado retorna uma coleção de anúncios que não são do usuário logado do banco de dados.
+     * @return	Coleção de Anuncios
+     */
     @RequestMapping(method=RequestMethod.GET, value=Paths.PATH_LISTAR_ANUNCIOS_PARA_COMPRAR, produces=MediaType.APPLICATION_JSON_VALUE)
    	public ResponseEntity<Collection<Anuncio>> getTodosOsAnunciosParaComprar() {
    		
@@ -49,6 +57,11 @@ public class AnuncioCtrl {
    		return new ResponseEntity<>(anunciosParaComprar, HttpStatus.OK);
    	}
     
+    /**
+     * Método Get que ao ser requisitado recebe o id de um anúncio e retorna o seu dono.
+     * @param long id - id do anúncio.
+     * @return	Usuario - Usuario dono do anúncio.
+     */
     @RequestMapping(method=RequestMethod.GET, value=Paths.PATH_DONO_DO_ANUNCIO_POR_ID, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Usuario> getDonoDoAnuncio(@PathVariable Long id) {
     	
@@ -60,7 +73,10 @@ public class AnuncioCtrl {
 		return new ResponseEntity<>(dono, HttpStatus.OK);
 	}
     
-    
+    /**
+     * Método Get que ao ser requisitado busca e retorna todos os anúncios pertencentes ao usuário logado.
+     * @return List<Anuncio> -Lista de Anuncios do usuário
+     */
     @RequestMapping(method=RequestMethod.GET, value=Paths.PATH_LISTAR_ANUNCIOS_DE_USUARIO_LOGADO, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Anuncio>> getTodosOsAnunciosDoUsuarioLogado() { 
 		
@@ -69,6 +85,10 @@ public class AnuncioCtrl {
 		return new ResponseEntity<>(anunciosDoUsuarioLogado, HttpStatus.OK);
 	}
     
+    /**
+     * Método Get que busca e retorna os tipos de anúncios que o usuário logado pode cadastrar.
+     * @return List<String> - Lista de tipos de anúncios que o usuário logado pode cadastrar.
+     */
     @RequestMapping(method=RequestMethod.GET, value=Paths.PATH_LISTAR_TIPOS_ANUNCIOS_USUARIO_LOGADO_PODE_CADASTRAR, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<String>> getTodosOsTiposDeAnunciosParaCadastro() {
 		
@@ -77,6 +97,11 @@ public class AnuncioCtrl {
 		return new ResponseEntity<>(tiposDeAnuncioParaCadastrar, HttpStatus.OK);
 	}
     
+    /**
+     * Método Get que através busca e retorna um anúncio através do seu ID.
+     * @param Long id - id do anúncio a ser buscado. 
+     * @return Anuncio - Anuncio encontrado através do ID.
+     */
     @RequestMapping(method=RequestMethod.GET, value=Paths.PATH_BUSCAR_ANUNCIO_POR_ID, produces=MediaType.APPLICATION_JSON_VALUE)
    	public ResponseEntity<Anuncio> getAnuncioPorID(@PathVariable Long id) {
    		
@@ -88,6 +113,11 @@ public class AnuncioCtrl {
    		return new ResponseEntity<>(anuncio, HttpStatus.OK);
    	}
     
+    /**
+     * Método Post que cadastra um anúncio no banco de dados para o usuário.
+     * @param AnuncioForm anuncioForm - Formulario com as informações do anuncio.
+     * @return Anuncio - Anuncio cadastrado.
+     */
     @RequestMapping(method=RequestMethod.POST, value=Paths.PATH_CADASTRAR_ANUNCIO_USUARIO, consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Anuncio> cadastrarAnuncioUsuario(@RequestBody AnuncioForm anuncioForm) {
 
@@ -96,12 +126,21 @@ public class AnuncioCtrl {
 		return new ResponseEntity<>(novoAnuncioCadastrado, HttpStatus.CREATED);
 	}
     
+    /**
+     * Método Post que realiza compra de um anúncio pelo usuário logado.
+     * @param AnuncioForm  anuncioForm - Formulario do anuncio a ser comprado
+     */
     @RequestMapping(method=RequestMethod.POST, value=Paths.PATH_USUARIO_COMPRA_ANUNCIO, consumes=MediaType.APPLICATION_JSON_VALUE)
    	public void comprarAnuncioUsuario(@RequestBody AnuncioForm anuncioForm) {
     	
        	anuncioService.comprarAnuncio(anuncioForm);
    	}
     
+    /**
+     * Método Put que edita as informações de um anuncio
+     * @param Anuncio anuncio - Anuncio editado.
+     * @return Boolean - Boolean referente ao sucesso da operação de atualizar as informações.
+     */
     @RequestMapping(method=RequestMethod.PUT, value=Paths.PATH_USUARIO_EDITAR_ANUNCIO, consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Boolean> editarTarefa(@RequestBody Anuncio anuncio) {
 		
@@ -113,6 +152,11 @@ public class AnuncioCtrl {
 		return new ResponseEntity<>(anuncioEditado, HttpStatus.OK);
 	}
 	
+    /**
+     * Méotodo Delete que deleta o anuncio através de um Id recebido.
+     * @param Long id - id do anuncio a ser deletado
+     * @return Resposta do servidor em relação ao sucesso da operação de deleção.
+     */
 	@RequestMapping(method=RequestMethod.DELETE, value=Paths.PATH_USUARIO_DELETAR_ANUNCIO_POR_ID)
 	public ResponseEntity<Anuncio> removerTarefa(@PathVariable Long id) {
 		

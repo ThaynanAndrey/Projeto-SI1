@@ -37,6 +37,10 @@ public class UsuarioCtrl {
     private UsuarioServiceImpl usuarioService;
 
 
+    /**
+     * Método Get que retorna o usuário logado
+     * @return Usuario - usuario logado
+     */
     @RequestMapping(method=RequestMethod.GET, value=Paths.PATH_RETORNAR_USUARIO_LOGADO, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Usuario> retornarUsuarioLogado() {
 		
@@ -45,6 +49,10 @@ public class UsuarioCtrl {
 		return new ResponseEntity<>(usuarioLogado, HttpStatus.OK);
 	}
     
+    /**
+     * Método Get que retorna uma collection de todos os usuários cadastrados no BD
+     * @return Collection<Usuario> - Collection dos usuários cadastrados no BD
+     */
     @RequestMapping(method=RequestMethod.GET, value=Paths.PATH_TODOS_USUARIOS_CADASTRADOS, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Collection<Usuario>> retornarTodosUsuarios() {
 		
@@ -53,7 +61,12 @@ public class UsuarioCtrl {
 		return new ResponseEntity<>(listaDeUsuarios, HttpStatus.OK);
 	}
     
-    @RequestMapping(method=RequestMethod.GET, value=Paths.PATH_OBETER_USUARIO_POR_ID, produces=MediaType.APPLICATION_JSON_VALUE)
+    /**
+     * Método Get que retorna o usuário por um id
+     * @param Long id - id do usuário a ser retornado
+     * @return Usuario - Usuario encontrado através do seu id
+     */
+    @RequestMapping(method=RequestMethod.GET, value=Paths.PATH_OBTER_USUARIO_POR_ID, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Usuario> getUsuarioPorId(@PathVariable Long id) {
 		
 		Usuario usuario = usuarioService.obterEntidadePorId(id).get();
@@ -64,7 +77,10 @@ public class UsuarioCtrl {
 		return new ResponseEntity<>(usuario, HttpStatus.OK);
 	}
     
-    @RequestMapping(value = Paths.PATH_CADASTRO_DE_USUARIO, method = RequestMethod.GET)
+    /**
+     * Método Get que redireciona a pagina de cadastro do usuário
+     */
+    @RequestMapping(method = RequestMethod.GET, value = Paths.PATH_CADASTRO_DE_USUARIO)
     public ModelAndView getPaginaCadastroUsuario(UsuarioForm usuarioForm){
         ModelAndView model = new ModelAndView();
         model.setViewName("cadastro");
@@ -72,7 +88,10 @@ public class UsuarioCtrl {
         return model;
     }
 
-    @RequestMapping(value = Paths.PATH_CADASTRO_DE_USUARIO, method = RequestMethod.POST)
+    /**
+     * Método Post que cadastra o usuário e redireciona as rotas de acordo com o resultado da operacao
+     */
+    @RequestMapping(method = RequestMethod.POST , value = Paths.PATH_CADASTRO_DE_USUARIO)
     public ModelAndView cadastrarUsuario(@Valid UsuarioForm usuarioForm, BindingResult resultado, RedirectAttributes atributos){
         if(resultado.hasErrors()){
             return getPaginaCadastroUsuario(usuarioForm);

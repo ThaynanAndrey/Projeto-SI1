@@ -77,6 +77,10 @@ public class NotificacaoServiceImpl implements IService<Notificacao,NotificacaoF
         return existeNotificacao;
 	}
     
+	/**
+	 * metodo que retorna uma lista das notificacoes do usuario logado
+	 * @return List<Notificacao> - Lista de notificacoes do usuario logado
+	 */
 	 public List<Notificacao> notificacoesUsuarioLogado() {
 		Usuario usuario = usuarioService.getUsuarioLogado();
 		return usuario.getNotificacao();

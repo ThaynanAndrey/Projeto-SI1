@@ -6,12 +6,21 @@ angular.module("adExtreme")
 
 	$scope.notificacoes = [];
 
+	/**
+	 * Metodo que pega todas as notificacoes do usuario logado
+	 * @returns Resposta da requisicao HTTP
+	 */
 	function pegarNotificoes() {
 		RestService.find(rotaPegarNotificacoesUsuarioLogado, function(response) {
 			$scope.notificacoes = construcaoDeObjDeNotificacao(response.data);
 		});
 	};
 
+	/**
+	 * Metodo de modelacao das notificacoes
+	 * @param notificacoes - notificacoes a serem construidas
+	 * @returns notificacoes modeladas
+	 */
 	function construcaoDeObjDeNotificacao(notificacoes){
 		var notificacoesAtualizadas = [];
 		notificacoes.forEach(function(notificacao){
@@ -21,6 +30,10 @@ angular.module("adExtreme")
 		return notificacoesAtualizadas;
 	}
 
+	/**
+	 * Retorna um boolean representando se a lista de notificacoes esta vazia
+	 * @returns boolean - Se esta sem notificacoes
+	 */
 	$scope.notificacoesIsEmpty = function() {
 		return $scope.notificacoes.length == 0;
 	}

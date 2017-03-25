@@ -34,16 +34,25 @@ public class AnuncioServiceImpl implements IService<Anuncio, AnuncioForm> {
     @Autowired
     private UsuarioServiceImpl usuarioService;
 
+    /**
+     * Construtor default
+     * @param AnuncioRepository anuncioRepository - Repositorio onde o service ira gerenciar as operacoes
+     */
     @Autowired
     public AnuncioServiceImpl(AnuncioRepository anuncioRepository) {
         /*neste codigo apenas atribuimos o repositorio jpa ao atributo */
         this.anuncioRepository = anuncioRepository;
     }
 
+    /**
+     * Retorna o repositorio dos Anuncios
+     * @return AnuncioRepository - repositorio dos anuncios
+     */
     public AnuncioRepository getAnuncioRepository(){
         return this.anuncioRepository;
     }
     
+
     @Override
     public Anuncio criarNovaEntidade(AnuncioForm anuncioForm) {
     	
@@ -62,6 +71,11 @@ public class AnuncioServiceImpl implements IService<Anuncio, AnuncioForm> {
     }
 
 
+    /**
+     * Método que obtem uma coleção de anuncios do mesmo tipo (Filtragem)
+     * @param String tipo - Tipo dos anuncios a serem retornados
+     * @return Collection<Anuncio> - Collecao de anuncios do mesmo tipo
+     */
     public Collection<Anuncio> obterAnuncioPorTipo(String tipo) {
 
         /*pegamos aqui todos os anuncios, mas retornamos os anuncios por tipo
@@ -71,12 +85,14 @@ public class AnuncioServiceImpl implements IService<Anuncio, AnuncioForm> {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
+
     @Override
     public Collection<Anuncio> obterTodasEntidadesCadastradas() {
         /*aqui retornamos todos os anuncios, sem distincao*/
 
         return anuncioRepository.findAll();
     }
+
 
     @Override
     public boolean atualizarEntidade(Anuncio anuncio) {
@@ -89,6 +105,7 @@ public class AnuncioServiceImpl implements IService<Anuncio, AnuncioForm> {
         return existeAnuncio;
     }
 
+
     @Override
     public boolean deletarEntidade(Long id) {
         /*aqui se apaga o anuncio se ele existir*/
@@ -100,6 +117,10 @@ public class AnuncioServiceImpl implements IService<Anuncio, AnuncioForm> {
         return existeAnuncio;
     }
     
+    /**
+     * Método que retorna uma coleção com todos os anuncios que estao disponiveis para o usuario logado comprar
+     * @return Collection<Anuncio> - Colecao dos anuncios disponiveis para o usuario comprar
+     */
     public Collection<Anuncio> anunciosDisponiveisParaUsuarioComprar() {
     	Collection<Anuncio> listaDeAnuncios= this.obterTodasEntidadesCadastradas();
    		Collection<Anuncio> anunciosParaComprar = new ArrayList<Anuncio>();
@@ -114,18 +135,30 @@ public class AnuncioServiceImpl implements IService<Anuncio, AnuncioForm> {
    		return anunciosParaComprar;
     }
     
+    /**
+     * Método que retorna uma lista com todos os anunciso do usuario logado
+     * @return List<Anuncio> - Lista dos anuncios do usuario logado
+     */
     public List<Anuncio> todosAnunciosUsuarioLogado() {
 		Usuario usuario = usuarioService.getUsuarioLogado();
 		
 		return usuario.getAnuncios();
     };
     
+    /**
+     * Método que pega os tipos de anuncios que o usuario logado pode cadastrar
+     * @return List<String> - Lista dos tipos de anuncios qeu o usuario logado pode cadastrar
+     */
     public List<String> tiposAnunciosParaCadastrarUsuarioLogado() {
 		Usuario usuario = usuarioService.getUsuarioLogado();
 		
 		return usuario.getTiposDeAnunciosDisponiveis();
     }
 
+    /**
+     *Método que faz o intermédio de compra e venda do anuncio de um usuario para outro.
+     * @param anuncioForm - Formulario com as informações do anuncio a ser vendido
+     */
 	public void comprarAnuncio(AnuncioForm anuncioForm) {
        	if(!anuncioForm.getTipo().equals(TipoDeAnuncioEnum.EMPREGO.getValor())){
        		Usuario comprador = usuarioService.getUsuarioLogado();
@@ -139,6 +172,11 @@ public class AnuncioServiceImpl implements IService<Anuncio, AnuncioForm> {
    		this.deletarEntidade(anuncioForm.getId());
 	}
 	
+	/**
+	 * Método que obtem o dono do anuncio apartir do id do anuncio
+	 * @param Long id - id do anuncio
+	 * @return Usuario - usuario dono do anuncio
+	 */
 	public Usuario obterDonoDoAnuncio(Long id) {
 		
 		Usuario dono = null;

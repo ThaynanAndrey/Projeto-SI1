@@ -18,11 +18,16 @@ angular.module("adExtreme")
 
 	pegarAnuncios();
 
+	/**
+	 * Pega os anuncios atraves de uma requisicao HTTP
+	 * @returns resultado da requisicao HTTP
+	 */
 	function pegarAnuncios() {
 		RestService.find(rotaDePegarAnuncios, function(response) {
 			$scope.anuncios = construcaoDeObjDeAnuncio(response.data);
 		});
 	};
+
 
 
 	function construcaoDeObjDeAnuncio(anuncios){
@@ -34,16 +39,28 @@ angular.module("adExtreme")
 		return anunciosAtualizados;
 	}
 
+	/**
+	 * Retorna boolean referente a lista de anuncios vazia
+	 */
 	$scope.anunciosEstaVazio = function() {
 		return $scope.anuncios.length === 0;
 	};
 
+	/**
+	 * Pega o dono do anuncio através do id
+	 * @returns Reposta da requisicao HTTP
+	 */
 	$scope.pegarDono = function(id) {
 		RestService.find(rotaDonoDoAnuncio + id, function(response) {
 			$scope.donoDoAnuncio = response.data;
 		});
 	};
 	
+	/**
+	 * Metodo de compra de anuncio
+	 * @param anuncio - Anuncio a ser comprado
+	 * @returns resposta da requisicao HTTP
+	 */
 	$scope.comprarAnuncio = function(anuncio) {
 		var anuncioComprado = {
 	        	titulo: anuncio.titulo,
@@ -88,12 +105,21 @@ angular.module("adExtreme")
 		});
 	};
 
+	/**
+	 * Metodo que retorna o usuario logado
+	 * @returns Usuario logado
+	 */
 	function pegarUsuario() {
 		RestService.find(rotaPegarUsuarioLogado, function(response) {
 			$scope.usuarioLogado = response.data;
 		});
 	};
 
+	/**
+	 * Metodo que valida o periodo do Anuncio
+	 * @param anuncio a ser validado
+	 * @returns validacao do anuncio
+	 */
 	$scope.validarPeriodo = function(anuncio){
 		if($scope.inicioDataDeFiltragem && $scope.fimDataDeFiltragem){
 			var dataDeCriacao = anuncio.dataDeCriacao;
@@ -106,6 +132,11 @@ angular.module("adExtreme")
 		}
 	};
 	
+	/**
+	 * Define o tipo de quantia usada pelo tipo de anuncio
+	 * @param tipo - tipo do anuncio
+	 * @returns	O tipo de quantia
+	 */
 	function quatiaAnuncioPorTipo(tipo) {
 		if(tipo === "emprego")
 			return "Salário";
@@ -113,6 +144,11 @@ angular.module("adExtreme")
 		return "Preço";
 	}
 
+	/**
+	 * Altera o tipo de compra através do tipo do anuncio
+	 * @param tipo - Tipo do anuncio
+	 * @returns Tipo de compra
+	 */
 	function compraAnuncioPorTipo(tipo) {
 		if(tipo === "emprego")
 			return "Solicitar Vaga";

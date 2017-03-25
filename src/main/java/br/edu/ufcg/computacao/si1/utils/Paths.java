@@ -45,7 +45,7 @@ public class Paths {
 	//-----------------------USUARIO_CTRL------------------------------------//
 	
 	public static final String PATH_TODOS_USUARIOS_CADASTRADOS = PATH_USUARIO + "/todos/usuarios";
-	public static final String PATH_OBETER_USUARIO_POR_ID = PATH_USUARIO + PATH_USUARIO + "/id/{id}";
+	public static final String PATH_OBTER_USUARIO_POR_ID = PATH_USUARIO + PATH_USUARIO + "/id/{id}";
 	public static final String PATH_CADASTRO_DE_USUARIO = "/cadastrar-se";
 	
 	

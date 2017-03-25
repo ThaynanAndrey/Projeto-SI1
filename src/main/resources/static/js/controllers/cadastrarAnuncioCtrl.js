@@ -9,12 +9,20 @@ angular.module("adExtreme")
 
 	carregarTiposDeAnuncio();
 
+	/**
+	 * Metodo que carrega os tipos de anuncios que o usuario pode cadastrar
+	 * @returns resposta da requisicao HTTP
+	 */
 	function carregarTiposDeAnuncio() {
 		RestService.find(rotaTiposDeAnuncios, function(tiposDeAnuncio) {
 			$scope.tiposDeAnuncio = tiposDeAnuncio.data;
 		});
 	};
 
+	/**
+	 * Cadastra o anuncio no BD
+	 * @returns reposta da requisicao HTTP
+	 */
 	$scope.cadastrarAnuncio = function(anuncioNovo) {
 		RestService.add(rotaAdicaoDeAnuncio, anuncioNovo, function(response) {
 			console.log(response);
@@ -22,6 +30,9 @@ angular.module("adExtreme")
 		});
 	};
 
+	/**
+	 * Limpa as informações do anuncio
+	 */
 	$scope.limpar = function(anuncioNovo) {
 		anuncioNovo = {};
 	};

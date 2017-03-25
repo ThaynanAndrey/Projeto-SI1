@@ -26,11 +26,19 @@ public class UsuarioServiceImpl implements IService<Usuario,UsuarioForm>{
     private UsuarioRepository usuarioRepository;
     private UsuarioFactory usuarioFactory = new UsuarioFactory();
 
+    /**
+     * Atualiza/define o repositorio dos usuarios
+     * @param usuarioRepository  - Repositorio dos usuarios
+     */
     @Autowired
     public void setUsuarioRepository(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
     
+    /**
+     * Retorna usuario logado
+     * @return Usuario - Usuario logado
+     */
     public Usuario getUsuarioLogado() {
     	String email = Utils.userNameUsuarioLogado();    	
 		Optional<Usuario> usuarioLogado = this.getByEmail(email);
@@ -55,6 +63,11 @@ public class UsuarioServiceImpl implements IService<Usuario,UsuarioForm>{
         return Optional.ofNullable(usuarioRepository.findOne(id));
     }
 
+    /**
+     * Retorna usuario atraves do seu email
+     * @param email - Email do usuario a ser retornado
+     * @return Optional<Usuario> - Usuario encontrado pelo email (Se existir)
+     */
     public Optional<Usuario> getByEmail(String email) {
         
         return Optional.ofNullable(usuarioRepository.findByEmail(email));
