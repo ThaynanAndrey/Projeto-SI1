@@ -27,8 +27,8 @@ public class AnuncioImovel extends Anuncio{
 	/**
      * Construtor do objeto
      */
-	public AnuncioImovel(String titulo, double quantia,Usuario dono, Long dataDeCriacao){
-		super(titulo,quantia,dono, dataDeCriacao);
+	public AnuncioImovel(String titulo, double quantia,Usuario dono, Long dataDeCriacao, int diasDeVidaUtil){
+		super(titulo,quantia,dono, dataDeCriacao,diasDeVidaUtil);
 	}
 	
 	/**

@@ -7,6 +7,8 @@ angular.module("adExtreme")
 	const rotaDecomprarAnuncio = "/usuario/comprar/anuncio";
 	const rotaCadastrarNotificacao = "/usuario/cadastrar/notificacao";
 	const rotaPegarUsuarioLogado = "/usuario/usuarioLogado";
+	const rotaDeApagarAnuncio = "/usuario/deletar/anuncio/";
+	var DIA_EM_MILISEGUNGOS = 86400000;
 
 	$scope.anuncios = [];
 
@@ -23,12 +25,34 @@ angular.module("adExtreme")
 	 * @returns resultado da requisicao HTTP
 	 */
 	function pegarAnuncios() {
-		RestService.find(rotaDePegarAnuncios, function(response) {
-			$scope.anuncios = construcaoDeObjDeAnuncio(response.data);
+		RestService.find(rotaDePegarAnuncios, function(anuncios) {
+			validarAnuncios(anuncios.data);
 		});
 	};
 
+	function validarAnuncios(anuncios){
+		precisaSerAtualizado = false;
 
+		anuncios.forEach(function(anuncio){
+			dataLimite = anuncio.dataDeCriacao + anuncio.diasDeVidaUtil*DIA_EM_MILISEGUNGOS;
+			dataAtual = new Date().getTime();
+			
+			if(dataLimite<dataAtual){
+				precisaSerAtualizado = true;
+				RestService.delete(rotaDeApagarAnuncio + anuncio._id, function(response){
+					RestService.find(rotaDePegarAnuncios, function(anunciosAtualizados) {
+						$scope.anuncios = construcaoDeObjDeAnuncio(anunciosAtualizados.data);
+					});
+				});
+			}
+		});
+		
+		if(!precisaSerAtualizado){
+			RestService.find(rotaDePegarAnuncios, function(anunciosAtualizados) {
+				$scope.anuncios = construcaoDeObjDeAnuncio(anunciosAtualizados.data);
+			});
+		}
+	}
 
 	function construcaoDeObjDeAnuncio(anuncios){
 		var anunciosAtualizados = [];
@@ -68,28 +92,43 @@ angular.module("adExtreme")
 	        	tipo: anuncio.tipo,
 	        	id: anuncio._id
 	        }; 
-	    var menssagemDeNotificacao;
-
+	    var menssagemDeNotificacaoParaAnunciante;
+	    var menssagemDeNotificacaoParaComprador
 	    if(anuncio.tipo=="emprego"){
-			menssagemDeNotificacao = "Parabéns! O usuário " + $scope.usuarioLogado.nome + " solicitou uma vaga ao emprego " + 
+			menssagemDeNotificacaoParaAnunciante = "Parabéns! O usuário " + $scope.usuarioLogado.nome + " solicitou uma vaga ao emprego " + 
 									anuncio.titulo + "."; 
+
+			menssagemDeNotificacaoParaComprador = "Parabéns! Você solicitou uma vaga ao emprego " + anuncio.titulo + "."; 
 	    }
 	    else if(anuncio.tipo=="servico"){
-	    	var dataCompleta = (new Date(anuncio.dataDeCriacao).toLocaleString()).split(" ");
+	    	var dataCompleta = (new Date(anuncio.dataDeAgendamento).toLocaleString()).split(" ");
 	    	var data = dataCompleta[0];
-	    	var horario = dataCompleta[1];
+	    	var horario = dataCompleta[1].split(":");
+	    	horario = horario[0] + ":" + horario[1];
 
-	    	menssagemDeNotificacao = "Parabéns! O usuário " + $scope.usuarioLogado.nome + " agendou seu serviço " + 
+	    	menssagemDeNotificacaoParaAnunciante = "Parabéns! O usuário " + $scope.usuarioLogado.nome + " agendou seu serviço " + 
+	    							anuncio.titulo + " para o dia " + data + " às " + horario + ".";
+
+
+	    	menssagemDeNotificacaoParaComprador = "Parabéns! Você agendou o serviço " + 
 	    							anuncio.titulo + " para o dia " + data + " às " + horario + ".";
 	    }
 	    else{
-	    	menssagemDeNotificacao = "Parabéns! Seu anúncio " + anuncio.titulo +" foi comprado pelo usuário " + 
+	    	menssagemDeNotificacaoParaAnunciante = "Parabéns! Seu anúncio " + anuncio.titulo +" foi comprado pelo usuário " + 
 	    							$scope.usuarioLogado.nome + ".";
+
+	    	menssagemDeNotificacaoParaComprador = "Parabéns! Você comprou o anuncio " + anuncio.titulo + ".";
 	    }
 
-		var novaNotificacao = {
-				descricao: menssagemDeNotificacao,
+		var novaNotificacaoParaAnunciante = {
+				descricao: menssagemDeNotificacaoParaAnunciante,
 				dono: {"id": $scope.donoDoAnuncio.id},	
+				dataDeNotificacao: new Date().getTime()
+		};
+
+		var novaNotificacaoParaComprador = {
+				descricao: menssagemDeNotificacaoParaComprador,
+				dono: {"id": $scope.usuarioLogado.id},	
 				dataDeNotificacao: new Date().getTime()
 		};
 
@@ -98,10 +137,12 @@ angular.module("adExtreme")
 		}
 
 
-		RestService.add(rotaCadastrarNotificacao, novaNotificacao, function(data) {
-			RestService.add(rotaDecomprarAnuncio, anuncioComprado, function(response) {
-				$state.go("home");	
-			});
+		RestService.add(rotaCadastrarNotificacao, novaNotificacaoParaAnunciante, function(data) {
+			RestService.add(rotaCadastrarNotificacao, novaNotificacaoParaComprador, function(data) {
+				RestService.add(rotaDecomprarAnuncio, anuncioComprado, function(response) {
+					$state.go("home");	
+				});
+			});	
 		});
 	};
 

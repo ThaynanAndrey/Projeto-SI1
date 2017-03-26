@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 
 /** Classe para objetos do tipo AnuncioForm, representando um formulario do anuncio,
  *  onde serao contidos, valores e metodos para o mesmo.
- * @author Caio Felipe
+ * @author Caio Felipe, Giuseppe Mongiovi
  */
 public class AnuncioForm {
 
@@ -37,6 +37,8 @@ public class AnuncioForm {
     
     private Usuario dono;
     
+    private int diasDeVidaUtil;
+    
     /**
      * Retorna o id do anuncio
      * @return
@@ -52,8 +54,25 @@ public class AnuncioForm {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+	
+	
     /**
+     * Retorna a quantidade de dias úteis do anuncio
+     * @return
+     */
+    public int getDiasDeVidaUtil() {
+		return diasDeVidaUtil;
+	}
+    
+    /**
+     * Define a quantidade de dias úteis do anuncio
+     * @param id
+     */
+	public void setDiasDeVidaUtil(int diasDeVidaUtil) {
+		this.diasDeVidaUtil = diasDeVidaUtil;
+	}
+
+	/**
      * Retorna o dono do anuncio
      * @return
      */

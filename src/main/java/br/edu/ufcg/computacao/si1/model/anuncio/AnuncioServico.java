@@ -31,8 +31,8 @@ public class AnuncioServico extends Anuncio{
 	/**
      * Construtor do objeto
      */
-	public AnuncioServico(String titulo, double quantia,Usuario dono, Long dataDeCriacao, Date dataDeAgendamento){
-		super(titulo,quantia,dono, dataDeCriacao);
+	public AnuncioServico(String titulo, double quantia,Usuario dono, Long dataDeCriacao, Date dataDeAgendamento, int diasDeVidaUtil){
+		super(titulo,quantia,dono, dataDeCriacao, diasDeVidaUtil);
 		this.dataDeAgendamento = dataDeAgendamento;
 	}
 

@@ -34,6 +34,8 @@ public abstract class Anuncio {
     @Enumerated(EnumType.STRING)
     private AvaliacaoEnum avaliacao;
     
+    private int diasDeVidaUtil;
+    
     @ManyToOne
     @JoinColumn(name="usuario_id")
     private Usuario dono;
@@ -51,14 +53,32 @@ public abstract class Anuncio {
     /**
      * Construtor do objeto
      */
-    public Anuncio(String titulo, double quantia, Usuario dono, Long dataDeCriacao) {
+    public Anuncio(String titulo, double quantia, Usuario dono, Long dataDeCriacao, int diasDeVidaUtil) {
 		this.titulo = titulo;
 		this.quantia = quantia;
 		this.dataDeCriacao =  dataDeCriacao;
 		this.dono = dono;
+		this.diasDeVidaUtil = diasDeVidaUtil;
 	}
     
+    
     /**
+     * Metodo para retorno da quantidade de dias de vida útil do anúncio
+     * @return int - Quantidade de dias de vida útil do anúncio.
+     */
+    public int getDiasDeVidaUtil() {
+		return diasDeVidaUtil;
+	}
+
+    /**
+     * Metodo para alteracao da quantidade de dias de vida útil do anúncio
+     * @param int diasDeVidaUtil - Quantidade de dias de vida útil do anúncio.
+     */
+	public void setDiasDeVidaUtil(int diasDeVidaUtil) {
+		this.diasDeVidaUtil = diasDeVidaUtil;
+	}
+
+	/**
      * Metodo abstrato para retorno do tipo do anúncio que deve ser implementado nas subclasses.
      * @return String - Tipo do anuncio.
      */

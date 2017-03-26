@@ -43,23 +43,22 @@ public class AnuncioFactory {
 		double quantia = form.getQuantia();	
 		String titulo = form.getTitulo();
 		Long dataDeCriacao =  new Date().getTime();
+		int diasDeVidaUtil = form.getDiasDeVidaUtil();
 		
-		System.out.println("PASSOU NA DATA");
 		Usuario dono = form.getDono(); //TEMPORARIO
-		System.out.println("PASSOU NO USUARIO");
 		
 		if(form.getTipo().equals(TipoDeAnuncioEnum.MOVEL.getValor())){
-			anuncioNovo = new AnuncioMovel(titulo, quantia,dono,dataDeCriacao);
+			anuncioNovo = new AnuncioMovel(titulo, quantia,dono,dataDeCriacao,diasDeVidaUtil);
 		}
 		else if(form.getTipo().equals(TipoDeAnuncioEnum.IMOVEL.getValor())){
 			System.out.println("ENTROU");
-			anuncioNovo = new AnuncioImovel(titulo, quantia,dono,dataDeCriacao);
+			anuncioNovo = new AnuncioImovel(titulo, quantia,dono,dataDeCriacao,diasDeVidaUtil);
 		}
 		else if(form.getTipo().equals(TipoDeAnuncioEnum.EMPREGO.getValor())){
-			anuncioNovo = new AnuncioEmprego(titulo, quantia,dono,dataDeCriacao);
+			anuncioNovo = new AnuncioEmprego(titulo, quantia,dono,dataDeCriacao,diasDeVidaUtil);
 		}
 		else if(form.getTipo().equals(TipoDeAnuncioEnum.SERVICO.getValor())){
-			anuncioNovo = new AnuncioServico(titulo, quantia, dono, dataDeCriacao, form.getDataDeAgendamento());
+			anuncioNovo = new AnuncioServico(titulo, quantia, dono, dataDeCriacao, form.getDataDeAgendamento(),diasDeVidaUtil);
 		}
 		else{
 			throw new RuntimeException();

@@ -17,8 +17,8 @@ angular.module("adExtreme")
 		HttpRequestService(urlInicial + url, "PUT", data, callback);
 	};
 
-	restFactory.delete = function(url) {
-		HttpRequestService(urlInicial + url, "DELETE", null, null);
+	restFactory.delete = function(url,callback) {
+		HttpRequestService(urlInicial + url, "DELETE", {}, callback);
 	};
 
 	return restFactory;

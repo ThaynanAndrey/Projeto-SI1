@@ -33,6 +33,14 @@
                         <input id="preco" ng-model="anuncioNovo.quantia" name="quantia" type="number" min="0.1"  step="any" placeholder="Preço" class="form-control input-md" required="required"/>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Dias de vida útil</label>
+                    <div class="col-md-4">
+                        <input id="diasDeVidaUtil" ng-model="anuncioNovo.diasDeVidaUtil" name="diasDeVidaUtil" type="number" min="0.1"  step="any" placeholder="Dias de vida útil" class="form-control input-md" required="required"/>
+                    </div>
+                </div>
+
                 <div class="form-group" ng-if="anuncioNovo.tipo=='emprego'">
                     <label class="col-md-4 control-label">Salário</label>
                     <div class="col-md-4">
