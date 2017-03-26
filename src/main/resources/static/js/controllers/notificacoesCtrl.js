@@ -3,6 +3,7 @@ angular.module("adExtreme")
 .controller("notificacoesCtrl", function($scope, RestService) {
 
 	const rotaPegarNotificacoesUsuarioLogado = "/usuario/listar/minhas/notificacao";
+	const rotaDeApagarNotificacao = "/usuario/deletar/notificacao/"
 
 	$scope.notificacoes = [];
 
@@ -36,6 +37,16 @@ angular.module("adExtreme")
 	 */
 	$scope.notificacoesIsEmpty = function() {
 		return $scope.notificacoes.length == 0;
+	}
+
+	/**
+	 * Metodo que apaga uma	 determinada notificacao
+	 * @returns Resposta da requisicao HTTP
+	 */
+	$scope.apagarNotificacao = function(idNotificacao){
+		RestService.delete(rotaDeApagarNotificacao + idNotificacao, function(response){
+			pegarNotificoes();
+		});
 	}
 
 	pegarNotificoes();

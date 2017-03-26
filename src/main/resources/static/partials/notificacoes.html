@@ -20,6 +20,7 @@
             <tr ng-repeat="notificacao in notificacoes">
               <td>{{notificacao.descricao}}</td>
               <td>{{notificacao.dataDeNotificacaoFormatada}}</td>
+              <td><button class="btn btn-danger"  ng-click="apagarNotificacao(notificacao._id)">Apagar</button></td>
             </tr>
           </tbody>
         </table>
