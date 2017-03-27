@@ -3,7 +3,7 @@ angular.module("adExtreme")
 .service('RestService', function(HttpRequestService) {
 	var restFactory = {};
 	
-	var urlInicial = "http://localhost:8080";
+	var urlInicial = "https://projeto-si-teste.herokuapp.com";
 
 	restFactory.find = function(url, callback) {
 		HttpRequestService(urlInicial + url, "GET", {}, callback);
