@@ -34,7 +34,7 @@ angular.module("adExtreme")
 	 * Limpa as informações do anuncio
 	 */
 	$scope.limpar = function(anuncioNovo) {
-		anuncioNovo = {};
+		$scope.anuncioNovo = {};
 	};
 
 	$scope.$watchCollection('anuncioNovo',function(novo){
