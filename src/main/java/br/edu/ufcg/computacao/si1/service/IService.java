@@ -8,6 +8,7 @@ import java.util.Optional;
  * que todo repositório deve possuir.
  * 
  * @author Thaynan Andrey
+ * @author Giuseppe Mongiovi
  *
  * @param <Entidade> representa a entidade que está ou será armazenada no banco de dados.
  * @param <EntidadeForm> utilizando-se o padrão DTO, a mesma reflete os dados necessários 

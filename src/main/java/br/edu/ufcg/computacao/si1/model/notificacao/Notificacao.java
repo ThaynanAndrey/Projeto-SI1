@@ -14,6 +14,7 @@ import br.edu.ufcg.computacao.si1.model.usuario.Usuario;
 
 /**
  * @author Caio Felipe
+ * @author Giuseppe Mongiovi
  * Created by Caio Felipe on 26/03/16.
  */
 @Entity

@@ -7,6 +7,7 @@ import br.edu.ufcg.computacao.si1.model.usuario.Usuario;
  * 
  * @author Caio Felipe
  * @author Thaynan Andrey
+ * @author Giuseppe Mongiovi
  */
 public class UsuarioFactory {
 	

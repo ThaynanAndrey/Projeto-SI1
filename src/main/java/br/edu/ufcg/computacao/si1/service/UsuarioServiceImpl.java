@@ -18,6 +18,7 @@ import java.util.Optional;
  * estão ou serão armazenadas no banco de dados.
  * 
  * @author Thaynan Andrey
+ * @author Giuseppe Mongiovi
  * 
  */
 @Service

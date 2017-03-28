@@ -25,6 +25,7 @@ import java.util.List;
  * do usuário.
  * 
  * @author Thaynan Andrey
+ * @author Giuseppe Mongiovi
  *
  */
 @CrossOrigin(origins="*")

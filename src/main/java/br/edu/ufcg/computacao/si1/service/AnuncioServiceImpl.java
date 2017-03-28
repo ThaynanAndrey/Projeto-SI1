@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
  * estão ou serão armazenadas no banco de dados. 
  * 
  * @author Thaynan Andrey
+ * @author Giuseppe Mongiovi
  * 
  */
 @Service

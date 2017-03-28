@@ -10,6 +10,7 @@ import java.util.Date;
  * Classe abstrata para objetos do tipo Anuncio, onde serão contidos valores e métodos para o mesmo.
  * 
  * @author Thaynan Andrey
+ * @author Giuseppe Mongiovi
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)

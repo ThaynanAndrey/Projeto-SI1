@@ -10,6 +10,7 @@ import br.edu.ufcg.computacao.si1.utils.Constantes;
 
 /**
  * @author Caio Felipe
+ * @author Giuseppe Mongiovi
  * Created by Caio Felipe on 26/03/16.
  */
 public class NotificacaoForm {

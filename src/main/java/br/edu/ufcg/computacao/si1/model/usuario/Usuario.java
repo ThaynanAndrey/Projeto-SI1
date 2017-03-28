@@ -17,6 +17,7 @@ import java.util.List;
  * 
  * @author Caio Felipe
  * @author Thaynan Andrey
+ * @author Giuseppe Mongiovi
  */
 @Entity(name = "Usuario")
 @Table(name = "tb_usuario")

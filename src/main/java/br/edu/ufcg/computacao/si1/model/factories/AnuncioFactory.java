@@ -17,6 +17,7 @@ import br.edu.ufcg.computacao.si1.service.UsuarioServiceImpl;
 /**Classe para objeto do tipo AnuncioFactory, que implementa o factory method do objeto Anuncio.
  * 
  * @author Caio Felipe
+ * @author Giuseppe Mongiovi
  */
 public class AnuncioFactory {
 	

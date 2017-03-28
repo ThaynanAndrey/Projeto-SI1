@@ -23,6 +23,7 @@ import br.edu.ufcg.computacao.si1.utils.Paths;
  * Controller responsável por intermediar as notificações dos usuários.
  * 
  * @author Thaynan Andrey
+ * @author Giuseppe Mongiovi
  *
  */
 @CrossOrigin(origins="*")

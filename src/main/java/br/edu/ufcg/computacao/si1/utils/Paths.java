@@ -4,6 +4,7 @@ package br.edu.ufcg.computacao.si1.utils;
  * Classe para declarar paths constantes, utilizados pelos controllers e segurança.
  * 
  * @author Thaynan Andrey
+ * @author Giuseppe Mongiovi
  */
 public class Paths {
 	public Paths(){}
