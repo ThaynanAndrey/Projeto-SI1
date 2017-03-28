@@ -1,14 +1,5 @@
 package br.edu.ufcg.computacao.si1.model.forms;
 
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -17,6 +8,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 import br.edu.ufcg.computacao.si1.model.usuario.Usuario;
 import br.edu.ufcg.computacao.si1.utils.Constantes;
 
+/**
+ * @author Caio Felipe
+ * @author Giuseppe Mongiovi
+ * Created by Caio Felipe on 26/03/16.
+ */
 public class NotificacaoForm {
 	@NotNull(message = Constantes.MESAGEM_DE_ERRO_TITULO_NULO)
     @NotEmpty(message = Constantes.MESAGEM_DE_ERRO_TITULO_VAZIO)

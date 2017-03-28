@@ -27,6 +27,7 @@ import javax.validation.Valid;
  * usuários cadastrados no banco de dados do sistema. 
  * 
  * @author Thaynan Andrey
+ * @author Giuseppe Mongiovi
  *
  */
 @RestController

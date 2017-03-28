@@ -30,6 +30,10 @@ angular.module("adExtreme")
 		});
 	};
 
+	/**
+	 * Verifica se o anuncio ainda tem seu tempo de vida para ser exibido,
+	 * caso contrario, o mesmo é excluído.
+	 */
 	function validarAnuncios(anuncios){
 		precisaSerAtualizado = false;
 
@@ -54,6 +58,13 @@ angular.module("adExtreme")
 		}
 	}
 
+	/**
+	 * Modifica a estrutura do anuncio recebido, para apresentar uma data de anúncio
+	 * mais amigável ao usuário.
+	 * 
+	 * @param anuncio Anuncio a ser constuido
+	 * @returns anuncio atualiazado
+	 */
 	function construcaoDeObjDeAnuncio(anuncios){
 		var anunciosAtualizados = [];
 		anuncios.forEach(function(anuncio){
@@ -200,6 +211,11 @@ angular.module("adExtreme")
 		return "Comprar";
 	}
 
+	/**
+	 * Constroi a sidenav que apresentará todos os dados do anuncio.
+	 * 
+	 * @param anuncio - Anuncio que será apresentado.
+	 */
 	$scope.apresentarSideNav = function(anuncio) {
 		$scope.anuncioSelecionado = anuncio;
 		$scope.anuncioQuantia = quatiaAnuncioPorTipo(anuncio.tipo);

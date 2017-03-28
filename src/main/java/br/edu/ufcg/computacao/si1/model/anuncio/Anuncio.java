@@ -3,14 +3,14 @@ package br.edu.ufcg.computacao.si1.model.anuncio;
 
 import javax.persistence.*;
 
-import br.edu.ufcg.computacao.si1.model.enumerations.AvaliacaoEnum;
 import br.edu.ufcg.computacao.si1.model.usuario.Usuario;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Classe abstrata para objetos do tipo Anuncio, onde seráo contidos, valores e metodos para o mesmo.
+ * Classe abstrata para objetos do tipo Anuncio, onde serão contidos valores e métodos para o mesmo.
+ * 
+ * @author Thaynan Andrey
+ * @author Giuseppe Mongiovi
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -29,10 +29,6 @@ public abstract class Anuncio {
 
     @Column(name = "data_criacao", nullable = false)
     private Long dataDeCriacao;
-
-    @Column(name = "avaliacao")
-    @Enumerated(EnumType.STRING)
-    private AvaliacaoEnum avaliacao;
     
     private int diasDeVidaUtil;
     
@@ -47,7 +43,6 @@ public abstract class Anuncio {
         titulo = "";
         dataDeCriacao = new Date().getTime();
         quantia = 0;
-        avaliacao = null;
     }
 	
     /**
@@ -159,21 +154,6 @@ public abstract class Anuncio {
         this.quantia = quantia;
     }
     
-    /**
-     * Metodo para retorno da avaliacao do anúncio
-     * @return AvaliacaoEnum - Avaliacao do anuncio.
-     */
-    public AvaliacaoEnum getNota() {
-        return avaliacao;
-    }
-    
-    /**
-     * Metodo para alteracao da avaliacao do anúncio
-     * @param nota
-     */
-    public void setNota(AvaliacaoEnum avaliacao) {
-        this.avaliacao = avaliacao;
-    }
     
     @Override
     public boolean equals(Object o) {
@@ -186,7 +166,6 @@ public abstract class Anuncio {
         if (!get_id().equals(anuncio.get_id())) return false;
         if (!getTitulo().equals(anuncio.getTitulo())) return false;
         if (!getDataDeCriacao().equals(anuncio.getDataDeCriacao())) return false;
-        if (getNota() != null ? !getNota().equals(anuncio.getNota()) : anuncio.getNota() != null) return false;
         return getTipo().equals(anuncio.getTipo());
 
     }
@@ -200,7 +179,6 @@ public abstract class Anuncio {
         result = 31 * result + getDataDeCriacao().hashCode();
         temp = Double.doubleToLongBits(getQuantia());
         result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (getNota() != null ? getNota().hashCode() : 0);
         result = 31 * result + getTipo().hashCode();
         return result;
     }
@@ -212,7 +190,6 @@ public abstract class Anuncio {
                 ", titulo='" + titulo + '\'' +
                 ", dataDeCriacao=" + getDataDeCriacao() +
                 ", quantia=" + quantia +
-                ", avaliacao=" + avaliacao.toString()+
                 '}';
     }
 }

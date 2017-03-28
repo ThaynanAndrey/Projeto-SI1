@@ -7,7 +7,10 @@ import javax.validation.constraints.Size;
 
 /** Classe para objetos do tipo UsuarioForm, representando um formulario do usuario,
  *  onde serao contidos, valores e metodos para o mesmo.
- * @author Caio Felipe, Giuseppe Mongiovi
+ * 
+ * @author Caio Felipe
+ * @author Giuseppe Mongiovi
+ * @author Thaynan Andrey
  */
 public class UsuarioForm {
 	

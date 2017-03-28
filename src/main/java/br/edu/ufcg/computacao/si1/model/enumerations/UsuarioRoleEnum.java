@@ -1,5 +1,9 @@
 package br.edu.ufcg.computacao.si1.model.enumerations;
 
+/**
+ *  Define os tipos de suários existentes no programa.
+ * @author Giuseppe Mongiovi
+ */
 public enum UsuarioRoleEnum {	
 	
 	/**

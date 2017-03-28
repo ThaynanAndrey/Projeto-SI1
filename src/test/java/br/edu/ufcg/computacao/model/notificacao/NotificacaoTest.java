@@ -17,6 +17,7 @@ import br.edu.ufcg.computacao.si1.model.usuario.Usuario;
 import static junit.framework.TestCase.*;
 
 /**
+ * @author Caio Felipe
  * Created by Caio Felipe on 26/03/16.
  */
 public class NotificacaoTest {
@@ -41,7 +42,7 @@ public class NotificacaoTest {
     	
     	notificacao1.setDescricao("novaNotificacao");
     	assertEquals("novaNotificacao",notificacao1.getDescricao());
-
+    	
     }
 	
 }

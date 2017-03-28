@@ -1,5 +1,12 @@
 package br.edu.ufcg.computacao.si1.model.enumerations;
 
+/**
+ *  Define os tipos de anúncios existentes no programa.
+ * 
+ * @author Thaynan Andrey
+ * @author Giuseppe Mongiovi
+ *
+ */
 public enum TipoDeAnuncioEnum {
 	/**
 	 * Tipo de anuncio como móvel

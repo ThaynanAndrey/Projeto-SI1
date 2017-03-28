@@ -17,6 +17,7 @@ import br.edu.ufcg.computacao.si1.repository.NotificacaoRepository;
  * estão ou serão armazenadas no banco de dados.
  * 
  * @author Thaynan Andrey
+ * @author Giuseppe Mongiovi
  * 
  */
 @Service

@@ -4,7 +4,6 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.authority.AuthorityUtils;
 import br.edu.ufcg.computacao.si1.model.anuncio.Anuncio;
-import br.edu.ufcg.computacao.si1.model.enumerations.AvaliacaoEnum;
 import br.edu.ufcg.computacao.si1.model.enumerations.UsuarioRoleEnum;
 import br.edu.ufcg.computacao.si1.model.notificacao.Notificacao;
 import br.edu.ufcg.computacao.si1.utils.Constantes;
@@ -15,12 +14,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /** Classe para objetos do tipo Usuario, onde serao contidos, valores e metodos para o mesmo.
+ * 
  * @author Caio Felipe
+ * @author Thaynan Andrey
+ * @author Giuseppe Mongiovi
  */
 @Entity(name = "Usuario")
 @Table(name = "tb_usuario")
 public class Usuario extends org.springframework.security.core.userdetails.User{
 
+	private static final double SALDO_DEVEDOR_E_CREDOR_INCIAL = 0.0;
+	
 	@Id
 	@Column(name="usuario_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -47,15 +51,12 @@ public class Usuario extends org.springframework.security.core.userdetails.User{
     @Column(name="saldo_credor")
     private double saldoCredor;
     
-    @Column(name="avaliacao")
-    @Enumerated(EnumType.STRING)
-    private AvaliacaoEnum avaliacao;
-    
     @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL)
     private List<Anuncio> anuncios;
     
     @OneToMany(mappedBy = "donoDeNotificacao", cascade = CascadeType.ALL)
     private List<Notificacao> notificacoes;
+    
     /**
      * Construtor default
      */
@@ -68,18 +69,16 @@ public class Usuario extends org.springframework.security.core.userdetails.User{
 	/**
      * Construtor do objeto
      */
-	public Usuario(String nome, String email, String senha, UsuarioRoleEnum tipoDeUsuario/*, double saldoDevedor, double saldoCredor, List<Anuncio> anuncios*/) {
+	public Usuario(String nome, String email, String senha, UsuarioRoleEnum tipoDeUsuario) {
     	super("default", "default", AuthorityUtils.createAuthorityList("USER"));
-		//this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
 		this.role = tipoDeUsuario;
 		this.anuncios = new ArrayList<>();
         this.notificacoes = new ArrayList<>(); 
-		//this.anuncios = anuncios;
-		//this.saldoCredor = saldoCredor;
-		//this.saldoDevedor = saldoDevedor;
+		this.saldoCredor = SALDO_DEVEDOR_E_CREDOR_INCIAL;
+		this.saldoDevedor = SALDO_DEVEDOR_E_CREDOR_INCIAL;
 	}
     
     /**
@@ -225,20 +224,7 @@ public class Usuario extends org.springframework.security.core.userdetails.User{
 	public void setSaldoCredor(double saldoCredor) {
 		this.saldoCredor = saldoCredor;
 	}
-	/**
-	 * Metodo para retorno da avaliacao do usuario.
-	 * @return AvaliacaoEnum - Avaliacao do usuario.
-	 */
-	 public AvaliacaoEnum getAvaliacao() {
-		 return avaliacao;
-	}
-	 /**
-	  * Metodo para alteracao da avaliacao do usuario
-	  * @param AvaliacaoEnum avaliacao - Avaliacao do usuario.
-	  */
-	 public void setAvaliacao(AvaliacaoEnum avaliacao) {
-		 this.avaliacao = avaliacao;
-	}
+
 	 /**
 	  * Metodo para retorno dos tipos de anuncios disponiveis de acordo com o tipo de usuario.
 	  * @return String[] - Tipos de anuncios disponiveis para o usuario criar.

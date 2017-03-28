@@ -48,7 +48,7 @@
 		  </thead>
 		  <tbody>
 		    <tr ng-repeat="anuncio in meusAnuncios" ng-show="tiposDeAnuncioStatus[anuncio.tipo] && validarPeriodo(anuncio)">
-	          <td ng-click="pegarDono(anuncio._id)">{{anuncio.titulo}}</td>
+	          <td>{{anuncio.titulo}}</td>
 	          <td>{{anuncio.tipo}}</td>
 	          <td>{{anuncio.dataDeCriacaoFormatada}}</td>
 	          <td>R$ {{anuncio.quantia}}</td>

@@ -14,7 +14,10 @@ import javax.validation.constraints.Size;
 
 /** Classe para objetos do tipo AnuncioForm, representando um formulario do anuncio,
  *  onde serao contidos, valores e metodos para o mesmo.
- * @author Caio Felipe, Giuseppe Mongiovi
+ * 
+ * @author Caio Felipe
+ * @author Giuseppe Mongiovi
+ * @author Thaynan Andrey
  */
 public class AnuncioForm {
 
