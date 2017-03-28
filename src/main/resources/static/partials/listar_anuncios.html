@@ -69,10 +69,12 @@
 
           <form name="agendamentoServicoForm">
           
-          		<h3>Agendar este serviço</h3>
-          
-	            <li class="list-group-item list-group-item-action" ng-if="anuncioSelecionado.tipo=='servico'" ng-required="true"><span class="glyphicon glyphicon-align-left"></span> <b>Data de agendamento: </b><input type="datetime-local" ng-model="anuncioSelecionado.dataDeAgendamento"></input></li>
-
+          		<div ng-if="anuncioSelecionado.tipo=='servico'">
+	          		<h3>Agendar este serviço</h3>
+	          
+		            <li class="list-group-item list-group-item-action" ng-required="true"><span class="glyphicon glyphicon-align-left"></span> <b>Data de agendamento: </b><input type="datetime-local" ng-model="anuncioSelecionado.dataDeAgendamento"></input></li>
+				</div>
+				
   			    <button style="margin-left:10px; margin-top:10px" type="button" ng-click="comprarAnuncio(anuncioSelecionado)" class="btn btn-success" ng-disabled=""agendamentoServicoForm.$invalid">{{anuncioAdiquirir}}</button>
           </form>
 			</div>
