@@ -41,7 +41,7 @@ public class NotificacaoTest {
     	
     	notificacao1.setDescricao("novaNotificacao");
     	assertEquals("novaNotificacao",notificacao1.getDescricao());
-
+    	
     }
 	
 }
