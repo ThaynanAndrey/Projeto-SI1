@@ -25,7 +25,6 @@ angular.module("adExtreme")
 	 */
 	$scope.cadastrarAnuncio = function(anuncioNovo) {
 		RestService.add(rotaAdicaoDeAnuncio, anuncioNovo, function(response) {
-			console.log(response);
 			$state.go("home");
 		});
 	};
@@ -36,8 +35,4 @@ angular.module("adExtreme")
 	$scope.limpar = function(anuncioNovo) {
 		$scope.anuncioNovo = {};
 	};
-
-	$scope.$watchCollection('anuncioNovo',function(novo){
-		console.log(novo);
-	});
 });

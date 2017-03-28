@@ -16,14 +16,7 @@ angular.module("adExtreme")
 
 	pegarUsuario();
 	pegarMeusAnuncios();
-	
-	$scope.testar = function() {
-		
-		RestService.find(rotaListarAnuncios, function(response) {
-			console.log(response);
-		});
-	};
-	
+
 	/**
 	 * Metodo que pega todos os anuncios do usuario logado
 	 * @returns Resposta do sucesso da requisicao HTTP
@@ -107,7 +100,7 @@ angular.module("adExtreme")
 	$scope.meusAnuncios = function() {
 		
 		RestService.find(rotaAnunciosDeUsuarioLogado, function(response) {
-			console.log(response);
+			
 		});	
 	};
 	
