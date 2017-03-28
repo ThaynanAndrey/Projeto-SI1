@@ -17,7 +17,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static junit.framework.TestCase.*;
 
 /**
- * Created by Caio Felipe on 26/03/17.
+ * @author Caio Felipe
+ * Created by Caio Felipe on 26/03/16.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest

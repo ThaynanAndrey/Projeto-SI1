@@ -8,6 +8,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 import br.edu.ufcg.computacao.si1.model.usuario.Usuario;
 import br.edu.ufcg.computacao.si1.utils.Constantes;
 
+/**
+ * @author Caio Felipe
+ * Created by Caio Felipe on 26/03/16.
+ */
 public class NotificacaoForm {
 	@NotNull(message = Constantes.MESAGEM_DE_ERRO_TITULO_NULO)
     @NotEmpty(message = Constantes.MESAGEM_DE_ERRO_TITULO_VAZIO)
