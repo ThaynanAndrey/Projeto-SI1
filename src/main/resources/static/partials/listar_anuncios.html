@@ -41,15 +41,17 @@
 	              <th>Tipo</th>
 	              <th>Postado</th>
 	              <th>Valor</th>
+	              <th></th>
 	            </tr>
 	          </thead>
 	          
 	          <tbody>
-	            <tr ng-click="apresentarSideNav(anuncio)" ng-repeat="anuncio in anuncios" ng-show="tiposDeAnuncioStatus[anuncio.tipo] && validarPeriodo(anuncio)">
-	              <td ng-click="pegarDono(anuncio._id)">{{anuncio.titulo}}</td>
+	            <tr ng-repeat="anuncio in anuncios" ng-show="tiposDeAnuncioStatus[anuncio.tipo] && validarPeriodo(anuncio)">
+	              <td>{{anuncio.titulo}}</td>
 	              <td>{{anuncio.tipo}}</td>
 	              <td>{{anuncio.dataDeCriacaoFormatada}}</td>
 	              <td>R$ {{anuncio.quantia}}</td>
+	              <td><button type="button" ng-click="apresentarSideNav(anuncio)" class="btn btn-primary">Caracteríticas</button></td>
 	            </tr>
 	          </tbody>
 	        </table>

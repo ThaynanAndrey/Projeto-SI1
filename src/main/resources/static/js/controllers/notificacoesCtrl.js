@@ -25,7 +25,7 @@ angular.module("adExtreme")
 	function construcaoDeObjDeNotificacao(notificacoes){
 		var notificacoesAtualizadas = [];
 		notificacoes.forEach(function(notificacao){
-			notificacao.dataDeNotificacaoFormatada = new Date(notificacao.dataDeNotificacao).toLocaleString().split(" ")[0];
+			notificacao.dataDeNotificacaoFormatada = new Date(notificacao.dataDeNotificacao).toLocaleString().split(" ")[0].split(",")[0];
 			notificacoesAtualizadas.push(notificacao);
 		});
 		return notificacoesAtualizadas;

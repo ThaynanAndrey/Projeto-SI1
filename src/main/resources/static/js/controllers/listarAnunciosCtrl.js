@@ -68,7 +68,7 @@ angular.module("adExtreme")
 	function construcaoDeObjDeAnuncio(anuncios){
 		var anunciosAtualizados = [];
 		anuncios.forEach(function(anuncio){
-			anuncio.dataDeCriacaoFormatada = new Date(anuncio.dataDeCriacao).toLocaleString().split(" ")[0];
+			anuncio.dataDeCriacaoFormatada = new Date(anuncio.dataDeCriacao).toLocaleString().split(" ")[0].split(",")[0];
 			anunciosAtualizados.push(anuncio);
 		});
 		return anunciosAtualizados;
